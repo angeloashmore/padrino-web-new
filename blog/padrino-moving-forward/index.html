@@ -1,0 +1,37 @@
+<!DOCTYPE html><html><head><meta charset="utf-8" /><meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" /><meta content="initial-scale=1" name="viewport" /><title>Padrino - Padrino Moving Forward</title><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" /><link href="../../assets/stylesheets/style-75d468d0.css" rel="stylesheet" /></head><body class="blog blog_padrino-moving-forward blog_padrino-moving-forward_index"><div class="grid"><header class="header"><h1 class="header__name"><a class="padrino-name" href="/">Padrino</a></h1><div class="header__navigation"><nav class="navigation"><a class="navigation__toggler" href="#" id="navigation__toggler"><span class="navigation__toggler__icon fa fa-navicon"></span></a><ul class="navigation__items" id="navigation__items"><li class="navigation__item"><a class="navigation__link" href="/">Overview</a></li><li class="navigation__item"><a class="navigation__link" href="/guides/">Guides</a></li><li class="navigation__item"><a class="navigation__link--is-active" href="/blog/">Blog</a></li><li class="navigation__item"><a class="navigation__link" href="http://www.rubydoc.info/github/padrino/padrino-framework">API</a></li><li class="navigation__item"><a class="navigation__link" href="/contribute/">Contribute</a></li><li class="navigation__item"><a class="navigation__link" href="https://github.com/padrino/padrino-framework"><span class="button--slim">GitHub</span></a></li></ul></nav></div></header><div class="page"><div class="page__sidebar"><div class="sidebar"><h4 class="sidebar__header--first">Blog</h4><h5 class="sidebar__header">Latest Posts</h5><ul class="sidebar__items"><li class="sidebar__item"><a class="sidebar__link" href="/blog/upgrading-padrino-from-0-12-x-to-0-13-0-guide/">Upgrading Padrino from 0.12.X to 0.13.0 Guide</a></li><li class="sidebar__item"><a class="sidebar__link" href="/blog/padrino-0-13-0-mustermann-router-performance-enhancements-streaming-support-and-much-more/">Padrino 0.13.0 - Mustermann Router, Performance Enhancements, Streaming Support, and Much More</a></li><li class="sidebar__item"><a class="sidebar__link" href="/blog/padrino-0-12-5/">Padrino 0.12.5</a></li><li class="sidebar__item"><a class="sidebar__link" href="/blog/padrino-0-12-4/">Padrino 0.12.4</a></li><li class="sidebar__item"><a class="sidebar__link" href="/blog/padrino-0-11-0-released-padrino-lives/">Padrino 0.11.0 Released - Padrino Lives!</a></li><li class="sidebar__item"><a class="sidebar__link" href="/blog/json-gem-vulnerability/">JSON gem vulnerability</a></li><li class="sidebar__item"><a class="sidebar__link" href="/blog/upgrade-rack-immediately/">Upgrade Rack immediately</a></li></ul></div></div><div class="page__content"><div class="content"><div class="article"><h1 class="article__title">Padrino Moving Forward</h1><p class="article__metadata">Posted on December 20, 2010 by Nathan</p><p>Today on the <a href="http://groups.google.com/group/padrino">Padrino google groups</a> a user named ‘sol’ asked <a href="http://groups.google.com/group/padrino/browse_thread/thread/13e1ab4466d8794d?hl=en">an interesting question</a> about the roadmap for Padrino.</p>
+
+<p>I think this is an important question to explore. Padrino has really come a long way since the idea started life as <a href="https://github.com/nesquena/sinatra_more">sinatra_more</a> in <a href="https://github.com/nesquena/sinatra_more/commit/badb3e64bb00253ff2c2419d58ec9bbce5920804">October 2009</a> . The code base has filled out and most of the original functionality we intended to provide on top of Sinatra now exists in full. So in this post, I want to talk about where Padrino is going in broad strokes.</p>
+
+<break>
+
+The reason we originally built Padrino is that Sinatra by nature was intentionally constrained to be very limited in
+ scope. This was by design and the constraint is what allows Sinatra to be universally accessible and useful for a wide variety of projects.
+
+Sinatra will never grow much outward in scope because the developers behind it rightfully feel that any additional scope added to Sinatra itself would be a disservice. Instead, Sinatra is a perfect foundation to be built onto by other projects that can add additional functionality and grow the size and scope of what is possible during development.
+
+This is where Padrino fits into the ecosystem. As one of the original creators of ‘sinatra\_more’ and ‘padrino’, I personally never intend for Padrino to abandon the Sinatra roots. It is important to me that Padrino simply build on the foundation provided by Sinatra. Part of this means keeping the scope of Padrino constrained as well. When we
+ first started this project, we knew there were a set number of things that needed to be added to Sinatra in an organic and natural way. This set has always been roughly the same since the project creation:
+
+1) Admin Panel Functionality (ala Django)
+2) User Authentication and Permissions
+3) View Helpers and Form Builders for templates
+4) Generators for providing better default structure
+5) Advanced routing, controller and alias functionality
+6) Easy to use integrated mailer
+7) Localization support baked-in
+8) Caching (fragment, page, action) and adapters for cache storage
+
+Beyond this there are some other niceties such as code reloading in development, better logging, et al. Really Padrino in it’s entirety does do quite a bit to extend Sinatra’s scope in almost every direction towards more powerful application development.
+
+However, I feel we are not looking to expand the constrained scope this project has. In other words, those goals above are really the extent of what we want to bring to the table and all other major functionality can be tacked on as Padrino extensions rather than into core.
+
+Obviously there is still **a lot** of work to do and Padrino will continue to grow. There are a few features left to finish (improved helpers, [nested forms](https://github.com/padrino/padrino-framework/issues#issue/188) , [ujs support](https://github.com/padrino/padrino-framework/issues#issue/158) ) which are mostly half finished. Also as always we need better tutorials, better documentation, support for more components, bug fixes, better test coverage, et al. This is the direction going forward.
+
+Padrino is **not** looking be rails or YAWB (yet another web framework). Sinatra is already a tested and proven development option and we plan to continue our quest to make Sinatra development so flexible that it can be used for the smallest one line app or an advanced e-commerce consumer site without sacrificing what makes the development experience so pleasant.
+
+As always, we are also open to hearing any feedback Padrino users might have. So please let us know in irc (\#padrino) or in the [Padrino google groups](http://groups.google.com/group/padrino) or through [github](https://github.com/padrino/padrino-framework) (pull requests, tickets or otherwise). Also, if you want to help out Padrino in anyways please do let us know (or simply send me a message through github).
+
+</break>
+<hr /><div id="disqus_thread"></div></div></div></div></div><hr /><footer class="footer"><p>Padrino is released under the MIT LICENSE<br />
+Hosting by <a href="https://pages.github.com">GitHub Pages</a></p>
+</footer><script src="../../assets/javascripts/all-c2e0cecd.js"></script></div><script src="https://padrinorb.disqus.com/embed.js"></script></body></html>

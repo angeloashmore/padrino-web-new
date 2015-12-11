@@ -1,0 +1,53 @@
+<!DOCTYPE html><html><head><meta charset="utf-8" /><meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" /><meta content="initial-scale=1" name="viewport" /><title>Padrino - Padrino 0.9.15 Release! New Core Member!</title><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" /><link href="../../assets/stylesheets/style-75d468d0.css" rel="stylesheet" /></head><body class="blog blog_padrino-0-9-15-release-new-core-member blog_padrino-0-9-15-release-new-core-member_index"><div class="grid"><header class="header"><h1 class="header__name"><a class="padrino-name" href="/">Padrino</a></h1><div class="header__navigation"><nav class="navigation"><a class="navigation__toggler" href="#" id="navigation__toggler"><span class="navigation__toggler__icon fa fa-navicon"></span></a><ul class="navigation__items" id="navigation__items"><li class="navigation__item"><a class="navigation__link" href="/">Overview</a></li><li class="navigation__item"><a class="navigation__link" href="/guides/">Guides</a></li><li class="navigation__item"><a class="navigation__link--is-active" href="/blog/">Blog</a></li><li class="navigation__item"><a class="navigation__link" href="http://www.rubydoc.info/github/padrino/padrino-framework">API</a></li><li class="navigation__item"><a class="navigation__link" href="/contribute/">Contribute</a></li><li class="navigation__item"><a class="navigation__link" href="https://github.com/padrino/padrino-framework"><span class="button--slim">GitHub</span></a></li></ul></nav></div></header><div class="page"><div class="page__sidebar"><div class="sidebar"><h4 class="sidebar__header--first">Blog</h4><h5 class="sidebar__header">Latest Posts</h5><ul class="sidebar__items"><li class="sidebar__item"><a class="sidebar__link" href="/blog/upgrading-padrino-from-0-12-x-to-0-13-0-guide/">Upgrading Padrino from 0.12.X to 0.13.0 Guide</a></li><li class="sidebar__item"><a class="sidebar__link" href="/blog/padrino-0-13-0-mustermann-router-performance-enhancements-streaming-support-and-much-more/">Padrino 0.13.0 - Mustermann Router, Performance Enhancements, Streaming Support, and Much More</a></li><li class="sidebar__item"><a class="sidebar__link" href="/blog/padrino-0-12-5/">Padrino 0.12.5</a></li><li class="sidebar__item"><a class="sidebar__link" href="/blog/padrino-0-12-4/">Padrino 0.12.4</a></li><li class="sidebar__item"><a class="sidebar__link" href="/blog/padrino-0-11-0-released-padrino-lives/">Padrino 0.11.0 Released - Padrino Lives!</a></li><li class="sidebar__item"><a class="sidebar__link" href="/blog/json-gem-vulnerability/">JSON gem vulnerability</a></li><li class="sidebar__item"><a class="sidebar__link" href="/blog/upgrade-rack-immediately/">Upgrade Rack immediately</a></li></ul></div></div><div class="page__content"><div class="content"><div class="article"><h1 class="article__title">Padrino 0.9.15 Release! New Core Member!</h1><p class="article__metadata">Posted on August 28, 2010 by Arthur</p><p>Padrino 0.9.15 adds in a few new features. You can now use templates to generate entire padrino projects or use plugins that will easily integrate libraries and other components into your padrino project. In addition to fixes, this version adds new translations as well as components from stylesheets, renders, and orms!</p>
+
+<p>With the templates and plugins generator in padrino we can now generate a project with a template using:</p>
+
+<pre class="highlight plaintext"><code>padrino-gen project my_project -p path/to/my/template.rb -r=path/to/your/project
+</code></pre>
+
+<p>For existing plugins that you want to have installed into your project, use the plugin generator:</p>
+
+<pre class="highlight plaintext"><code>padrino-gen plugin hoptoad
+</code></pre>
+
+<p>A list of available plugins are kept at <a href="http://github.com/padrino/padrino-recipes">padrino-recipes</a>. The plugin generator can also accept a path to a ruby file or even a gist as well! View the <a href="http://www.padrinorb.com/guides/generators#plugin-generator">guides</a> for more information!</p>
+
+<p>This version also provides new additions such as,</p>
+
+<p>a variety of new components to padrino:</p>
+
+<ul>
+  <li>erubis – renderer(thanks to cored)</li>
+  <li>liquid – renderer(thanks to rwilcox)</li>
+  <li>mongomatic – orm(thanks to lusis)</li>
+  <li>ohm – orm(thanks to lusis)</li>
+  <li>scss – stylesheets</li>
+</ul>
+
+<p>new translations such as:</p>
+
+<ul>
+  <li>Dutch Translation (thanks to Martijin)</li>
+  <li>Polish translation (Thanks to Kriss)</li>
+</ul>
+
+<p>a few fixes, namely:</p>
+
+<ul>
+  <li>fixes custom conditions</li>
+  <li>fixes the app generation destroy option</li>
+  <li>routes now take a regex</li>
+  <li>ensures that the .component file stores the choices after they have been validated</li>
+  <li>fixes an issue with the reloader where the object space wasn’t been cleared.</li>
+  <li>fixes the logic for options_for_select helper</li>
+  <li>Removed some deprecation</li>
+  <li>Fixed DataMapper.finalize</li>
+</ul>
+
+<p>To see the full list of changes, take a look at the <a href="http://www.padrinorb.com/changes">changelog</a></p>
+
+<p>We are also excited to introduce our newest core member, lusis! He has contributed various components such as ohm and mongomatic, and has also generously setup a <a href="http://bit.ly/aIzvBE">hudson server</a> for the padrino community! We’re glad to have him on board and look forward to his contributions to the project!</p>
+
+<hr /><div id="disqus_thread"></div></div></div></div></div><hr /><footer class="footer"><p>Padrino is released under the MIT LICENSE<br />
+Hosting by <a href="https://pages.github.com">GitHub Pages</a></p>
+</footer><script src="../../assets/javascripts/all-c2e0cecd.js"></script></div><script src="https://padrinorb.disqus.com/embed.js"></script></body></html>

@@ -1,0 +1,1 @@
+function toggleNavigation(){var t=document.getElementById("navigation__items"),a=t.className.match(/--is-active$/);a?t.className="navigation__items":t.className="navigation__items navigation__items--is-active"}!function(){var t=document.getElementById("navigation__toggler");t.addEventListener("click",toggleNavigation)}();

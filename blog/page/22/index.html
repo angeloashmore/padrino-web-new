@@ -1,0 +1,39 @@
+<!DOCTYPE html><html><head><meta charset="utf-8" /><meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" /><meta content="initial-scale=1" name="viewport" /><title>Padrino - The Elegant Ruby Web Framework</title><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" /><link href="../../../assets/stylesheets/style-75d468d0.css" rel="stylesheet" /></head><body class="blog blog_page blog_page_22 blog_page_22_index"><div class="grid"><header class="header"><h1 class="header__name"><a class="padrino-name" href="/">Padrino</a></h1><div class="header__navigation"><nav class="navigation"><a class="navigation__toggler" href="#" id="navigation__toggler"><span class="navigation__toggler__icon fa fa-navicon"></span></a><ul class="navigation__items" id="navigation__items"><li class="navigation__item"><a class="navigation__link" href="/">Overview</a></li><li class="navigation__item"><a class="navigation__link" href="/guides/">Guides</a></li><li class="navigation__item"><a class="navigation__link--is-active" href="/blog/">Blog</a></li><li class="navigation__item"><a class="navigation__link" href="http://www.rubydoc.info/github/padrino/padrino-framework">API</a></li><li class="navigation__item"><a class="navigation__link" href="/contribute/">Contribute</a></li><li class="navigation__item"><a class="navigation__link" href="https://github.com/padrino/padrino-framework"><span class="button--slim">GitHub</span></a></li></ul></nav></div></header><div class="page"><div class="page__sidebar"><div class="sidebar"><h4 class="sidebar__header--first">Blog</h4><h5 class="sidebar__header">Latest Posts</h5><ul class="sidebar__items"><li class="sidebar__item"><a class="sidebar__link" href="/blog/upgrading-padrino-from-0-12-x-to-0-13-0-guide/">Upgrading Padrino from 0.12.X to 0.13.0 Guide</a></li><li class="sidebar__item"><a class="sidebar__link" href="/blog/padrino-0-13-0-mustermann-router-performance-enhancements-streaming-support-and-much-more/">Padrino 0.13.0 - Mustermann Router, Performance Enhancements, Streaming Support, and Much More</a></li><li class="sidebar__item"><a class="sidebar__link" href="/blog/padrino-0-12-5/">Padrino 0.12.5</a></li><li class="sidebar__item"><a class="sidebar__link" href="/blog/padrino-0-12-4/">Padrino 0.12.4</a></li><li class="sidebar__item"><a class="sidebar__link" href="/blog/padrino-0-11-0-released-padrino-lives/">Padrino 0.11.0 Released - Padrino Lives!</a></li><li class="sidebar__item"><a class="sidebar__link" href="/blog/json-gem-vulnerability/">JSON gem vulnerability</a></li><li class="sidebar__item"><a class="sidebar__link" href="/blog/upgrade-rack-immediately/">Upgrade Rack immediately</a></li></ul></div></div><div class="page__content"><div class="content"><div class="article"><h1 class="article__title"><a href="/blog/padrino-weekly-issue-1-announcing-padrino-weekly-changelog-podcast-0-9-11-13-released/">Padrino Weekly, Issue 1: Announcing Padrino Weekly, Changelog Podcast, 0.9.11 - .13 Released</a></h1><p class="article__metadata">Posted on June 21, 2010 by Florian</p><p>Padrino Weekly will be a weekly summary of the activities in the Padrino ecosystem. The intention is to give all interested users a quick and easy way to follow the efforts of the core developers as well as the community as whole. We’ll try and provide pointers to important events, interesting discussions as well as contributions in the last or upcoming week. We’ll also point to long term developments that might be of interest.</p>
+
+<p>Padrino was featured in last weeks <a href="http://changelogshow.com/105/5806-episode-0-2-7-padrino-sinatra-based-ruby-web-framework">The Changelog</a>, a podcast about new and exciting projects in Open Source. Arthur Chiu and Nathan Esquenazi had a 30 minute talk with Adam Stacoviak and Wynn Netherland. Topics were among other things a short rundown of the current core committers and how sinatra_more became Padrino. Arthur and Nathan also elaborate on Sinatra and how it relates to Padrino, being the core of the framework.</p>
+
+<p>This week saw three releases, 0.9.11 was released on friday making further steps towards stabilizing the API on the path to 1.0. The releases was quickly followed by 0.9.12 and 0.9.13 on saturday to fix two annoying bugs in the original release. 0.9.11 as the feature release features a refactored mailer, upgrades to the core router and improvements to the development reloading. It also adds a tiny project generation and support for choosing a specific database adapter on project creation. For a detailed list of changes see the <a href="http://www.padrinorb.com/blog/padrino-0-9-11-release-overview">release announcement</a>.</p>
+
+<p><a href="http://github.com/padrino/padrino-recipes">Padrino recipes</a> are an ongoing long-term effort to simplify the usage of rack middleware in Padrino. It integrates a wealth of plugins ranging from payment over css to authentication via a number of authentication mechanisms. While not production ready yet we hope to roll the changes in one of the upcoming releases. We’ll keep you updated, in the meantime you’ll find further details <a href="http://github.com/padrino/padrino-recipes">here</a>.</p>
+
+<hr /></div><div class="article"><h1 class="article__title"><a href="/blog/padrino-0-9-13-gets-pushed-early/">Padrino 0.9.13 Gets Pushed Early</a></h1><p class="article__metadata">Posted on June 19, 2010 by Nathan</p><p>Following the release of 0.9.11 yesterday there were a few unresolved issues that were quickly discovered. In order to create the smoothest experience possible for Padrino users, we decided that these bugs warranted a new release ahead of schedule. So, today we have released 0.9.13 (and 0.9.12) with a few bug fixes and a deprecation of the mount_core method. Read on to get the full rundown.</p>
+
+<p>This latest release is a quick bug fix patch release for a few outstanding issues in 0.9.11. First, there was an issue with the admin panel intermittently displaying in Czech rather than the english locale. This was due to a faulty key in the localization file for Czech in admin.</p>
+
+<p>The second bug had to do with routing failures in which certain routes wouldn't behave as expected if the same path was defined twice with two different verbs (GET ‘/index’ and POST ‘/index’) as well as errors with the handling of provides and explicit formats. An updated http_router and changes to routing in Padrino has addressed these issues in 0.9.13.</p>
+
+<p>Finally, we have deprecated the mounting syntax related to ‘core’ applications. Prior to 0.9.13, the following code was generated in a new project:</p>
+
+<pre class="highlight plaintext"><code>Padrino.mount_core("BlogDemo")
+</code></pre>
+
+<p>This is actually somewhat confusing and hides what the mounter is actually doing. In the latest release, <code>mount_core</code> is deprecated and the following is used instead:</p>
+
+<pre class="highlight plaintext"><code>Padrino.mount("BlogDemo").to("/")
+</code></pre>
+
+<p>This is a minor change but important as this command is much more consistent and adheres to our philosophy of minimizing ‘magical’ behavior in our framework.</p>
+
+<p>The quick version of these fixes is recapped below:</p>
+
+<ul>
+  <li>Deprecated mount_core and remove references</li>
+  <li>Fixed problem with czech translation file</li>
+  <li>Fixed a problem with routes with same path but different verbs and provides</li>
+</ul>
+
+<p>Please update your applications to 0.9.13 and continue enjoy using Padrino!</p>
+
+<hr /></div><li><a href="/blog/page/21/">Prev Page</a></li><li><a href="/blog/page/23/">Next Page</a></li></div></div></div><hr /><footer class="footer"><p>Padrino is released under the MIT LICENSE<br />
+Hosting by <a href="https://pages.github.com">GitHub Pages</a></p>
+</footer><script src="../../../assets/javascripts/all-c2e0cecd.js"></script></div></body></html>

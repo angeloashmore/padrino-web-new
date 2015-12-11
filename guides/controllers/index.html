@@ -1,0 +1,558 @@
+<!DOCTYPE html><html><head><meta charset="utf-8" /><meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" /><meta content="initial-scale=1" name="viewport" /><title>Padrino - Guides: Controllers</title><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" /><link href="../../assets/stylesheets/style-75d468d0.css" rel="stylesheet" /></head><body class="guides guides_controllers guides_controllers_index"><div class="grid"><header class="header"><h1 class="header__name"><a class="padrino-name" href="/">Padrino</a></h1><div class="header__navigation"><nav class="navigation"><a class="navigation__toggler" href="#" id="navigation__toggler"><span class="navigation__toggler__icon fa fa-navicon"></span></a><ul class="navigation__items" id="navigation__items"><li class="navigation__item"><a class="navigation__link" href="/">Overview</a></li><li class="navigation__item"><a class="navigation__link--is-active" href="/guides/">Guides</a></li><li class="navigation__item"><a class="navigation__link" href="/blog/">Blog</a></li><li class="navigation__item"><a class="navigation__link" href="http://www.rubydoc.info/github/padrino/padrino-framework">API</a></li><li class="navigation__item"><a class="navigation__link" href="/contribute/">Contribute</a></li><li class="navigation__item"><a class="navigation__link" href="https://github.com/padrino/padrino-framework"><span class="button--slim">GitHub</span></a></li></ul></nav></div></header><div class="page"><div class="page__sidebar"><div class="sidebar"><h4 class="sidebar__header--first">Guides</h4><ul class="sidebar__items"><li class="sidebar__item"><a class="sidebar__link" href="/guides/">Home</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/getting-started/">Getting Started</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/installation/">Installation</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/basic-projects/">Basic Projects</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/generators/">Generators</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/development-commands/">Development Commands</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/mounting-applications/">Mounting Applications</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/blog-tutorial/">Blog Tutorial</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/application-helpers/">Application Helpers</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/padrino-admin/">Padrino Admin</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/padrino-mailer/">Padrino Mailer</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/padrino-cache/">Padrino Cache</a></li><li class="sidebar__item"><a class="sidebar__link--is-active" href="/guides/controllers/">Controllers</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/localization/">Localization</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/extensions/">Extensions</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/rake-tasks/">Rake Tasks</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/the-bleeding-edge/">The Bleeding Edge</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/adding-new-components/">Adding New Components</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/standalone-usage-in-sinatra/">Standalone Usage in Sinatra</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/running-padrino-on-jruby/">Running Padrino on JRuby</a></li></ul></div></div><div class="page__content"><div class="content"><h1 id="controllers">Controllers</h1>
+
+<p>Suppose we wanted to add routes to our Padrino application, and we want to
+organize a set of related routes within a more structured grouping. Padrino has
+the notion of a ‘controller’ block which can group related routes and make URL
+generation much easier. Simply add a <code>controllers.rb</code> file or <code>app/controllers</code>
+folder and create a file as such:</p>
+
+<pre class="highlight ruby"><code><span class="c1"># app/controllers/main.rb or controllers.rb</span>
+<span class="no">SimpleApp</span><span class="p">.</span><span class="nf">controller</span> <span class="k">do</span>
+  <span class="c1"># url_for(:admin, :other, :id =&gt; 5, :name =&gt; "hey")</span>
+  <span class="c1">#   =&gt; "/admin/other/5/hey"</span>
+  <span class="n">get</span> <span class="s2">"/test"</span> <span class="k">do</span>
+    <span class="s2">"Text to return"</span>
+  <span class="k">end</span>
+
+  <span class="n">get</span> <span class="s2">"/sample"</span> <span class="k">do</span>
+    <span class="s2">"Sample Route"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+
+<p>In this case, the controller merely acts as a structured grouping mechanism to
+allow better organization of routes. Controllers actually have other benefits as
+well when used in conjunction with the enhanced Padrino routing system.</p>
+
+<hr />
+
+<h2 id="enhanced-routing">Enhanced Routing</h2>
+
+<p>Padrino provides advanced routing definition support to make routes and URL
+generation much easier. This routing system supports named route aliases and
+easy access to url paths. The benefits of this is that instead of having to
+hard-code route URLs into every area of your application, now we can just define
+the URLs in a single spot and then attach an alias which can be used to refer to
+the URL throughout the application.</p>
+
+<h3 id="basic-routing-aliases">Basic Routing Aliases</h3>
+
+<p>The routing system supports named aliases by using symbols instead of strings
+for your routes:</p>
+
+<pre class="highlight ruby"><code><span class="c1"># app/app.rb</span>
+<span class="k">class</span> <span class="nc">Demoer</span> <span class="o">&lt;</span> <span class="no">Padrino</span><span class="o">::</span><span class="no">Application</span>
+  <span class="n">get</span> <span class="ss">:index</span> <span class="k">do</span>
+    <span class="c1"># url is generated as '/'</span>
+    <span class="c1"># url_for(:index) =&gt; "/"</span>
+  <span class="k">end</span>
+
+  <span class="n">get</span> <span class="ss">:account</span><span class="p">,</span> <span class="ss">:with</span> <span class="o">=&gt;</span> <span class="ss">:id</span> <span class="k">do</span>
+     <span class="c1"># url is generated as '/account/:id'</span>
+     <span class="c1"># url_for(:account, :id =&gt; 5) =&gt; "/account/5"</span>
+     <span class="c1"># access params[:id]</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+
+<p>These routes can then be referenced anywhere in the application:</p>
+
+<pre class="highlight haml"><code><span class="c">-# app/views/example.haml
+</span><span class="p">=</span> <span class="n">link_to</span> <span class="s2">"Index"</span><span class="p">,</span> <span class="n">url_for</span><span class="p">(</span><span class="ss">:index</span><span class="p">)</span>
+<span class="p">=</span> <span class="n">link_to</span> <span class="s2">"Account"</span><span class="p">,</span> <span class="n">url_for</span><span class="p">(</span><span class="ss">:account</span><span class="p">,</span> <span class="ss">:id</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">)</span>
+</code></pre>
+
+<h3 id="inline-route-alias-definitions">Inline Route Alias Definitions</h3>
+
+<p>The routing plugin also supports inline route definitions in which the explicit
+URL and the named alias are both defined:</p>
+
+<pre class="highlight ruby"><code><span class="c1"># app/main.rb</span>
+<span class="k">class</span> <span class="nc">Demoer</span> <span class="o">&lt;</span> <span class="no">Padrino</span><span class="o">::</span><span class="no">Application</span>
+  <span class="n">get</span> <span class="ss">:index</span><span class="p">,</span> <span class="ss">:map</span> <span class="o">=&gt;</span> <span class="s1">'/index/example'</span> <span class="k">do</span>
+    <span class="c1"># url_for(:index) =&gt; "/index/example"</span>
+  <span class="k">end</span>
+
+  <span class="n">get</span> <span class="ss">:account</span><span class="p">,</span> <span class="ss">:map</span> <span class="o">=&gt;</span> <span class="s1">'/the/accounts/:name/and/:id'</span> <span class="k">do</span>
+    <span class="c1"># url_for(:account, :name =&gt; "John", :id =&gt; 5) =&gt; "/the/accounts/John/and/5"</span>
+    <span class="c1"># access params[:name] and params[:id]</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+
+<p>Routes defined inline this way can be accessed and treated the same way as
+traditional named aliases:</p>
+
+<pre class="highlight haml"><code># app/views/example.haml
+<span class="p">=</span> <span class="n">link_to</span> <span class="s2">"Index Page"</span><span class="p">,</span> <span class="n">url_for</span><span class="p">(</span><span class="ss">:index</span><span class="p">)</span>
+<span class="p">=</span> <span class="n">link_to</span> <span class="s2">"Account Page"</span><span class="p">,</span> <span class="n">url_for</span><span class="p">(</span><span class="ss">:account</span><span class="p">,</span> <span class="ss">:id</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">)</span>
+</code></pre>
+
+<h3 id="namespaced-route-aliases">Namespaced Route Aliases</h3>
+
+<p>There is also support for namespaced routes which are organized into a named
+controller group:</p>
+
+<pre class="highlight ruby"><code><span class="c1"># app/controllers/admin.rb</span>
+<span class="no">SimpleApp</span><span class="p">.</span><span class="nf">controllers</span> <span class="ss">:admin</span> <span class="k">do</span>
+  <span class="n">get</span> <span class="ss">:index</span> <span class="k">do</span>
+    <span class="c1"># url is generated as '/admin/'</span>
+    <span class="c1"># url_for(:admin, :index) =&gt; "/admin"</span>
+  <span class="k">end</span>
+
+  <span class="n">get</span> <span class="ss">:show</span><span class="p">,</span> <span class="ss">:map</span> <span class="o">=&gt;</span> <span class="s2">"/admin/:id"</span> <span class="k">do</span>
+     <span class="c1"># url is generated as "/admin/#{params[:id]}"</span>
+     <span class="c1"># url_for(:admin, :show, :id =&gt; 5) =&gt; "/admin/5"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+
+<p>You can then reference these routes using the same <code>url_for</code> method:</p>
+
+<pre class="highlight haml"><code><span class="c">-# app/views/admin.haml
+</span><span class="p">=</span> <span class="n">link_to</span> <span class="s1">'admin show page'</span><span class="p">,</span> <span class="n">url_for</span><span class="p">(</span><span class="ss">:admin</span><span class="p">,</span> <span class="ss">:index</span><span class="p">)</span>
+<span class="p">=</span> <span class="n">link_to</span> <span class="s1">'admin index page'</span><span class="p">,</span> <span class="n">url_for</span><span class="p">(</span><span class="ss">:admin</span><span class="p">,</span> <span class="ss">:show</span><span class="p">,</span> <span class="ss">:id</span> <span class="o">=&gt;</span> <span class="mi">25</span><span class="p">)</span>
+</code></pre>
+
+<p>If you prefer explicit URLs to named aliases, that is also supported within a
+specified controller group:</p>
+
+<pre class="highlight ruby"><code><span class="c1"># app/controllers/example.rb</span>
+<span class="no">SimpleApp</span><span class="p">.</span><span class="nf">controllers</span> <span class="s2">"/admin"</span> <span class="k">do</span>
+  <span class="n">get</span> <span class="s2">"/show"</span> <span class="k">do</span>
+    <span class="c1"># url is generated as "/admin/show"</span>
+  <span class="k">end</span>
+
+  <span class="n">get</span> <span class="s2">"/other/:id"</span> <span class="k">do</span>
+    <span class="c1"># url is generated as "/admin/#{params[:id]}"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+
+<h3 id="named-parameters">Named Parameters</h3>
+
+<p>With Padrino you can also specify named parameters within your route definition:</p>
+
+<pre class="highlight ruby"><code><span class="c1"># app/controllers/example.rb</span>
+<span class="no">SimpleApp</span><span class="p">.</span><span class="nf">controllers</span> <span class="ss">:admin</span> <span class="k">do</span>
+  <span class="n">get</span> <span class="ss">:show</span><span class="p">,</span> <span class="ss">:with</span> <span class="o">=&gt;</span> <span class="ss">:id</span> <span class="k">do</span>
+    <span class="c1"># url is generated as "/admin/show/#{params[:id]}"</span>
+    <span class="c1"># url_for(:admin, :show, :id =&gt; 5) =&gt; "/admin/show/5"</span>
+  <span class="k">end</span>
+
+  <span class="n">get</span> <span class="ss">:other</span><span class="p">,</span> <span class="n">with</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="ss">:id</span><span class="p">,</span> <span class="ss">:name</span><span class="p">]</span>  <span class="k">do</span>
+    <span class="c1"># url is generated as "/admin/other/#{params[:id]}/#{params[:name]}"</span>
+    <span class="c1"># url_for(:admin, :other, :id =&gt; 5, :name =&gt; "hey") =&gt; "/admin/other/5/hey"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+
+<p>You can then reference the URLs using the same <code>url_for</code> method:</p>
+
+<pre class="highlight haml"><code><span class="p">=</span> <span class="n">link_to</span> <span class="s1">'admin show page'</span><span class="p">,</span> <span class="n">url_for</span><span class="p">(</span><span class="ss">:admin_show</span><span class="p">,</span> <span class="ss">:id</span> <span class="o">=&gt;</span> <span class="mi">25</span><span class="p">)</span>
+<span class="p">=</span> <span class="n">link_to</span> <span class="s1">'admin other page'</span><span class="p">,</span> <span class="n">url_for</span><span class="p">(</span><span class="ss">:admin_other</span><span class="p">,</span> <span class="ss">:id</span> <span class="o">=&gt;</span> <span class="mi">25</span><span class="p">,</span> <span class="ss">:name</span> <span class="o">=&gt;</span> <span class="ss">:foo</span><span class="p">)</span>
+</code></pre>
+
+<h3 id="nested-routes">Nested Routes</h3>
+
+<p>You can specify parent resources in padrino with the :parent option on the
+controller:</p>
+
+<pre class="highlight ruby"><code><span class="c1"># app/controllers/example.rb</span>
+<span class="no">SimpleApp</span><span class="p">.</span><span class="nf">controllers</span> <span class="ss">:product</span><span class="p">,</span> <span class="ss">:parent</span> <span class="o">=&gt;</span> <span class="ss">:user</span> <span class="k">do</span>
+  <span class="n">get</span> <span class="ss">:index</span> <span class="k">do</span>
+    <span class="c1"># url is generated as "/user/#{params[:user_id]}/product"</span>
+    <span class="c1"># url_for(:product, :index, :user_id =&gt; 5) =&gt; "/user/5/product"</span>
+  <span class="k">end</span>
+  <span class="n">get</span> <span class="ss">:show</span><span class="p">,</span> <span class="ss">:with</span> <span class="o">=&gt;</span> <span class="ss">:id</span> <span class="k">do</span>
+    <span class="c1"># url is generated as "/user/#{params[:user_id]}/product/show/#{params[:id]}"</span>
+    <span class="c1"># url_for(:product, :show, :user_id =&gt; 5, :id =&gt; 10) =&gt; "/user/5/product/show/10"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+
+<p>If need be the parent resource can also be specified on inline routes in
+addition:</p>
+
+<pre class="highlight ruby"><code><span class="c1"># app/controllers/example.rb</span>
+<span class="no">SimpleApp</span><span class="p">.</span><span class="nf">controllers</span> <span class="ss">:product</span><span class="p">,</span> <span class="ss">:parent</span> <span class="o">=&gt;</span> <span class="ss">:user</span> <span class="k">do</span>
+  <span class="n">get</span> <span class="ss">:index</span><span class="p">,</span> <span class="ss">:parent</span> <span class="o">=&gt;</span> <span class="ss">:project</span> <span class="k">do</span>
+   <span class="c1"># url is generated as "/user/#{params[:user_id]}/project/#{params[:project_id]}/product"</span>
+   <span class="c1"># url(:product, :index, :user_id =&gt; 5, :project_id =&gt; 8) =&gt; "/user/5/project/8/product"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+
+<hr />
+
+<h2 id="layouts">Layouts</h2>
+
+<p>With Padrino, a custom layout can be specified or the layout can be disabled
+altogether:</p>
+
+<pre class="highlight ruby"><code><span class="k">class</span> <span class="nc">SimpleApp</span> <span class="o">&lt;</span> <span class="no">Padrino</span><span class="o">::</span><span class="no">Application</span>
+  <span class="c1"># Disable layouts</span>
+  <span class="n">disable</span> <span class="ss">:layout</span>
+
+  <span class="c1"># Use the layout located in views/layouts/custom.haml</span>
+  <span class="n">layout</span> <span class="ss">:custom</span>
+<span class="k">end</span>
+</code></pre>
+
+<p>Note that layouts are <em>scoped by controller</em>, so you can apply different layouts
+to different controllers:</p>
+
+<pre class="highlight ruby"><code><span class="no">SimpleApp</span><span class="p">.</span><span class="nf">controllers</span> <span class="ss">:posts</span> <span class="k">do</span>
+  <span class="c1"># Apply a layout for routes in this controller</span>
+  <span class="c1"># Layout file would be in 'app/views/layouts/posts.haml'</span>
+  <span class="n">layout</span> <span class="ss">:posts</span>
+  <span class="n">get</span><span class="p">(</span><span class="s2">"/posts"</span><span class="p">)</span> <span class="p">{</span> <span class="n">render</span> <span class="ss">:haml</span><span class="p">,</span> <span class="s2">"Uses posts layout"</span> <span class="p">}</span>
+<span class="k">end</span>
+
+<span class="no">SimpleApp</span><span class="p">.</span><span class="nf">controllers</span> <span class="ss">:accounts</span> <span class="k">do</span>
+  <span class="c1"># Padrino allows you to apply a different layout for this controller</span>
+  <span class="c1"># Layout file would be in 'app/views/layouts/accounts.haml'</span>
+  <span class="n">layout</span> <span class="ss">:accounts</span>
+  <span class="n">get</span><span class="p">(</span><span class="s2">"/accounts"</span><span class="p">)</span> <span class="p">{</span> <span class="n">render</span> <span class="ss">:haml</span><span class="p">,</span> <span class="s2">"Uses accounts layout"</span> <span class="p">}</span>
+<span class="k">end</span>
+</code></pre>
+
+<p>If necessary, you also can overwrite the layout for a given route:</p>
+
+<pre class="highlight ruby"><code><span class="no">SimpleApp</span><span class="p">.</span><span class="nf">controllers</span> <span class="ss">:admin</span> <span class="k">do</span>
+  <span class="n">get</span> <span class="ss">:index</span> <span class="k">do</span>
+    <span class="n">render</span> <span class="s2">"admin/index"</span><span class="p">,</span> <span class="ss">:layout</span> <span class="o">=&gt;</span> <span class="ss">:admin</span>
+  <span class="k">end</span>
+
+  <span class="n">get</span> <span class="ss">:show</span><span class="p">,</span> <span class="ss">:with</span> <span class="o">=&gt;</span> <span class="ss">:id</span> <span class="k">do</span>
+    <span class="n">render</span> <span class="s2">"admin/show"</span><span class="p">,</span> <span class="ss">:layout</span> <span class="o">=&gt;</span> <span class="kp">false</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+
+<hr />
+
+<h2 id="provides-formats">Provides Formats</h2>
+
+<p>With Padrino you can simply declare which formats a request will respond to by
+using the <code>provides</code> route configuration:</p>
+
+<pre class="highlight ruby"><code><span class="c1"># app/controllers/example.rb</span>
+<span class="no">SimpleApp</span><span class="p">.</span><span class="nf">controllers</span> <span class="ss">:admin</span> <span class="k">do</span>
+  <span class="n">get</span> <span class="ss">:show</span><span class="p">,</span> <span class="ss">:with</span> <span class="o">=&gt;</span> <span class="ss">:id</span><span class="p">,</span> <span class="ss">:provides</span> <span class="o">=&gt;</span> <span class="ss">:js</span> <span class="k">do</span>
+    <span class="c1"># url is generated as "/admin/show/#{params[:id]}.#{params[:format]}"</span>
+    <span class="c1"># url_for(:admin, :show, :id =&gt; 5, :format =&gt; :js) =&gt; "/admin/show/5.js"</span>
+  <span class="k">end</span>
+
+  <span class="n">get</span> <span class="ss">:other</span><span class="p">,</span> <span class="ss">:with</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="ss">:id</span><span class="p">,</span> <span class="ss">:name</span><span class="p">],</span> <span class="ss">:provides</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="ss">:html</span><span class="p">,</span> <span class="ss">:json</span><span class="p">]</span> <span class="k">do</span>
+    <span class="k">case</span> <span class="n">content_type</span>
+      <span class="k">when</span> <span class="ss">:js</span>    <span class="k">then</span> <span class="p">.</span><span class="nf">.</span><span class="p">.</span> <span class="nf">end</span>
+      <span class="k">when</span> <span class="ss">:json</span>  <span class="k">then</span> <span class="p">.</span><span class="nf">.</span><span class="p">.</span> <span class="nf">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+
+<p>and these formatted route paths can be accessed easily using <code>url_for</code> and then <code>format</code> option:</p>
+
+<pre class="highlight haml"><code><span class="p">=</span> <span class="n">link_to</span> <span class="s1">'admin show page'</span><span class="p">,</span> <span class="n">url_for</span><span class="p">(</span><span class="ss">:admin</span><span class="p">,</span> <span class="n">show</span><span class="p">,</span> <span class="ss">:id</span> <span class="o">=&gt;</span> <span class="mi">25</span><span class="p">,</span> <span class="ss">:format</span> <span class="o">=&gt;</span> <span class="ss">:js</span><span class="p">)</span>
+<span class="p">=</span> <span class="n">link_to</span> <span class="s1">'admin other page'</span><span class="p">,</span> <span class="n">url_for</span><span class="p">(</span><span class="ss">:admin</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="ss">:id</span> <span class="o">=&gt;</span> <span class="mi">25</span><span class="p">,</span> <span class="ss">:name</span> <span class="o">=&gt;</span> <span class="ss">:foo</span><span class="p">)</span>
+<span class="p">=</span> <span class="n">link_to</span> <span class="s1">'other json'</span><span class="p">,</span> <span class="n">url</span><span class="p">(</span><span class="ss">:admin</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="ss">:id</span> <span class="o">=&gt;</span> <span class="mi">25</span><span class="p">,</span> <span class="ss">:name</span> <span class="o">=&gt;</span> <span class="ss">:foo</span><span class="p">,</span> <span class="ss">:format</span> <span class="o">=&gt;</span> <span class="ss">:json</span><span class="p">)</span>
+</code></pre>
+
+<hr />
+
+<h2 id="route-filters">Route Filters</h2>
+
+<p>Before filters are evaluated before each request within the context of the
+request and can modify the request and response. Instance variables set in
+filters are accessible by routes and templates:</p>
+
+<pre class="highlight ruby"><code><span class="n">before</span> <span class="k">do</span>
+  <span class="vi">@note</span> <span class="o">=</span> <span class="s1">'Hi!'</span>
+<span class="k">end</span>
+</code></pre>
+
+<p>After filter are evaluated after each request within the context of the request
+and can also modify the request and response. Instance variables set in before
+filters and routes are accessible by after filters:</p>
+
+<pre class="highlight ruby"><code><span class="n">after</span> <span class="k">do</span>
+  <span class="nb">puts</span> <span class="vi">@note</span>
+<span class="k">end</span>
+</code></pre>
+
+<p>This is now standard in Sinatra but Padrino adds support for filters being
+<em>scoped by controller</em> which means that unlike Sinatra in which a filter is
+global, in Padrino you can run different filters for each controller:</p>
+
+<pre class="highlight ruby"><code><span class="no">SimpleApp</span><span class="p">.</span><span class="nf">controllers</span> <span class="ss">:posts</span> <span class="k">do</span>
+  <span class="n">before</span> <span class="p">{</span> <span class="vi">@foo</span> <span class="o">=</span> <span class="s2">"bar"</span> <span class="p">}</span>
+  <span class="n">get</span><span class="p">(</span><span class="s2">"/posts"</span><span class="p">)</span> <span class="p">{</span> <span class="n">render</span> <span class="ss">:haml</span><span class="p">,</span> <span class="s2">"Has access to @foo variable"</span> <span class="p">}</span>
+<span class="k">end</span>
+
+<span class="no">SimpleApp</span><span class="p">.</span><span class="nf">controllers</span> <span class="ss">:accounts</span> <span class="k">do</span>
+  <span class="n">before</span> <span class="p">{</span> <span class="vi">@bar</span> <span class="o">=</span> <span class="s2">"foo"</span> <span class="p">}</span>
+  <span class="n">get</span><span class="p">(</span><span class="s2">"/accounts"</span><span class="p">)</span> <span class="p">{</span> <span class="n">render</span> <span class="ss">:haml</span><span class="p">,</span> <span class="s2">"Has access to @bar variable"</span> <span class="p">}</span>
+<span class="k">end</span>
+</code></pre>
+
+<p>This allows for more fine-grained filters and prevents the need to have
+unnecessary filters running on every route. As of Padrino 0.10.0, there is also
+a much more powerful route selection system that has been setup:</p>
+
+<pre class="highlight ruby"><code><span class="c1"># app/controllers/example_controller.rb</span>
+<span class="no">DemoApp</span><span class="p">.</span><span class="nf">controller</span> <span class="ss">:example</span> <span class="k">do</span>
+  <span class="c1"># Based on a symbol</span>
+  <span class="n">before</span> <span class="ss">:index</span> <span class="k">do</span>
+    <span class="c1"># Code here to be executed</span>
+  <span class="k">end</span>
+
+  <span class="c1"># Based on a symbol, regexp and string all in one</span>
+  <span class="n">before</span> <span class="ss">:index</span><span class="p">,</span> <span class="sr">/main/</span><span class="p">,</span> <span class="s1">'/example'</span> <span class="k">do</span>
+    <span class="c1"># Code here to be executed</span>
+  <span class="k">end</span>
+
+  <span class="c1"># Also filter by excluding an action</span>
+  <span class="n">before</span> <span class="ss">:except</span> <span class="o">=&gt;</span> <span class="ss">:index</span> <span class="k">do</span>
+    <span class="c1"># Code here to be executed</span>
+  <span class="k">end</span>
+
+  <span class="n">get</span> <span class="ss">:index</span> <span class="k">do</span>
+    <span class="c1"># ...</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+
+<p>This gives developers a lot more flexibility when running filters and enables
+much more selective execution in a convenient way.</p>
+
+<hr />
+
+<h2 id="prioritized-routes">Prioritized Routes</h2>
+
+<p>Padrino (0.10.0+) has added support for respecting route order in controllers
+and also allows the developer to specify certain routes as less or more
+“important” then others in the route recognition order. Consider two
+controllers, the first with a “catch-all” route:</p>
+
+<pre class="highlight ruby"><code><span class="c1"># app/controllers/pages.rb</span>
+<span class="no">MyApp</span><span class="p">.</span><span class="nf">controller</span> <span class="ss">:pages</span> <span class="k">do</span>
+  <span class="n">get</span> <span class="ss">:show</span><span class="p">,</span> <span class="ss">:map</span> <span class="o">=&gt;</span> <span class="s1">'/*page'</span> <span class="k">do</span>
+    <span class="s2">"Catchall route"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="c1"># app/controllers/projects.rb</span>
+<span class="no">MyApp</span><span class="p">.</span><span class="nf">controller</span> <span class="ss">:projects</span> <span class="k">do</span>
+  <span class="n">get</span> <span class="ss">:index</span> <span class="k">do</span>
+    <span class="s2">"Index"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+
+<p>This wouldn’t work by default because the second “/projects” endpoint would be
+eclipsed by the “/*page” catch-all route and as such <code>projects</code> would not be
+accessible. To solve this, you can do the following:</p>
+
+<pre class="highlight ruby"><code><span class="c1"># app/controllers/pages.rb</span>
+<span class="no">MyApp</span><span class="p">.</span><span class="nf">controller</span> <span class="ss">:pages</span> <span class="k">do</span>
+  <span class="c1"># NOTE that this route is now marked as low priority</span>
+  <span class="n">get</span> <span class="ss">:show</span><span class="p">,</span> <span class="ss">:map</span> <span class="o">=&gt;</span> <span class="s1">'/*page'</span><span class="p">,</span> <span class="ss">:priority</span> <span class="o">=&gt;</span> <span class="ss">:low</span> <span class="k">do</span>
+    <span class="s2">"Catchall route"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="c1"># app/controllers/projects.rb</span>
+<span class="no">MyApp</span><span class="p">.</span><span class="nf">controller</span> <span class="ss">:projects</span> <span class="k">do</span>
+  <span class="n">get</span> <span class="ss">:index</span> <span class="k">do</span>
+    <span class="s2">"Index"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+
+<p>When setting a routes priority to <code>:low</code>, this route is then recognized lower
+then all “high” and “normal” priority routes. You are encouraged in cases where
+there is ambiguity, to mark key routes as <code>:priority =&gt; :high</code> or catch-all
+routes as <code>:priority =&gt; :low</code> in order to guarantee expected behavior.</p>
+
+<hr />
+
+<h2 id="custom-conditions">Custom Conditions</h2>
+
+<p>Padrino has support for Sinatra’s custom route conditions as well. This allows
+you to apply custom condition checks to evaluate before a route is executed for
+an incoming request:</p>
+
+<pre class="highlight ruby"><code><span class="c1"># app/controllers/example.rb</span>
+<span class="no">SimpleApp</span><span class="p">.</span><span class="nf">controllers</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="nf">protect</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+    <span class="n">condition</span> <span class="p">{</span>
+      <span class="k">unless</span> <span class="n">username</span> <span class="o">==</span> <span class="s2">"foo"</span> <span class="o">&amp;&amp;</span> <span class="n">password</span> <span class="o">==</span> <span class="s2">"bar"</span>
+        <span class="n">halt</span> <span class="mi">403</span><span class="p">,</span> <span class="s2">"Not Authorized"</span>
+      <span class="k">end</span>
+    <span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="n">get</span> <span class="s2">"/"</span><span class="p">,</span> <span class="ss">:protect</span> <span class="o">=&gt;</span> <span class="kp">true</span> <span class="k">do</span>
+    <span class="s2">"Only foo can see this"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+
+<p>Conditions can also be specified at the controller and route levels:</p>
+
+<pre class="highlight ruby"><code><span class="c1"># app/controllers/example.rb</span>
+<span class="c1"># You can specify conditions to run for all routes:</span>
+
+<span class="no">SimpleApp</span><span class="p">.</span><span class="nf">controller</span> <span class="ss">:conditions</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="ss">:protect</span> <span class="o">=&gt;</span> <span class="kp">true</span><span class="p">}</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">protect</span><span class="p">(</span><span class="kp">protected</span><span class="p">)</span>
+    <span class="n">condition</span> <span class="k">do</span>
+      <span class="n">halt</span> <span class="mi">403</span><span class="p">,</span> <span class="s2">"No secrets for you!"</span> <span class="k">unless</span> <span class="n">params</span><span class="p">[</span><span class="ss">:key</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"s3cr3t"</span>
+    <span class="k">end</span> <span class="k">if</span> <span class="kp">protected</span>
+  <span class="k">end</span>
+
+  <span class="c1"># This route will only return "secret stuff" if the user goes to</span>
+  <span class="c1"># `/private?key=s3cr3t`.</span>
+  <span class="n">get</span><span class="p">(</span><span class="s2">"/private"</span><span class="p">)</span> <span class="p">{</span> <span class="s2">"secret stuff"</span> <span class="p">}</span>
+
+  <span class="c1"># And this one, too!</span>
+  <span class="n">get</span><span class="p">(</span><span class="s2">"/also-private"</span><span class="p">)</span> <span class="p">{</span> <span class="s2">"secret stuff"</span> <span class="p">}</span>
+
+  <span class="c1"># But you can override the conditions for each route as needed.</span>
+  <span class="c1"># This route will be publicly accessible without providing the</span>
+  <span class="c1"># secret key.</span>
+  <span class="n">get</span> <span class="ss">:index</span><span class="p">,</span> <span class="ss">:protect</span> <span class="o">=&gt;</span> <span class="kp">false</span> <span class="k">do</span>
+    <span class="s2">"Welcome!"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+
+<p>This gives the developer considerable power to construct arbitrarily complex
+route conditions and apply them to any route within their application.</p>
+
+<hr />
+
+<h2 id="parsing-params-inside-a-requests-body">Parsing params inside a request's body</h2>
+
+<p>Padrino is often used for web service applications. One common need these
+applications have is to parse incoming messages, typically JSON or XML. This
+data will come as part of the request's body instead of the typical form data
+approach, i.e. url parameters or multipart form data.</p>
+
+<p>Here's when <a href="https://github.com/achiu/rack-parser">Rack::Parser</a> comes in handy
+since it will do just that. In <code>app/app.rb</code> or in <code>config.ru</code> just add:</p>
+
+<pre class="highlight ruby"><code><span class="n">use</span> <span class="no">Rack</span><span class="o">::</span><span class="no">Parser</span><span class="p">,</span> <span class="ss">:content_types</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="s1">'application/json'</span>  <span class="o">=&gt;</span> <span class="no">Proc</span><span class="p">.</span><span class="nf">new</span> <span class="p">{</span> <span class="o">|</span><span class="n">body</span><span class="o">|</span> <span class="o">::</span><span class="no">MultiJson</span><span class="p">.</span><span class="nf">decode</span> <span class="n">body</span> <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>Now all of your controllers will have the request's body JSON object parse as
+inside <code>params</code> and you would be able to do something along the lines of:</p>
+
+<pre class="highlight ruby"><code><span class="n">post</span> <span class="s1">'/people'</span>
+  <span class="n">order</span> <span class="o">=</span> <span class="no">Person</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">name: </span><span class="n">params</span><span class="p">[</span><span class="s1">'name'</span><span class="p">]</span> <span class="p">)</span>
+  <span class="c1"># ...</span>
+<span class="k">end</span>
+</code></pre>
+
+<p>Have a look at
+<a href="http://recipes.sinatrarb.com/p/middleware/rack_parser?#article">this great Sinatra recipe</a>
+for a more detailed guide of how this middleware works.</p>
+
+<hr />
+
+<h2 id="rendering">Rendering</h2>
+
+<p>Unlike Sinatra, Padrino supports automatic template engine lookups with:</p>
+
+<pre class="highlight ruby"><code><span class="c1"># searches for 'account/index.{erb,haml,...}</span>
+<span class="n">render</span> <span class="s1">'account/index'</span>
+</code></pre>
+
+<p>It will choose the first one that is discovered, without regards to the type of
+rendering (erb, haml). Otherwise you can explicitly specify the type of
+rendering of your choice (erb, haml).</p>
+
+<pre class="highlight ruby"><code><span class="c1"># will use example.haml</span>
+<span class="n">render</span> <span class="ss">:haml</span><span class="p">,</span> <span class="s1">'account/index'</span>
+</code></pre>
+
+<p>Padrino also automatically considers your current locale and/or content_type.</p>
+
+<pre class="highlight ruby"><code><span class="c1"># app/controllers/example.rb</span>
+<span class="no">SimpleApp</span><span class="p">.</span><span class="nf">controllers</span> <span class="ss">:admin</span> <span class="k">do</span>
+  <span class="n">get</span> <span class="ss">:show</span><span class="p">,</span> <span class="ss">:with</span> <span class="o">=&gt;</span> <span class="ss">:id</span><span class="p">,</span> <span class="ss">:provides</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="ss">:html</span><span class="p">,</span> <span class="ss">:js</span><span class="p">]</span> <span class="k">do</span>
+    <span class="n">render</span> <span class="s2">"admin/show"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+
+<p>When you visit the <code>:show</code> route with <code>I18n.locale == :ru</code> enabled, Padrino will
+first try to look for “admin/show.ru.js.*” if nothing matches that criteria, it
+will try “admin/show.ru.*” then “admin/show.js.*”. As a last resort, if he
+finds nothing matching your criteria, it will return “admin/show.erb” (or
+admin/show.haml)</p>
+
+<hr />
+
+<h2 id="using-sessions">Using Sessions</h2>
+
+<p><em>Kindly borrowed from Sinatra's docs :)</em></p>
+
+<p>A session is used to keep state during requests. If activated, you have one
+session hash per user session:</p>
+
+<pre class="highlight ruby"><code><span class="n">enable</span> <span class="ss">:sessions</span>
+
+<span class="n">get</span> <span class="s1">'/'</span> <span class="k">do</span>
+  <span class="s2">"value = "</span> <span class="o">&lt;&lt;</span> <span class="n">session</span><span class="p">[</span><span class="ss">:value</span><span class="p">].</span><span class="nf">inspect</span>
+<span class="k">end</span>
+
+<span class="n">get</span> <span class="s1">'/:value'</span> <span class="k">do</span>
+  <span class="n">session</span><span class="p">[</span><span class="ss">:value</span><span class="p">]</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="ss">:value</span><span class="p">]</span>
+<span class="k">end</span>
+</code></pre>
+
+<p>Note that <code>enable :sessions</code> actually stores all data in a cookie. This might
+not always be what you want (storing lots of data will increase your traffic,
+for instance). You can use any Rack session middleware: in order to do so, do
+<strong>not</strong> call <code>enable :sessions</code>, but instead pull in your middleware of choice
+as you would any other middleware:</p>
+
+<pre class="highlight ruby"><code><span class="n">use</span> <span class="no">Rack</span><span class="o">::</span><span class="no">Session</span><span class="o">::</span><span class="no">Pool</span><span class="p">,</span> <span class="ss">:expire_after</span> <span class="o">=&gt;</span> <span class="mi">2592000</span>
+
+<span class="n">get</span> <span class="s1">'/'</span> <span class="k">do</span>
+  <span class="s2">"value = "</span> <span class="o">&lt;&lt;</span> <span class="n">session</span><span class="p">[</span><span class="ss">:value</span><span class="p">].</span><span class="nf">inspect</span>
+<span class="k">end</span>
+
+<span class="n">get</span> <span class="s1">'/:value'</span> <span class="k">do</span>
+  <span class="n">session</span><span class="p">[</span><span class="ss">:value</span><span class="p">]</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="ss">:value</span><span class="p">]</span>
+<span class="k">end</span>
+</code></pre>
+
+<p>To improve security, the session data in the cookie is signed with a session
+secret. A random secret is generated for you by Sinatra. However, since this
+secret will change with every start of your application, you might want to set
+the secret yourself, so all your application instances share it:</p>
+
+<pre class="highlight ruby"><code><span class="n">set</span> <span class="ss">:session_secret</span><span class="p">,</span> <span class="s1">'super secret'</span>
+</code></pre>
+
+<p>If you want to configure it further, you may also store a hash with options in
+the <code>sessions</code> setting:</p>
+
+<pre class="highlight ruby"><code><span class="n">set</span> <span class="ss">:sessions</span><span class="p">,</span> <span class="ss">:domain</span> <span class="o">=&gt;</span> <span class="s1">'foo.com'</span>
+</code></pre>
+
+<p>To share your session across other apps on subdomains of foo.com, prefix the
+domain with a <code>.</code> like this instead:</p>
+
+<pre class="highlight ruby"><code><span class="n">set</span> <span class="ss">:sessions</span><span class="p">,</span> <span class="ss">:domain</span> <span class="o">=&gt;</span> <span class="s1">'.foo.com'</span>
+</code></pre>
+
+<p class="excerpt"><a class="button" href="/guides/localization">Next Section – Localization</a></p>
+</div></div></div><hr /><footer class="footer"><p>Padrino is released under the MIT LICENSE<br />
+Hosting by <a href="https://pages.github.com">GitHub Pages</a></p>
+</footer><script src="../../assets/javascripts/all-c2e0cecd.js"></script></div></body></html>

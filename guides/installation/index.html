@@ -1,0 +1,49 @@
+<!DOCTYPE html><html><head><meta charset="utf-8" /><meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" /><meta content="initial-scale=1" name="viewport" /><title>Padrino - Installation</title><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" /><link href="../../assets/stylesheets/style-75d468d0.css" rel="stylesheet" /></head><body class="guides guides_installation guides_installation_index"><div class="grid"><header class="header"><h1 class="header__name"><a class="padrino-name" href="/">Padrino</a></h1><div class="header__navigation"><nav class="navigation"><a class="navigation__toggler" href="#" id="navigation__toggler"><span class="navigation__toggler__icon fa fa-navicon"></span></a><ul class="navigation__items" id="navigation__items"><li class="navigation__item"><a class="navigation__link" href="/">Overview</a></li><li class="navigation__item"><a class="navigation__link--is-active" href="/guides/">Guides</a></li><li class="navigation__item"><a class="navigation__link" href="/blog/">Blog</a></li><li class="navigation__item"><a class="navigation__link" href="http://www.rubydoc.info/github/padrino/padrino-framework">API</a></li><li class="navigation__item"><a class="navigation__link" href="/contribute/">Contribute</a></li><li class="navigation__item"><a class="navigation__link" href="https://github.com/padrino/padrino-framework"><span class="button--slim">GitHub</span></a></li></ul></nav></div></header><div class="page"><div class="page__sidebar"><div class="sidebar"><h4 class="sidebar__header--first">Guides</h4><ul class="sidebar__items"><li class="sidebar__item"><a class="sidebar__link" href="/guides/">Home</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/getting-started/">Getting Started</a></li><li class="sidebar__item"><a class="sidebar__link--is-active" href="/guides/installation/">Installation</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/basic-projects/">Basic Projects</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/generators/">Generators</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/development-commands/">Development Commands</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/mounting-applications/">Mounting Applications</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/blog-tutorial/">Blog Tutorial</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/application-helpers/">Application Helpers</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/padrino-admin/">Padrino Admin</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/padrino-mailer/">Padrino Mailer</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/padrino-cache/">Padrino Cache</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/controllers/">Controllers</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/localization/">Localization</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/extensions/">Extensions</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/rake-tasks/">Rake Tasks</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/the-bleeding-edge/">The Bleeding Edge</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/adding-new-components/">Adding New Components</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/standalone-usage-in-sinatra/">Standalone Usage in Sinatra</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/running-padrino-on-jruby/">Running Padrino on JRuby</a></li></ul></div></div><div class="page__content"><div class="content"><h1 id="installation">Installation</h1>
+
+<p>In order to use Padrino, you need a few prerequisite libraries.</p>
+
+<hr />
+
+<h2 id="ruby--rubygems">Ruby &amp; RubyGems</h2>
+
+<p>First, you need to have a ruby interpreter installed. You can verify if you have
+the interpreter installed by typing <code>which ruby</code> into the terminal and ensuring
+a result. If not, we recommend installing
+<a href="http://beginrescueend.com/rvm/install/">RVM</a> on most platforms which manages
+your ruby interpreter installation and configuration. Once RVM is installed, be
+sure to install Ruby 1.9.2 (recommended) or any other ruby such as 1.8.7,
+Rubinius, or JRuby according to your needs.</p>
+
+<p>Once you have ruby, you need to make sure you have
+<a href="https://rubygems.org">RubyGems</a> which is the standard Ruby package management
+method. You can ensure you have ruby gems by typing <code>gem -v</code> in the terminal and
+ensuring a version result. If not, then be sure to
+<a href="https://rubygems.org/pages/download">download and install</a> before continuing.</p>
+
+<h3 id="windows">Windows</h3>
+
+<p>A caveat: If you are on Windows, we recommend the
+<a href="http://rubyinstaller.org">RubyInstaller</a> project which takes care of the above
+steps for you.</p>
+
+<hr />
+
+<h2 id="padrino">Padrino</h2>
+
+<p>Once you have ruby and rubygems installed properly, you just need to install the
+Padrino framework with the <code>padrino</code> gem:</p>
+
+<pre class="highlight shell"><code><span class="gp">$ </span>gem install padrino
+</code></pre>
+
+<p>This will install all the necessary padrino dependencies to get you started
+creating applications. Now you are ready to use this gem to
+<a href="/guides/standalone-usage-in-sinatra">enhance your Sinatra projects</a> or to
+create new Padrino applications. If you are new to Ruby or Sinatra, be sure to
+check out the <a href="/guides/getting-started">Getting Started</a> guide for more
+information.</p>
+
+<p class="excerpt"><a class="button" href="/guides/basic-projects">Next Section – Basic Projects</a></p>
+</div></div></div><hr /><footer class="footer"><p>Padrino is released under the MIT LICENSE<br />
+Hosting by <a href="https://pages.github.com">GitHub Pages</a></p>
+</footer><script src="../../assets/javascripts/all-c2e0cecd.js"></script></div></body></html>

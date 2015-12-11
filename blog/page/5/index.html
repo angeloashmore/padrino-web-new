@@ -1,0 +1,45 @@
+<!DOCTYPE html><html><head><meta charset="utf-8" /><meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" /><meta content="initial-scale=1" name="viewport" /><title>Padrino - The Elegant Ruby Web Framework</title><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" /><link href="../../../assets/stylesheets/style-75d468d0.css" rel="stylesheet" /></head><body class="blog blog_page blog_page_5 blog_page_5_index"><div class="grid"><header class="header"><h1 class="header__name"><a class="padrino-name" href="/">Padrino</a></h1><div class="header__navigation"><nav class="navigation"><a class="navigation__toggler" href="#" id="navigation__toggler"><span class="navigation__toggler__icon fa fa-navicon"></span></a><ul class="navigation__items" id="navigation__items"><li class="navigation__item"><a class="navigation__link" href="/">Overview</a></li><li class="navigation__item"><a class="navigation__link" href="/guides/">Guides</a></li><li class="navigation__item"><a class="navigation__link--is-active" href="/blog/">Blog</a></li><li class="navigation__item"><a class="navigation__link" href="http://www.rubydoc.info/github/padrino/padrino-framework">API</a></li><li class="navigation__item"><a class="navigation__link" href="/contribute/">Contribute</a></li><li class="navigation__item"><a class="navigation__link" href="https://github.com/padrino/padrino-framework"><span class="button--slim">GitHub</span></a></li></ul></nav></div></header><div class="page"><div class="page__sidebar"><div class="sidebar"><h4 class="sidebar__header--first">Blog</h4><h5 class="sidebar__header">Latest Posts</h5><ul class="sidebar__items"><li class="sidebar__item"><a class="sidebar__link" href="/blog/upgrading-padrino-from-0-12-x-to-0-13-0-guide/">Upgrading Padrino from 0.12.X to 0.13.0 Guide</a></li><li class="sidebar__item"><a class="sidebar__link" href="/blog/padrino-0-13-0-mustermann-router-performance-enhancements-streaming-support-and-much-more/">Padrino 0.13.0 - Mustermann Router, Performance Enhancements, Streaming Support, and Much More</a></li><li class="sidebar__item"><a class="sidebar__link" href="/blog/padrino-0-12-5/">Padrino 0.12.5</a></li><li class="sidebar__item"><a class="sidebar__link" href="/blog/padrino-0-12-4/">Padrino 0.12.4</a></li><li class="sidebar__item"><a class="sidebar__link" href="/blog/padrino-0-11-0-released-padrino-lives/">Padrino 0.11.0 Released - Padrino Lives!</a></li><li class="sidebar__item"><a class="sidebar__link" href="/blog/json-gem-vulnerability/">JSON gem vulnerability</a></li><li class="sidebar__item"><a class="sidebar__link" href="/blog/upgrade-rack-immediately/">Upgrade Rack immediately</a></li></ul></div></div><div class="page__content"><div class="content"><div class="article"><h1 class="article__title"><a href="/blog/hosting-our-first-padrino-meetup-in-san-francisco/">Hosting our first Padrino meetup in San Francisco!</a></h1><p class="article__metadata">Posted on January 10, 2013 by Nathan</p><p>One of our core Padrino members <a href="https://github.com/DAddYE">DAddYE</a> has moved to San Francisco recently and has joined as a developer at <a href="http://triggit.com">Triggit</a>. The Padrino core team has always been a very distributed team with each of us living in different places until recently.</p>
+
+<p>Since Davide, Josh and I all live in the city now, we thought it would make sense to <a href="http://www.meetup.com/Padrino-SF/events/95840992/">host our first meetup</a> in San Francisco.</p>
+
+<p><a href="http://triggit.com">Triggit</a> has graciously agreed to let us use their office for the <strong>meetup</strong> and some food for <em>you</em>.</p>
+
+<p>Come <a href="http://www.meetup.com/Padrino-SF/events/95840992/">join us</a> on <em>Thursday, January 24th at 6:30pm</em> to learn more about our plans for <strong>Padrino</strong> in the coming year as we continue our long journey to 1.0.</p>
+
+<p>We will talking about the coming Padrino 0.11 release and we want to share our plans for Padrino 1.0, which aims to be a big step forward for us since will be focused on <strong>multi-threading</strong> with a special focus on JRuby.</p>
+
+<p>There are more cool things like <em>full modularized templates</em>, <em>routes</em> etc… stay tuned for more details.</p>
+
+<p>We are excited about jump starting our development efforts again and would love everyone interested in Sinatra and Padrino to attend.</p>
+
+<p>Please <a href="http://www.meetup.com/Padrino-SF/events/95840992/">RSVP to the event</a> so we can get a rough sense of the number of people attending. Look forward to seeing you guys there!</p>
+
+<hr /></div><div class="article"><h1 class="article__title"><a href="/blog/padrino-0-10-7-reloader-jruby-helpers-and-other-bug-fixes/">Padrino 0.10.7 - Reloader, JRuby, Helpers and Other Bug Fixes</a></h1><p class="article__metadata">Posted on April 27, 2012 by Nathan</p><p>Several months ago, Padrino 0.10.6 was released which included HTML5 support, improved stability and compatibility patches. Today after some unfortunate delays, we are releasing Padrino 0.10.7 which is a major bug fix and compatibility release. We investigated all major issues reported since the release of 0.10.6 and have addressed the most important issues including renewed JRuby support, a better reloader, activesupport loading, and many other improvements. Full details for this release are below. We look forward to getting back to a quicker release cycle going forward.</p>
+
+<h2 id="bug-fixes-translations-and-miscellaneous">Bug Fixes, Translations and Miscellaneous</h2>
+
+<ul>
+  <li>Fix reloader issue with class name resolution: <a href="https://github.com/padrino/padrino-framework/commit/5c2623e6ecfaefe0c7cc238fc18319197c15b610">commit</a></li>
+  <li>Added support for activerecord-jdbcmysql-adapter: <a href="https://github.com/padrino/padrino-framework/commit/c22420c4f7f1f27b1a4c719db0fc4b221ba3dc26">commit</a>, Thanks <a href="https://github.com/rameshpy">rameshpy</a></li>
+  <li>Fix options_for_select result in a corner case: <a href="https://github.com/padrino/padrino-framework/commit/caf54927ac3e305ada8e9139b17db8eb3db83e0d">commit</a>, Thanks <a href="https://github.com/whitequark">whitequark</a></li>
+  <li>Remove redundant tlsmail dependency: <a href="https://github.com/padrino/padrino-framework/commit/165743e7a11fc7f889759c0b128f3020ce1fcece">commit</a>, Thanks <a href="https://github.com/trevor">trevor</a></li>
+  <li>Adds an options attribute to ProjectModule: <a href="https://github.com/padrino/padrino-framework/commit/35844fc3aa3a64050c3eadddda6b4f54aee0aa3c">commit</a>, Thanks <a href="https://github.com/simonc">simonc</a></li>
+  <li>Respect configured model name in admin generator: <a href="https://github.com/padrino/padrino-framework/commit/3f7081db8573b472c41fca831241f78fae97ad37">commit</a>, Thanks <a href="https://github.com/joelcuevas">joelcuevas</a></li>
+  <li>Patched to fix rake use in padrino templates, Thanks <a href="https://github.com/jasonm23">jasonm23</a></li>
+  <li>Fix error_message_on for empty array, Thanks <a href="https://github.com/sshaw">sshaw</a></li>
+  <li>Adds Swedish localization support, Thanks <a href="https://github.com/Lejdborg">Lejdborg</a></li>
+  <li>Adds Romanian localization support, Thanks <a href="https://github.com/relu">relu</a></li>
+  <li>Prevent JRuby reloading bug, Thanks <a href="https://github.com/dn2k">dn2k</a></li>
+  <li>Fix admin generator to understand model_name, Thanks <a href="https://github.com/fnordfish">fnordfish</a></li>
+  <li>Add CLI shortcut with just ‘c’, Thanks <a href="https://github.com/joslinm">joslinm</a></li>
+  <li>Adds a catch all method to the redis cache</li>
+  <li>Make mysql2 alias of mysql when DataMapper is selected</li>
+  <li>Add require ActiveSupport::TimeWithZone class for helpers</li>
+  <li>Change boolean helper attributes to conform to xhtml strict</li>
+</ul>
+
+<p>That concludes the changelog for this release. As always if you want to keep up with Padrino updates, be sure to follow us on twitter: <a href="http://twitter.com/#!/padrinorb">@padrinorb</a>, join us on IRC at “#padrino” on freenode or <a href="https://github.com/padrino/padrino-framework/issues">open an issue</a> on GitHub.</p>
+
+<hr /></div><li><a href="/blog/page/4/">Prev Page</a></li><li><a href="/blog/page/6/">Next Page</a></li></div></div></div><hr /><footer class="footer"><p>Padrino is released under the MIT LICENSE<br />
+Hosting by <a href="https://pages.github.com">GitHub Pages</a></p>
+</footer><script src="../../../assets/javascripts/all-c2e0cecd.js"></script></div></body></html>

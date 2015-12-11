@@ -1,0 +1,86 @@
+<!DOCTYPE html><html><head><meta charset="utf-8" /><meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" /><meta content="initial-scale=1" name="viewport" /><title>Padrino - Padrino 0.9.21 - Nested Forms, Translations and More</title><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" /><link href="../../assets/stylesheets/style-75d468d0.css" rel="stylesheet" /></head><body class="blog blog_padrino-0-9-21-nested-forms-translations-and-more blog_padrino-0-9-21-nested-forms-translations-and-more_index"><div class="grid"><header class="header"><h1 class="header__name"><a class="padrino-name" href="/">Padrino</a></h1><div class="header__navigation"><nav class="navigation"><a class="navigation__toggler" href="#" id="navigation__toggler"><span class="navigation__toggler__icon fa fa-navicon"></span></a><ul class="navigation__items" id="navigation__items"><li class="navigation__item"><a class="navigation__link" href="/">Overview</a></li><li class="navigation__item"><a class="navigation__link" href="/guides/">Guides</a></li><li class="navigation__item"><a class="navigation__link--is-active" href="/blog/">Blog</a></li><li class="navigation__item"><a class="navigation__link" href="http://www.rubydoc.info/github/padrino/padrino-framework">API</a></li><li class="navigation__item"><a class="navigation__link" href="/contribute/">Contribute</a></li><li class="navigation__item"><a class="navigation__link" href="https://github.com/padrino/padrino-framework"><span class="button--slim">GitHub</span></a></li></ul></nav></div></header><div class="page"><div class="page__sidebar"><div class="sidebar"><h4 class="sidebar__header--first">Blog</h4><h5 class="sidebar__header">Latest Posts</h5><ul class="sidebar__items"><li class="sidebar__item"><a class="sidebar__link" href="/blog/upgrading-padrino-from-0-12-x-to-0-13-0-guide/">Upgrading Padrino from 0.12.X to 0.13.0 Guide</a></li><li class="sidebar__item"><a class="sidebar__link" href="/blog/padrino-0-13-0-mustermann-router-performance-enhancements-streaming-support-and-much-more/">Padrino 0.13.0 - Mustermann Router, Performance Enhancements, Streaming Support, and Much More</a></li><li class="sidebar__item"><a class="sidebar__link" href="/blog/padrino-0-12-5/">Padrino 0.12.5</a></li><li class="sidebar__item"><a class="sidebar__link" href="/blog/padrino-0-12-4/">Padrino 0.12.4</a></li><li class="sidebar__item"><a class="sidebar__link" href="/blog/padrino-0-11-0-released-padrino-lives/">Padrino 0.11.0 Released - Padrino Lives!</a></li><li class="sidebar__item"><a class="sidebar__link" href="/blog/json-gem-vulnerability/">JSON gem vulnerability</a></li><li class="sidebar__item"><a class="sidebar__link" href="/blog/upgrade-rack-immediately/">Upgrade Rack immediately</a></li></ul></div></div><div class="page__content"><div class="content"><div class="article"><h1 class="article__title">Padrino 0.9.21 - Nested Forms, Translations and More</h1><p class="article__metadata">Posted on February 25, 2011 by Nathan</p><p>Today, we have released a new version of Padrino 0.9.21 which continues the tradition of incremental improvements towards a 1.0 release. We will consider Padrino ‘1.0’ once we feel that the framework is sufficiently robust and well-documented.</p>
+
+<p>We aren't quite all the way there yet but we are rapidly improving with each release. This release contains agnostic nested object forms, chinese translations, routing enhancements, and component compatibility fixes. A more detailed list of changes is included in the full post.</p>
+
+<p>There are no breaking changes from the previous version. The major changes are below:</p>
+
+<h2 id="nested-object-forms">Nested Object Forms</h2>
+
+<p>One of the most commonly requested features is nested object form support within our view helpers. This handles the case where a form should create multiple related objects at once of different types.</p>
+
+<p>For instance if you have a user and he has an address which is stored in a separate model. Now Padrino supports agnostic form builders for nested objects. Using this is quite simple and extends the existing form syntax:</p>
+
+<pre class="highlight plaintext"><code># app/views/example.haml
+# app/views/person/_form.html.haml
+- form_for @person, '/person/create'  do |f|
+  = f.text_field :name
+  = f.text_field :favorite_color
+  - f.fields_for :addresses do |address_form|
+    = address_form.label :street
+    = address_form.text_field :street
+    = address_form.label :city
+    = address_form.text_field :city
+    - unless address_form.object.new_record?
+      = address_form.check_box '_destroy'
+      = address_form.label '_destroy', :caption =&gt; 'Remove'
+    = submit_tag "Save"
+</code></pre>
+
+<p>For the details be sure to checkout the <a href="http://www.padrinorb.com/guides/application-helpers">Application Helper Guide</a> to learn more.</p>
+
+<h2 id="routing-fixes">Routing Fixes</h2>
+
+<p>Joshua Hull in particular can be thanked for many of these routing fixes reported by our users. In particular:</p>
+
+<ul>
+  <li>Routing now properly supports variables within an index route</li>
+  <li>Fixes routes with conjunction of :map and :with</li>
+  <li>Fixes regular expression route captures</li>
+  <li>
+    <p>Laziness of provides now conveys its format neediness [Fixes <a href="https://github.com/padrino/padrino-framework/issues/closed#issue/412">Issue 412</a>]</p>
+
+    <h1 id="appcontrollersexamplerb">app/controllers/example.rb</h1>
+    <p>get :index, :map =&gt; '/bugs', :with =&gt; :id do
+  # …
+end</p>
+
+    <p>get %r{/([0-9]+)/} do |num|
+  "Your lucky number: #{num} #{params[:captures].first}"
+end</p>
+  </li>
+</ul>
+
+<p>Regular expression routes should now work as expected in nearly all cases.</p>
+
+<h2 id="component-fixes">Component Fixes</h2>
+
+<ul>
+  <li>Updated mongomapper adapter to use rails3 branch</li>
+  <li>Updated datamapper gen to store correctly passwords</li>
+  <li>Adds mongoid rake tasks for maintaining database</li>
+</ul>
+
+<h2 id="traditional-and-simplified-chinese-translations">Traditional and Simplified Chinese Translations</h2>
+
+<p>This release brings support for Traditional Chinese(thanks to ayamomiji) and Simplified Chinese translations. This means that the Padrino Admin application as well as all form helpers are properly localized to this language. If you speak a language that Padrino doesn’t yet support, please consider contributing! We are happy to help get you started.</p>
+
+<h2 id="other-fixes">Other fixes</h2>
+
+<ul>
+  <li>Major changes to output handling for padrino helpers allowing easier template integration (<a href="https://gist.github.com/829030">gist</a>)</li>
+  <li>Better project generation name validations</li>
+  <li>Fixes the select_tag to have better support for multiple options</li>
+  <li>Cleans up bundler integration removing legacy support for 0.9</li>
+  <li>Fixed issue with error_message_on where incorrect object was being accessed</li>
+  <li>Layouts are properly found now with shorthand aliases
+    <ul>
+      <li><code>render "brochure/home", :layout =&gt; :narrow</code></li>
+    </ul>
+  </li>
+</ul>
+
+<p>A full list of changes can be seen by looking at our <a href="https://github.com/padrino/padrino-framework/commits/master">github commit history</a> for more details. We are already working on a 0.9.22 release will should include a few exciting new features. If you run into any problems please do let us know on the <a href="https://github.com/padrino/padrino-framework/issues">Github Issues</a> page.</p>
+
+<hr /><div id="disqus_thread"></div></div></div></div></div><hr /><footer class="footer"><p>Padrino is released under the MIT LICENSE<br />
+Hosting by <a href="https://pages.github.com">GitHub Pages</a></p>
+</footer><script src="../../assets/javascripts/all-c2e0cecd.js"></script></div><script src="https://padrinorb.disqus.com/embed.js"></script></body></html>

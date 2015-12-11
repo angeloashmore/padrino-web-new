@@ -1,0 +1,822 @@
+<!DOCTYPE html><html><head><meta charset="utf-8" /><meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" /><meta content="initial-scale=1" name="viewport" /><title>Padrino - Blog Tutorial</title><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" /><link href="../../assets/stylesheets/style-75d468d0.css" rel="stylesheet" /></head><body class="guides guides_blog-tutorial guides_blog-tutorial_index"><div class="grid"><header class="header"><h1 class="header__name"><a class="padrino-name" href="/">Padrino</a></h1><div class="header__navigation"><nav class="navigation"><a class="navigation__toggler" href="#" id="navigation__toggler"><span class="navigation__toggler__icon fa fa-navicon"></span></a><ul class="navigation__items" id="navigation__items"><li class="navigation__item"><a class="navigation__link" href="/">Overview</a></li><li class="navigation__item"><a class="navigation__link--is-active" href="/guides/">Guides</a></li><li class="navigation__item"><a class="navigation__link" href="/blog/">Blog</a></li><li class="navigation__item"><a class="navigation__link" href="http://www.rubydoc.info/github/padrino/padrino-framework">API</a></li><li class="navigation__item"><a class="navigation__link" href="/contribute/">Contribute</a></li><li class="navigation__item"><a class="navigation__link" href="https://github.com/padrino/padrino-framework"><span class="button--slim">GitHub</span></a></li></ul></nav></div></header><div class="page"><div class="page__sidebar"><div class="sidebar"><h4 class="sidebar__header--first">Guides</h4><ul class="sidebar__items"><li class="sidebar__item"><a class="sidebar__link" href="/guides/">Home</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/getting-started/">Getting Started</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/installation/">Installation</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/basic-projects/">Basic Projects</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/generators/">Generators</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/development-commands/">Development Commands</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/mounting-applications/">Mounting Applications</a></li><li class="sidebar__item"><a class="sidebar__link--is-active" href="/guides/blog-tutorial/">Blog Tutorial</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/application-helpers/">Application Helpers</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/padrino-admin/">Padrino Admin</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/padrino-mailer/">Padrino Mailer</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/padrino-cache/">Padrino Cache</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/controllers/">Controllers</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/localization/">Localization</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/extensions/">Extensions</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/rake-tasks/">Rake Tasks</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/the-bleeding-edge/">The Bleeding Edge</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/adding-new-components/">Adding New Components</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/standalone-usage-in-sinatra/">Standalone Usage in Sinatra</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/running-padrino-on-jruby/">Running Padrino on JRuby</a></li></ul></div></div><div class="page__content"><div class="content"><h1 id="blog-turorial">Blog Turorial</h1>
+
+<p>When reading about a new framework, I often find that the best way to get
+familiar is to read a brief tutorial on how to develop a simple application.
+This can quickly give new users a sense of the development flow and processes
+involved in using a framework. This guide will show new users how to develop a
+simple blog using the Padrino framework. Along the way, each step will be
+explained and links will be provided to further information on different
+relevant topics.</p>
+
+<hr />
+
+<h2 id="screencast">Screencast</h2>
+
+<p>There is also a screencast available for this tutorial. You can check it out by:</p>
+
+<div class="flex-video widescreen" style="margin: 0 auto;text-align:center;">
+<iframe src="//player.vimeo.com/video/10522357" width="500" height="313" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe> <p><a href="http://vimeo.com/10522357">Blog Tutorial</a> from <a href="http://vimeo.com/user3479413">Padrino Framework</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+</div>
+
+<hr />
+
+<h2 id="study-guide">Study Guide</h2>
+
+<p>To skip this tutorial or immediately see the complete blog tutorial project, you
+can either checkout the
+<a href="http://github.com/padrino/sample_blog">blog tutorial repository</a> using Git:</p>
+
+<pre class="highlight shell"><code><span class="gp">$ </span>git clone git://github.com/padrino/sample_blog.git
+</code></pre>
+
+<p>or even execute the
+<a href="http://gist.github.com/357045">blog tutorial project template</a> which will
+automatically build the blog project step by step using our excellent template
+runner. You can do this simply by invoking:</p>
+
+<pre class="highlight shell"><code><span class="gp">$ </span>padrino g project sample_blog --template sampleblog
+</code></pre>
+
+<p>To learn more about our template generator, be sure to check out the
+<a href="/guides/generators">generators guide</a>.</p>
+
+<hr />
+
+<h2 id="installation">Installation</h2>
+
+<p>In order to develop a Padrino application, we must have a few things installed.
+First, we must obviously have <a href="http://www.ruby-lang.org/en/">ruby</a> and
+<a href="http://rubygems.org/">rubygems</a> installed. Next, we must install the padrino
+framework gems:</p>
+
+<pre class="highlight shell"><code><span class="gp">$ </span>gem install padrino
+</code></pre>
+
+<p>For more details on installation, check out the
+<a href="/guides/installation">installation guide</a>. Once this has been finished, all
+necessary dependencies should be ready and we can begin developing our sample
+blog. —</p>
+
+<h2 id="project-generation">Project Generation</h2>
+
+<p>To create a Padrino application, the best place to start is using the convenient
+Padrino generator. Similar to Rails, Padrino has a project generator which will
+create a skeleton application with all the files you need to being development
+of your new idea. Padrino is an agnostic framework and supports using a variety
+of different template, testing, JavaScript and database components. You can
+learn more by reading the <a href="/guides/generators">generators guide</a>.</p>
+
+<p>For this sample application, we will use the ActiveRecord ORM, the Haml
+templating language, the Shoulda testing framework and the jQuery JavaScript
+library. With that in mind, let us generate our new project:</p>
+
+<pre class="highlight shell"><code><span class="gp">$ </span>padrino g project sample_blog -t shoulda -e haml -c sass -s jquery -d activerecord -b
+</code></pre>
+
+<p>This command will generate our basic Padrino project and the print out a nice
+report of the files generated. The output of this generation command can be
+viewed in <a href="http://gist.github.com/337148">this gist</a> file. Notice the <code>-b</code> flag
+in the previous command which automatically instructs bundler to install all
+dependencies. All we need to do now is <code>cd</code> into our brand new application.</p>
+
+<pre class="highlight shell"><code><span class="gp">$ </span><span class="nb">cd </span>sample_blog
+</code></pre>
+
+<p>Now, the terminal should be inside the root of our newly generated application
+with all necessary gem dependencies installed. Let us take a closer look at the
+particularly important generated files before we continue on with development.</p>
+
+<ul>
+  <li><code>Gemfile</code> – Be sure to include any necessary gem dependencies for your app in
+this file!</li>
+  <li><code>app/app.rb</code> – This is the primary configuration file for your core
+application.</li>
+  <li><code>config/apps.rb</code> – This defines which applications are mounted in your
+project.</li>
+  <li><code>config/database.rb</code> – This defines the connection details for your chosen
+database adapter.</li>
+</ul>
+
+<p>The following important directories are also generated:</p>
+
+<ul>
+  <li><code>app/controllers</code> – This is where the Padrino route definitions should be
+defined.</li>
+  <li><code>app/helpers</code> – This is where helper methods should be defined for your
+application.</li>
+  <li><code>app/views</code> – This should contain your template views to be rendered in a
+controller.</li>
+  <li><code>lib</code> – This should contain any extensions, libraries or other code to be used
+in your project.</li>
+  <li><code>public</code> – This is where images, style sheets and JavaScript files should be
+stored.</li>
+  <li><code>test</code> – This is where your model and controller tests should be stored.</li>
+</ul>
+
+<p>Now, let us examine the <code>config/database.rb</code> file to make sure the database
+connection settings are correct. For now, the defaults are OK for this tutorial.
+A sqlite3 database will be used that is stored inside
+<code>db/sample_blog_development.db</code>.</p>
+
+<p>Let us also setup a few simple routes in our application to demonstrate the
+Padrino routing system. Let’s go into the <code>app/app.rb</code> file and enter the
+following routes:</p>
+
+<pre class="highlight ruby"><code><span class="c1"># app/app.rb</span>
+<span class="k">module</span> <span class="nn">SampleBlog</span>
+  <span class="k">class</span> <span class="nc">App</span> <span class="o">&lt;</span> <span class="no">Padrino</span><span class="o">::</span><span class="no">Application</span>
+    <span class="n">register</span> <span class="no">SassInitializer</span>
+    <span class="n">use</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">ConnectionAdapters</span><span class="o">::</span><span class="no">ConnectionManagement</span>
+    <span class="n">register</span> <span class="no">Padrino</span><span class="o">::</span><span class="no">Rendering</span>
+    <span class="n">register</span> <span class="no">Padrino</span><span class="o">::</span><span class="no">Mailer</span>
+    <span class="n">register</span> <span class="no">Padrino</span><span class="o">::</span><span class="no">Helpers</span>
+
+    <span class="n">enable</span> <span class="ss">:sessions</span>
+
+    <span class="c1"># Add these routes below to the app file...</span>
+    <span class="n">get</span> <span class="s2">"/"</span> <span class="k">do</span>
+      <span class="s2">"Hello World!"</span>
+    <span class="k">end</span>
+
+    <span class="n">get</span> <span class="ss">:about</span><span class="p">,</span> <span class="ss">:map</span> <span class="o">=&gt;</span> <span class="s1">'/about_us'</span> <span class="k">do</span>
+      <span class="n">render</span> <span class="ss">:haml</span><span class="p">,</span> <span class="s2">"%p This is a sample blog created to demonstrate how Padrino works!"</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+
+<p>Note that the first route here sets up a simple string to be returned at the
+root URL of the application. The second route defines a one-line ‘about’ page
+inline using Haml which is then explicitly mapped to the ‘/about_us’ URL. The
+symbol <code>:about</code> is used to reference the route later.</p>
+
+<p>Be sure to check out the <a href="/guides/controllers">controllers guide</a> for a
+comprehensive overview of the routing system.</p>
+
+<hr />
+
+<h2 id="admin-dashboard-setup">Admin Dashboard Setup</h2>
+
+<p>Next, this is a good time to setup the Padrino Admin panel which allows us to
+easily view, search and modify data for a project. Let’s go back to the console
+and enter:</p>
+
+<pre class="highlight shell"><code><span class="gp">$ </span>padrino g admin
+<span class="gp">$ </span>bundle install
+</code></pre>
+
+<p>This will create the admin sub-application within your project and mount it
+within the <code>config/apps.rb</code> file. The output of this command can be viewed in
+<a href="http://gist.github.com/324298">this gist</a> file.</p>
+
+<p>Now, we should follow the instructions and create our database, run our
+migrations and run the seed tasks which has been generated in <code>db/seeds.rb</code>. Go
+to the terminal and run:</p>
+
+<pre class="highlight shell"><code><span class="gp">$ </span>padrino rake ar:create
+<span class="gp">$ </span>padrino rake ar:migrate
+<span class="gp">$ </span>padrino rake seed
+</code></pre>
+
+<p>During this process, you will be prompted to enter an email and password to use
+for the admin dashboard. Be sure to remember this for use later in development.</p>
+
+<p>To read more about the features of the admin panel, check out the
+<a href="/guides/padrino-admin">Admin Panel Guide</a>.</p>
+
+<hr />
+
+<h2 id="booting-padrino">Booting Padrino</h2>
+
+<p>Now the Padrino project has been generated, the database has been configured and
+created and the admin panel has been properly setup. We can now start up our
+Padrino application server. This is quite easy to do with the built-in Padrino
+tasks. Simply execute the following in the terminal:</p>
+
+<pre class="highlight shell"><code><span class="gp">$ </span>padrino start
+</code></pre>
+
+<p>You should see no errors, and the terminal should output:</p>
+
+<pre class="highlight shell"><code><span class="gp">=&gt; </span>Located unlocked Gemfile <span class="k">for </span>development
+<span class="gp">=&gt; </span>Padrino/0.10.2 has taken the stage development on port 3000
+<span class="gp">&gt;&gt; </span>Thin web server <span class="o">(</span>v1.2.7 codename This Is Not A Web Server<span class="o">)</span>
+<span class="gp">&gt;&gt; </span>Maximum connections <span class="nb">set </span>to 1024
+<span class="gp">&gt;&gt; </span>Listening on localhost:3000, CTRL+C to stop
+</code></pre>
+
+<p>To read more about available terminal commands, checkout the
+<a href="/guides/development-commands">Development and Terminal Commands</a> guide.</p>
+
+<p>Your application now exists on <a href="http://localhost:3000">http://localhost:3000</a>. Visit this URL in the
+browser and you should see the route render <code>Hello World!</code> route that we defined
+earlier in this tutorial.</p>
+
+<p>We can also visit the admin panel by going to the URL:
+<a href="http://localhost:3000/admin">http://localhost:3000/admin</a> and then log in using the admin credentials
+specified during the <code>rake seed</code> command performed earlier. Feel free to explore
+this area and checkout the existing accounts. We will come back to this in more
+detail later. To read more about the features of the admin panel, check out the
+<a href="/guides/padrino-admin">Admin Panel Guide</a>.</p>
+
+<p>Worth noting here is that Padrino has full support for code reloading in
+development mode. This means you can keep the Padrino server running and change
+your code source and when you refresh in the browser, the changes will be
+automatically displayed. You might want to open up a new terminal and <code>cd</code> to
+your directory and keep the server running.</p>
+
+<hr />
+
+<h2 id="creating-posts">Creating Posts</h2>
+
+<p>Now that the application is ready and the layouts have been defined, let’s
+implement the functionality to view our blog posts and even add the ability to
+create new posts!</p>
+
+<p>Let’s start off by generating the model into our app directory. As of version
+<strong>0.10.0</strong>, the models will default to generating at the top level ‘models’
+directory in a project. We can specify the location by appending the -a option
+which will generate the models into the designated sub-app directory.</p>
+
+<pre class="highlight shell"><code><span class="gp">$ </span>padrino g model post title:string body:text -a app
+<span class="gp">=&gt; </span>Located unlocked Gemfile <span class="k">for </span>development
+create  app/models/post.rb
+create  <span class="nb">test</span>/models/post_test.rb
+create  db/migrate/002_create_posts.rb
+</code></pre>
+
+<p>Let’s add a timestamp for the Post Model in the migration.</p>
+
+<pre class="highlight ruby"><code><span class="c1"># db/migrate/002_create_posts.rb</span>
+<span class="k">class</span> <span class="nc">CreatePosts</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Migration</span>
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">up</span>
+    <span class="n">create_table</span> <span class="ss">:posts</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
+      <span class="n">t</span><span class="p">.</span><span class="nf">string</span> <span class="ss">:title</span>
+      <span class="n">t</span><span class="p">.</span><span class="nf">text</span> <span class="ss">:body</span>
+      <span class="n">t</span><span class="p">.</span><span class="nf">timestamps</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">down</span>
+    <span class="n">drop_table</span> <span class="ss">:posts</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+
+<p>Go ahead and migrate the database now.</p>
+
+<pre class="highlight shell"><code><span class="gp">$ </span>padrino rake ar:migrate
+<span class="gp">=&gt; </span>Executing Rake ar:migrate ...
+<span class="o">==</span>  CreatePosts: migrating <span class="o">====================================================</span>
+-- create_table<span class="o">(</span><span class="s2">"posts"</span>, <span class="o">{})</span>
+<span class="o">==</span>  CreatePosts: migrated <span class="o">(</span>0.0016s<span class="o">)</span> <span class="o">===========================================</span>
+</code></pre>
+
+<p>This creates the post model. Next, let’s create the controller to allow the
+basic viewing functionality.</p>
+
+<pre class="highlight shell"><code><span class="gp">$ </span>padrino g controller posts get:index get:show
+<span class="gp">=&gt; </span>Located unlocked Gemfile <span class="k">for </span>development
+create  app/controllers/posts.rb
+create  app/helpers/posts_helper.rb
+create  app/views/posts
+create  <span class="nb">test</span>/controllers/posts_controller_test.rb
+</code></pre>
+
+<p>We’ll want to attached some of the standard routes (:index and :show) to the
+controller.</p>
+
+<pre class="highlight ruby"><code><span class="c1"># app/controllers/posts.rb</span>
+<span class="no">SampleBlog</span><span class="o">::</span><span class="no">App</span><span class="p">.</span><span class="nf">controllers</span> <span class="ss">:posts</span> <span class="k">do</span>
+  <span class="n">get</span> <span class="ss">:index</span> <span class="k">do</span>
+    <span class="vi">@posts</span> <span class="o">=</span> <span class="no">Post</span><span class="p">.</span><span class="nf">all</span><span class="p">(</span><span class="ss">:order</span> <span class="o">=&gt;</span> <span class="s1">'created_at desc'</span><span class="p">)</span>
+    <span class="n">render</span> <span class="s1">'posts/index'</span>
+  <span class="k">end</span>
+
+  <span class="n">get</span> <span class="ss">:show</span><span class="p">,</span> <span class="ss">:with</span> <span class="o">=&gt;</span> <span class="ss">:id</span> <span class="k">do</span>
+    <span class="vi">@post</span> <span class="o">=</span> <span class="no">Post</span><span class="p">.</span><span class="nf">find_by_id</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="ss">:id</span><span class="p">])</span>
+    <span class="n">render</span> <span class="s1">'posts/show'</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+
+<p>This controller is defining routes that can be accessed via our application. The
+“http method” <code>get</code> starts off the declaration followed by a symbol representing
+the “action”. Inside a block we store an instance variable fetching the
+necessary objects and then render a view template. This should look familiar to
+those coming from Rails or Sinatra.</p>
+
+<p>Next, we’ll want to create the views for the two controller actions we defined:
+<code>index</code> and <code>show</code>.</p>
+
+<pre class="highlight haml"><code><span class="c">-# app/views/posts/index.haml
+</span><span class="p">-</span> <span class="vi">@title</span> <span class="o">=</span> <span class="s2">"Welcome"</span>
+
+<span class="nf">#posts</span><span class="p">=</span> <span class="n">partial</span> <span class="s1">'posts/post'</span><span class="p">,</span> <span class="ss">:collection</span> <span class="o">=&gt;</span> <span class="vi">@posts</span>
+
+<span class="c">-# app/views/posts/_post.haml
+</span><span class="nc">.post</span>
+  <span class="nc">.title</span><span class="p">=</span> <span class="n">link_to</span> <span class="n">post</span><span class="p">.</span><span class="nf">title</span><span class="p">,</span> <span class="n">url_for</span><span class="p">(</span><span class="ss">:posts</span><span class="p">,</span> <span class="ss">:show</span><span class="p">,</span> <span class="ss">:id</span> <span class="o">=&gt;</span> <span class="n">post</span><span class="p">)</span>
+  <span class="nc">.date</span><span class="p">=</span> <span class="n">time_ago_in_words</span><span class="p">(</span><span class="n">post</span><span class="p">.</span><span class="nf">created_at</span> <span class="o">||</span> <span class="no">Time</span><span class="p">.</span><span class="nf">now</span><span class="p">)</span> <span class="o">+</span> <span class="s1">' ago'</span>
+  <span class="nc">.body</span><span class="p">=</span> <span class="n">simple_format</span><span class="p">(</span><span class="n">post</span><span class="p">.</span><span class="nf">body</span><span class="p">)</span>
+
+<span class="c">-# app/views/posts/show.haml
+</span><span class="p">-</span> <span class="vi">@title</span> <span class="o">=</span> <span class="vi">@post</span><span class="p">.</span><span class="nf">title</span>
+<span class="nf">#show</span>
+  <span class="nc">.post</span>
+    <span class="nc">.title</span><span class="p">=</span> <span class="vi">@post</span><span class="p">.</span><span class="nf">title</span>
+    <span class="nc">.date</span><span class="p">=</span> <span class="n">time_ago_in_words</span><span class="p">(</span><span class="vi">@post</span><span class="p">.</span><span class="nf">created_at</span> <span class="o">||</span> <span class="no">Time</span><span class="p">.</span><span class="nf">now</span><span class="p">)</span> <span class="o">+</span> <span class="s1">' ago'</span>
+    <span class="nc">.body</span><span class="p">=</span> <span class="n">simple_format</span><span class="p">(</span><span class="vi">@post</span><span class="p">.</span><span class="nf">body</span><span class="p">)</span>
+<span class="nt">%p</span><span class="p">=</span> <span class="n">link_to</span> <span class="s1">'View all posts'</span><span class="p">,</span> <span class="n">url_for</span><span class="p">(</span><span class="ss">:posts</span><span class="p">,</span> <span class="ss">:index</span><span class="p">)</span>
+</code></pre>
+
+<p>Padrino Admin makes it easy to create, edit and delete records automatically. To
+manage posts using Padrino Admin, run this command.</p>
+
+<pre class="highlight shell"><code><span class="gp">$ </span>padrino g admin_page post
+<span class="gp">=&gt; </span>Located unlocked Gemfile <span class="k">for </span>development
+create  admin/controllers/posts.rb
+create  admin/views/posts/_form.haml
+create  admin/views/posts/edit.haml
+create  admin/views/posts/index.haml
+create  admin/views/posts/new.haml
+inject  admin/app.rb
+</code></pre>
+
+<p>Let’s make sure the server is running (<code>padrino start</code>) and give this admin
+interface a try.</p>
+
+<p>Visit <a href="http://localhost:3000/admin">http://localhost:3000/admin</a> and login using the credentials you had
+setup during the seed.</p>
+
+<p>There should now be two tabs, one for Posts and the other, Accounts. Click on
+Posts.</p>
+
+<p>Padrino Admin allows you to easily create new records by clicking “New”. It has
+a form all ready complete with the fields you had generated prior in the
+creation of the Post model.</p>
+
+<p><strong>Note:</strong> make sure to use <code>padrino g admin_page</code> <strong>after</strong> the creation of your
+  model and their migration.</p>
+
+<p>Now that you have added a few posts through the admin interface, check out
+<a href="http://localhost:3000/posts">http://localhost:3000/posts</a> and notice that the posts you created now show up
+in the “index” action!</p>
+
+<p>You can see all the routes that we now have defined using the <code>padrino rake
+routes</code> command:</p>
+
+<pre class="highlight shell"><code><span class="gp">$ </span>padrino rake routes
+    URL                 REQUEST  PATH
+    <span class="o">(</span>:about<span class="o">)</span>              GET    /about_us
+    <span class="o">(</span>:posts, :index<span class="o">)</span>      GET    /posts
+    <span class="o">(</span>:posts, :show<span class="o">)</span>       GET    /posts/show/:id
+</code></pre>
+
+<p>This can be helpful to understand the mapping between controllers and urls.</p>
+
+<hr />
+
+<h2 id="attaching-accounts-to-posts">Attaching Accounts to Posts</h2>
+
+<p>So far, a post does not have a user associated as the author. Suppose that now
+we want to let every post have an author. Let’s revisit our post model. We’ll
+start by adding a new migration to attach an Account to a Post.</p>
+
+<pre class="highlight shell"><code><span class="gp">$ </span>padrino g migration AddAccountToPost account_id:integer
+<span class="gp">=&gt; </span>Located unlocked Gemfile <span class="k">for </span>development
+create  db/migrate/003_add_account_to_post.rb
+</code></pre>
+
+<p>This creates a new migration with the desired field attaching the account_id to
+the post.</p>
+
+<p>Let’s modify the migration file to assign a user to all existing posts:</p>
+
+<pre class="highlight ruby"><code><span class="c1"># db/migrate/003_add_account_to_post.rb</span>
+<span class="k">class</span> <span class="nc">AddAccountToPost</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Migration</span>
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">up</span>
+    <span class="n">change_table</span> <span class="ss">:posts</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
+      <span class="n">t</span><span class="p">.</span><span class="nf">integer</span> <span class="ss">:account_id</span>
+    <span class="k">end</span>
+    <span class="c1"># and assigns a user to all existing posts</span>
+    <span class="n">first_account</span> <span class="o">=</span> <span class="no">Account</span><span class="p">.</span><span class="nf">first</span>
+    <span class="no">Post</span><span class="p">.</span><span class="nf">all</span><span class="p">.</span><span class="nf">each</span> <span class="p">{</span> <span class="o">|</span><span class="nb">p</span><span class="o">|</span> <span class="nb">p</span><span class="p">.</span><span class="nf">update_attribute</span><span class="p">(</span><span class="ss">:account</span><span class="p">,</span> <span class="n">first_account</span><span class="p">)</span> <span class="p">}</span>
+  <span class="k">end</span>
+  <span class="c1"># ...</span>
+<span class="k">end</span>
+</code></pre>
+
+<p>Now, we’ll return to the Post Model to setup the <code>account</code> association and add a
+few validations.</p>
+
+<pre class="highlight ruby"><code><span class="c1"># app/models/post.rb</span>
+<span class="k">class</span> <span class="nc">Post</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+  <span class="n">belongs_to</span> <span class="ss">:account</span>
+  <span class="n">validates_presence_of</span> <span class="ss">:title</span>
+  <span class="n">validates_presence_of</span> <span class="ss">:body</span>
+<span class="k">end</span>
+</code></pre>
+
+<p>Every time we change the database, we need to migrate the database.</p>
+
+<pre class="highlight shell"><code><span class="gp">$ </span>padrino rake ar:migrate
+<span class="o">==</span>  AddAccountToPost: migrating <span class="o">===============================================</span>
+-- change_table<span class="o">(</span>:posts<span class="o">)</span>
+<span class="o">==</span>  AddAccountToPost: migrated <span class="o">(</span>0.0009s<span class="o">)</span> <span class="o">======================================</span> 7:04
+<span class="gp">=&gt; </span>Executing Rake ar:migrate ...
+</code></pre>
+
+<p>Our Post now has the appropriate associations and validations. We’ll need to go
+inside the generated Padrino Admin and make some changes to include the account
+with the post.</p>
+
+<p>Head on over to <code>admin/controllers/posts.rb</code>. We’re going to include the
+<code>current_account</code> to the creation of a new Post.</p>
+
+<pre class="highlight ruby"><code><span class="c1"># admin/controllers/posts.rb</span>
+<span class="no">Admin</span><span class="p">.</span><span class="nf">controllers</span> <span class="ss">:posts</span> <span class="k">do</span>
+<span class="c1"># ...</span>
+  <span class="n">post</span> <span class="ss">:create</span> <span class="k">do</span>
+    <span class="vi">@post</span> <span class="o">=</span> <span class="no">Post</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="ss">:post</span><span class="p">])</span>
+    <span class="vi">@post</span><span class="p">.</span><span class="nf">account</span> <span class="o">=</span> <span class="n">current_account</span>
+    <span class="k">if</span> <span class="vi">@post</span><span class="p">.</span><span class="nf">save</span>
+      <span class="vi">@title</span> <span class="o">=</span> <span class="n">pat</span><span class="p">(</span><span class="ss">:create_title</span><span class="p">,</span> <span class="ss">:model</span> <span class="o">=&gt;</span> <span class="s2">"post </span><span class="si">#{</span><span class="vi">@post</span><span class="p">.</span><span class="nf">id</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+      <span class="n">flash</span><span class="p">[</span><span class="ss">:success</span><span class="p">]</span> <span class="o">=</span> <span class="n">pat</span><span class="p">(</span><span class="ss">:create_success</span><span class="p">,</span> <span class="ss">:model</span> <span class="o">=&gt;</span> <span class="s1">'Post'</span><span class="p">)</span>
+      <span class="n">params</span><span class="p">[</span><span class="ss">:save_and_continue</span><span class="p">]</span> <span class="p">?</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url</span><span class="p">(</span><span class="ss">:posts</span><span class="p">,</span> <span class="ss">:index</span><span class="p">))</span> <span class="p">:</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url</span><span class="p">(</span><span class="ss">:posts</span><span class="p">,</span> <span class="ss">:edit</span><span class="p">,</span> <span class="ss">:id</span> <span class="o">=&gt;</span> <span class="vi">@post</span><span class="p">.</span><span class="nf">id</span><span class="p">))</span>
+    <span class="k">else</span>
+      <span class="vi">@title</span> <span class="o">=</span> <span class="n">pat</span><span class="p">(</span><span class="ss">:create_title</span><span class="p">,</span> <span class="ss">:model</span> <span class="o">=&gt;</span> <span class="s1">'post'</span><span class="p">)</span>
+      <span class="n">flash</span><span class="p">.</span><span class="nf">now</span><span class="p">[</span><span class="ss">:error</span><span class="p">]</span> <span class="o">=</span> <span class="n">pat</span><span class="p">(</span><span class="ss">:create_error</span><span class="p">,</span> <span class="ss">:model</span> <span class="o">=&gt;</span> <span class="s1">'post'</span><span class="p">)</span>
+      <span class="n">render</span> <span class="s1">'posts/new'</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="c1"># ...</span>
+<span class="k">end</span>
+</code></pre>
+
+<p>We’ll also update the post view to show the changes that we made and display the
+author:</p>
+
+<pre class="highlight haml"><code><span class="c">-# app/views/posts/show.haml
+</span><span class="p">-</span> <span class="vi">@title</span> <span class="o">=</span> <span class="vi">@post</span><span class="p">.</span><span class="nf">title</span>
+<span class="nf">#show</span>
+  <span class="nc">.post</span>
+    <span class="nc">.title</span><span class="p">=</span> <span class="vi">@post</span><span class="p">.</span><span class="nf">title</span>
+    <span class="nc">.date</span><span class="p">=</span> <span class="n">time_ago_in_words</span><span class="p">(</span><span class="vi">@post</span><span class="p">.</span><span class="nf">created_at</span> <span class="o">||</span> <span class="no">Time</span><span class="p">.</span><span class="nf">now</span><span class="p">)</span> <span class="o">+</span> <span class="s1">' ago'</span>
+    <span class="nc">.body</span><span class="p">=</span> <span class="n">simple_format</span><span class="p">(</span><span class="vi">@post</span><span class="p">.</span><span class="nf">body</span><span class="p">)</span>
+    <span class="nc">.details</span>
+      <span class="nc">.author</span> Posted by <span class="si">#{</span><span class="vi">@post</span><span class="p">.</span><span class="nf">account</span><span class="p">.</span><span class="nf">email</span><span class="si">}</span>
+<span class="nt">%p</span><span class="p">=</span> <span class="n">link_to</span> <span class="s1">'View all posts'</span><span class="p">,</span> <span class="n">url_for</span><span class="p">(</span><span class="ss">:posts</span><span class="p">,</span> <span class="ss">:index</span><span class="p">)</span>
+
+<span class="c">-# app/views/posts/_post.haml
+</span><span class="nc">.post</span>
+  <span class="nc">.title</span><span class="p">=</span> <span class="n">link_to</span> <span class="n">post</span><span class="p">.</span><span class="nf">title</span><span class="p">,</span> <span class="n">url_for</span><span class="p">(</span><span class="ss">:posts</span><span class="p">,</span> <span class="ss">:show</span><span class="p">,</span> <span class="ss">:id</span> <span class="o">=&gt;</span> <span class="n">post</span><span class="p">)</span>
+  <span class="nc">.date</span><span class="p">=</span> <span class="n">time_ago_in_words</span><span class="p">(</span><span class="n">post</span><span class="p">.</span><span class="nf">created_at</span> <span class="o">||</span> <span class="no">Time</span><span class="p">.</span><span class="nf">now</span><span class="p">)</span> <span class="o">+</span> <span class="s1">' ago'</span>
+  <span class="nc">.body</span><span class="p">=</span> <span class="n">simple_format</span><span class="p">(</span><span class="n">post</span><span class="p">.</span><span class="nf">body</span><span class="p">)</span>
+  <span class="nc">.details</span>
+    <span class="nc">.author</span> Posted by <span class="si">#{</span><span class="n">post</span><span class="p">.</span><span class="nf">account</span><span class="p">.</span><span class="nf">email</span><span class="si">}</span>
+</code></pre>
+
+<p>Now, lets add another user. Revisit <a href="http://localhost:3000/admin">http://localhost:3000/admin</a> and click on
+the Account tab. Now create a new Account record. Once you have a new account,
+try logging into it and then adding one more post in the admin interface. There
+you have it, multiple users and posts!</p>
+
+<p>See the effects of our changes by visiting <a href="http://localhost:3000/posts">http://localhost:3000/posts</a> to see
+our newly created posts linked to the author that wrote them.</p>
+
+<hr />
+
+<h2 id="site-layout">Site Layout</h2>
+
+<p>Now that the application has been properly configured and the server has been
+started, let’s create a few basic styles and define a layout to prepare the
+application for continued development.</p>
+
+<p>First, let us create a layout for our application to use. A layout is a file
+that acts as a container for the content templates yielded by each route. The
+layout should be used to create a consistent structure between each page of the
+application. To create a layout, simply add a file to the <code>app/views/layouts</code>
+directory:</p>
+
+<pre class="highlight haml"><code><span class="c">-# app/views/layouts/application.haml
+</span><span class="nn">!!! Strict
+</span><span class="nt">%html</span>
+  <span class="nt">%head</span>
+    <span class="nt">%title</span><span class="p">=</span> <span class="p">[</span><span class="vi">@title</span><span class="p">,</span> <span class="s2">"Padrino Sample Blog"</span><span class="p">].</span><span class="nf">compact</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="s2">" | "</span><span class="p">)</span>
+    <span class="p">=</span> <span class="n">stylesheet_link_tag</span> <span class="s1">'reset'</span><span class="p">,</span> <span class="s1">'application'</span>
+    <span class="p">=</span> <span class="n">javascript_include_tag</span> <span class="s1">'jquery'</span><span class="p">,</span> <span class="s1">'application'</span>
+    <span class="p">=</span> <span class="n">yield_content</span> <span class="ss">:include</span>
+  <span class="nt">%body</span>
+    <span class="nf">#header</span>
+      <span class="nt">%h1</span> Sample Padrino Blog
+      <span class="nt">%ul</span><span class="nc">.menu</span>
+        <span class="nt">%li</span><span class="p">=</span> <span class="n">link_to</span> <span class="s1">'Blog'</span><span class="p">,</span> <span class="n">url_for</span><span class="p">(</span><span class="ss">:posts</span><span class="p">,</span> <span class="ss">:index</span><span class="p">)</span>
+        <span class="nt">%li</span><span class="p">=</span> <span class="n">link_to</span> <span class="s1">'About'</span><span class="p">,</span> <span class="n">url_for</span><span class="p">(</span><span class="ss">:about</span><span class="p">)</span>
+    <span class="nf">#container</span>
+      <span class="nf">#main</span><span class="p">=</span> <span class="k">yield</span>
+      <span class="nf">#sidebar</span>
+        <span class="p">=</span> <span class="n">form_tag</span> <span class="n">url_for</span><span class="p">(</span><span class="ss">:posts</span><span class="p">,</span> <span class="ss">:index</span><span class="p">),</span> <span class="ss">:method</span> <span class="o">=&gt;</span> <span class="s1">'get'</span>  <span class="k">do</span>
+          Search for:
+          <span class="p">=</span> <span class="n">text_field_tag</span> <span class="s1">'query'</span><span class="p">,</span> <span class="ss">:value</span> <span class="o">=&gt;</span> <span class="n">params</span><span class="p">[</span><span class="ss">:query</span><span class="p">]</span>
+          <span class="p">=</span> <span class="n">submit_tag</span> <span class="s1">'Search'</span>
+        <span class="nt">%p</span> Recent Posts
+        <span class="nt">%ul</span><span class="nc">.bulleted</span>
+          <span class="nt">%li</span> Item 1 - Lorem ipsum dolorum itsum estem
+          <span class="nt">%li</span> Item 2 - Lorem ipsum dolorum itsum estem
+          <span class="nt">%li</span> Item 3 - Lorem ipsum dolorum itsum estem
+        <span class="nt">%p</span> Categories
+        <span class="nt">%ul</span><span class="nc">.bulleted</span>
+          <span class="nt">%li</span> Item 1 - Lorem ipsum dolorum itsum estem
+          <span class="nt">%li</span> Item 2 - Lorem ipsum dolorum itsum estem
+          <span class="nt">%li</span> Item 3 - Lorem ipsum dolorum itsum estem
+        <span class="nt">%p</span> Latest Comments
+        <span class="nt">%ul</span><span class="nc">.bulleted</span>
+          <span class="nt">%li</span> Item 1 - Lorem ipsum dolorum itsum estem
+          <span class="nt">%li</span> Item 2 - Lorem ipsum dolorum itsum estem
+          <span class="nt">%li</span> Item 3 - Lorem ipsum dolorum itsum estem
+    <span class="nf">#footer</span>
+      Copyright (c) 2009-2010 Padrino
+</code></pre>
+
+<p>This layout creates a basic structure for the blog and requires the necessary
+stylesheets and javascript files for controlling the behavior and presentation
+of our site. The layout also includes some dummy elements such as a fake search
+and stubs for list items left as an exercise for the reader.</p>
+
+<p>Next, we simply need to setup the style sheets. There are two we will use for
+this demo. The first is a generic CSS reset by Eric Meyers. The
+<a href="http://github.com/padrino/sample_blog/blob/master/public/stylesheets/reset.css">full reset style sheet</a>
+can be found in the
+<a href="http://github.com/padrino/sample_blog/blob/master/public/stylesheets/reset.css">sample blog repository</a>
+and should be put into <code>public/stylesheets/reset.css</code>.</p>
+
+<p>The second style sheet is the application style sheet to give our blog a better
+look and feel. The
+<a href="http://github.com/padrino/sample_blog/blob/master/app/stylesheets/application.sass">full contents of the style sheet</a>
+can be found in the
+<a href="http://github.com/padrino/sample_blog/blob/master/app/stylesheets/application.sass">sample blog repository</a>
+and should be put into <code>app/stylesheets/application.sass</code>.</p>
+
+<p>With the layout and these two stylesheets in place, the blog will now have a
+much improved look and feel! See the new style by visiting
+<a href="http://localhost:3000/posts">http://localhost:3000/posts</a>.</p>
+
+<hr />
+
+<h2 id="generating-rss-feed-for-posts">Generating RSS Feed for Posts</h2>
+
+<p>Finally, before the application is deployed, let’s set up RSS and Atom feeds for
+our new blog so people can subscribe to our posts. For the feeds, we’re going to
+head back to the posts controller and make a few changes by appending a
+<code>provides</code> option to our <code>index</code> block. This command below instructs the route
+that it should respond to HTML, RSS and Atom formats.</p>
+
+<pre class="highlight ruby"><code><span class="c1"># app/controllers/posts.rb</span>
+<span class="no">SampleBlog</span><span class="o">::</span><span class="no">App</span><span class="p">.</span><span class="nf">controllers</span> <span class="ss">:posts</span> <span class="k">do</span>
+<span class="c1"># ...</span>
+  <span class="n">get</span> <span class="ss">:index</span><span class="p">,</span> <span class="ss">:provides</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="ss">:html</span><span class="p">,</span> <span class="ss">:rss</span><span class="p">,</span> <span class="ss">:atom</span><span class="p">]</span> <span class="k">do</span>
+    <span class="vi">@posts</span> <span class="o">=</span> <span class="no">Post</span><span class="p">.</span><span class="nf">all</span><span class="p">(</span><span class="ss">:order</span> <span class="o">=&gt;</span> <span class="s1">'created_at desc'</span><span class="p">)</span>
+    <span class="n">render</span> <span class="s1">'posts/index'</span>
+  <span class="k">end</span>
+<span class="c1"># ...</span>
+<span class="k">end</span>
+</code></pre>
+
+<p>Note that this route also instructs the rendering engine to avoid rendering the
+layout when using RSS or atom formats.</p>
+
+<p>Back in the <code>index.haml</code> file, we’ll use the auto_discovery_link_tag helpers
+to generate the RSS feed using builder.</p>
+
+<pre class="highlight haml"><code><span class="c">-# app/views/posts/index.haml
+</span><span class="p">-</span> <span class="vi">@title</span> <span class="o">=</span> <span class="s2">"Welcome"</span>
+
+<span class="p">-</span> <span class="n">content_for</span> <span class="ss">:include</span> <span class="k">do</span>
+  <span class="p">=</span> <span class="n">feed_tag</span><span class="p">(</span><span class="ss">:rss</span><span class="p">,</span> <span class="n">url</span><span class="p">(</span><span class="ss">:posts</span><span class="p">,</span> <span class="ss">:index</span><span class="p">,</span> <span class="ss">:format</span> <span class="o">=&gt;</span> <span class="ss">:rss</span><span class="p">),</span><span class="ss">:title</span> <span class="o">=&gt;</span> <span class="s2">"RSS"</span><span class="p">)</span>
+  <span class="p">=</span> <span class="n">feed_tag</span><span class="p">(</span><span class="ss">:atom</span><span class="p">,</span> <span class="n">url</span><span class="p">(</span><span class="ss">:posts</span><span class="p">,</span> <span class="ss">:index</span><span class="p">,</span> <span class="ss">:format</span> <span class="o">=&gt;</span> <span class="ss">:atom</span><span class="p">),</span><span class="ss">:title</span> <span class="o">=&gt;</span> <span class="s2">"ATOM"</span><span class="p">)</span>
+
+<span class="nf">#posts</span><span class="p">=</span> <span class="n">partial</span> <span class="s1">'posts/post'</span><span class="p">,</span> <span class="ss">:collection</span> <span class="o">=&gt;</span> <span class="vi">@posts</span>
+</code></pre>
+
+<p>Next, let us add the templates for atom using builder templates:</p>
+
+<pre class="highlight ruby"><code><span class="c1"># app/views/posts/index.atom.builder</span>
+<span class="n">xml</span><span class="p">.</span><span class="nf">instruct!</span>
+<span class="n">xml</span><span class="p">.</span><span class="nf">feed</span> <span class="s2">"xmlns"</span> <span class="o">=&gt;</span> <span class="s2">"http://www.w3.org/2005/Atom"</span> <span class="k">do</span>
+  <span class="n">xml</span><span class="p">.</span><span class="nf">title</span>   <span class="s2">"Padrino Sample Blog"</span>
+  <span class="n">xml</span><span class="p">.</span><span class="nf">link</span>    <span class="s2">"rel"</span> <span class="o">=&gt;</span> <span class="s2">"self"</span><span class="p">,</span> <span class="s2">"href"</span> <span class="o">=&gt;</span> <span class="n">url_for</span><span class="p">(</span><span class="ss">:posts</span><span class="p">,</span> <span class="ss">:index</span><span class="p">)</span>
+  <span class="n">xml</span><span class="p">.</span><span class="nf">id</span>      <span class="n">url_for</span><span class="p">(</span><span class="ss">:posts</span><span class="p">,</span> <span class="ss">:index</span><span class="p">)</span>
+  <span class="n">xml</span><span class="p">.</span><span class="nf">updated</span> <span class="vi">@posts</span><span class="p">.</span><span class="nf">first</span><span class="p">.</span><span class="nf">updated_at</span><span class="p">.</span><span class="nf">strftime</span> <span class="s2">"%Y-%m-%dT%H:%M:%SZ"</span> <span class="k">if</span> <span class="vi">@posts</span><span class="p">.</span><span class="nf">any?</span>
+  <span class="n">xml</span><span class="p">.</span><span class="nf">author</span>  <span class="p">{</span> <span class="n">xml</span><span class="p">.</span><span class="nf">name</span> <span class="s2">"Padrino Team"</span> <span class="p">}</span>
+
+  <span class="vi">@posts</span><span class="p">.</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">post</span><span class="o">|</span>
+    <span class="n">xml</span><span class="p">.</span><span class="nf">entry</span> <span class="k">do</span>
+      <span class="n">xml</span><span class="p">.</span><span class="nf">title</span>   <span class="n">post</span><span class="p">.</span><span class="nf">title</span>
+      <span class="n">xml</span><span class="p">.</span><span class="nf">link</span>    <span class="s2">"rel"</span> <span class="o">=&gt;</span> <span class="s2">"alternate"</span><span class="p">,</span> <span class="s2">"href"</span> <span class="o">=&gt;</span> <span class="n">url_for</span><span class="p">(</span><span class="ss">:posts</span><span class="p">,</span> <span class="ss">:show</span><span class="p">,</span> <span class="ss">:id</span> <span class="o">=&gt;</span> <span class="n">post</span><span class="p">)</span>
+      <span class="n">xml</span><span class="p">.</span><span class="nf">id</span>      <span class="n">url_for</span><span class="p">(</span><span class="ss">:posts</span><span class="p">,</span> <span class="ss">:show</span><span class="p">,</span> <span class="ss">:id</span> <span class="o">=&gt;</span> <span class="n">post</span><span class="p">)</span>
+      <span class="n">xml</span><span class="p">.</span><span class="nf">updated</span> <span class="n">post</span><span class="p">.</span><span class="nf">updated_at</span><span class="p">.</span><span class="nf">strftime</span> <span class="s2">"%Y-%m-%dT%H:%M:%SZ"</span>
+      <span class="n">xml</span><span class="p">.</span><span class="nf">author</span>  <span class="p">{</span> <span class="n">xml</span><span class="p">.</span><span class="nf">name</span> <span class="n">post</span><span class="p">.</span><span class="nf">account</span><span class="p">.</span><span class="nf">email</span> <span class="p">}</span>
+      <span class="n">xml</span><span class="p">.</span><span class="nf">summary</span> <span class="n">post</span><span class="p">.</span><span class="nf">body</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+
+<p>and also the template for rss using builder:</p>
+
+<pre class="highlight ruby"><code><span class="c1"># app/views/posts/index.rss.builder</span>
+<span class="n">xml</span><span class="p">.</span><span class="nf">instruct!</span>
+<span class="n">xml</span><span class="p">.</span><span class="nf">rss</span> <span class="s2">"version"</span> <span class="o">=&gt;</span> <span class="s2">"2.0"</span><span class="p">,</span> <span class="s2">"xmlns:dc"</span> <span class="o">=&gt;</span> <span class="s2">"http://purl.org/dc/elements/1.1/"</span> <span class="k">do</span>
+  <span class="n">xml</span><span class="p">.</span><span class="nf">channel</span> <span class="k">do</span>
+    <span class="n">xml</span><span class="p">.</span><span class="nf">title</span> <span class="s2">"Padrino Blog"</span>
+    <span class="n">xml</span><span class="p">.</span><span class="nf">description</span> <span class="s2">"The fantastic padrino sample blog"</span>
+    <span class="n">xml</span><span class="p">.</span><span class="nf">link</span> <span class="n">url_for</span><span class="p">(</span><span class="ss">:posts</span><span class="p">,</span> <span class="ss">:index</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">post</span> <span class="k">in</span> <span class="vi">@posts</span>
+      <span class="n">xml</span><span class="p">.</span><span class="nf">item</span> <span class="k">do</span>
+        <span class="n">xml</span><span class="p">.</span><span class="nf">title</span> <span class="n">post</span><span class="p">.</span><span class="nf">title</span>
+        <span class="n">xml</span><span class="p">.</span><span class="nf">description</span> <span class="n">post</span><span class="p">.</span><span class="nf">body</span>
+        <span class="n">xml</span><span class="p">.</span><span class="nf">pubDate</span> <span class="n">post</span><span class="p">.</span><span class="nf">created_at</span><span class="p">.</span><span class="nf">to_s</span><span class="p">(</span><span class="ss">:rfc822</span><span class="p">)</span>
+        <span class="n">xml</span><span class="p">.</span><span class="nf">link</span> <span class="n">url_for</span><span class="p">(</span><span class="ss">:posts</span><span class="p">,</span> <span class="ss">:show</span><span class="p">,</span> <span class="ss">:id</span> <span class="o">=&gt;</span> <span class="n">post</span><span class="p">)</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+
+<p>Let’s check out our changes. View the available feeds at
+<a href="http://localhost:3000/posts">http://localhost:3000/posts</a> . You now have rss and atom feeds available for
+your blog!</p>
+
+<hr />
+
+<h2 id="deploying-our-application">Deploying our Application</h2>
+
+<p>Finally, our basic blog has been built and we should deploy our application so
+the world can check it out! The easiest way to do this quickly and for free is
+to use a service such as Heroku. Let’s deploy our application to Heroku right
+now.</p>
+
+<p>The best way to get started using Heroku is by following the
+<a href="http://docs.heroku.com/quickstart">Heroku Quickstart Guide</a> . As explained in
+the guide, be sure to have Git installed and
+<a href="http://heroku.com/signup">setup a Heroku account</a> as well as
+<a href="http://docs.heroku.com/heroku-command">install the Heroku gem</a> before
+continuing this tutorial.</p>
+
+<p>Now, to deploy to Heroku, the application needs to be set up as a Git
+repository:</p>
+
+<pre class="highlight shell"><code><span class="gp">$ </span>git init
+<span class="gp">$ </span>git add .
+<span class="gp">$ </span>git commit -m <span class="s2">"initial commit for app"</span>
+</code></pre>
+
+<p>This initializes the Git repository, adds all the contents and commit them to
+the repo. Next, the application must be set up on Heroku.</p>
+
+<pre class="highlight shell"><code>sample-blog <span class="nv">$ </span>heroku create --stack bamboo-ree-1.8.7
+sample-blog <span class="nv">$ </span>git push heroku master
+</code></pre>
+
+<p>That’s it, your app is now running on Heroku!</p>
+
+<p>Run <code>heroku open</code> to open your site in your default web browser.</p>
+
+<p>Currently Padrino defaults to <strong>SQLite</strong> but Heroku only supports
+<strong>PostgreSQL</strong>, so we’ll need to add <code>pg</code> as a dependency.</p>
+
+<pre class="highlight ruby"><code><span class="c1"># Gemfile</span>
+<span class="n">group</span> <span class="ss">:production</span> <span class="k">do</span>
+  <span class="n">gem</span> <span class="s1">'pg'</span>
+<span class="k">end</span>
+</code></pre>
+
+<p>Now you can run the following on your local machine to avoid the installation of
+the <code>pg</code> gem:</p>
+
+<pre class="highlight shell"><code>sample-blog <span class="nv">$ </span>bundle install --without production
+</code></pre>
+
+<p>It’s also necessary to configure the <code>config/database.rb</code> for production.</p>
+
+<pre class="highlight ruby"><code><span class="c1"># config/database.rb</span>
+<span class="n">postgres</span> <span class="o">=</span> <span class="no">URI</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span><span class="no">ENV</span><span class="p">[</span><span class="s1">'DATABASE_URL'</span><span class="p">]</span> <span class="o">||</span> <span class="s1">''</span><span class="p">)</span>
+
+<span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="p">.</span><span class="nf">configurations</span><span class="p">[</span><span class="ss">:production</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="ss">:adapter</span>  <span class="o">=&gt;</span> <span class="s1">'postgresql'</span><span class="p">,</span>
+  <span class="ss">:encoding</span> <span class="o">=&gt;</span> <span class="s1">'utf8'</span><span class="p">,</span>
+  <span class="ss">:database</span> <span class="o">=&gt;</span> <span class="n">postgres</span><span class="p">.</span><span class="nf">path</span><span class="p">[</span><span class="mi">1</span><span class="p">.</span><span class="nf">.</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+  <span class="ss">:username</span> <span class="o">=&gt;</span> <span class="n">postgres</span><span class="p">.</span><span class="nf">user</span><span class="p">,</span>
+  <span class="ss">:password</span> <span class="o">=&gt;</span> <span class="n">postgres</span><span class="p">.</span><span class="nf">password</span><span class="p">,</span>
+  <span class="ss">:host</span>     <span class="o">=&gt;</span> <span class="n">postgres</span><span class="p">.</span><span class="nf">host</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>Now we need to create a Rakefile since we don’t have shell access to <code>padrino
+rake</code>. Simply use the handy Rakefile generator:</p>
+
+<pre class="highlight shell"><code><span class="gp">$ </span>padrino rake gen
+</code></pre>
+
+<p>And a Rakefile will be generated automatically that looks like this:</p>
+
+<pre class="highlight ruby"><code><span class="c1"># Rakefile</span>
+<span class="nb">require</span> <span class="s1">'bundler/setup'</span>
+<span class="nb">require</span> <span class="s1">'padrino-core/cli/rake'</span>
+
+<span class="no">PadrinoTasks</span><span class="p">.</span><span class="nf">use</span><span class="p">(</span><span class="ss">:database</span><span class="p">)</span>
+<span class="no">PadrinoTasks</span><span class="p">.</span><span class="nf">use</span><span class="p">(</span><span class="ss">:activerecord</span><span class="p">)</span>
+<span class="no">PadrinoTasks</span><span class="p">.</span><span class="nf">init</span>
+</code></pre>
+
+<p>Finally we need to tweak our <code>seed.rb</code>:</p>
+
+<pre class="highlight ruby"><code><span class="c1"># db/seeds.rb</span>
+<span class="n">email</span>     <span class="o">=</span> <span class="s2">"info@padrinorb.com"</span>
+<span class="n">password</span>  <span class="o">=</span> <span class="s2">"admin"</span>
+
+<span class="n">shell</span><span class="p">.</span><span class="nf">say</span> <span class="s2">""</span>
+
+<span class="n">account</span> <span class="o">=</span> <span class="no">Account</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">:email</span> <span class="o">=&gt;</span> <span class="n">email</span><span class="p">,</span>
+                         <span class="ss">:name</span> <span class="o">=&gt;</span> <span class="s2">"Foo"</span><span class="p">,</span>
+                         <span class="ss">:surname</span> <span class="o">=&gt;</span> <span class="s2">"Bar"</span><span class="p">,</span>
+                         <span class="ss">:password</span> <span class="o">=&gt;</span> <span class="n">password</span><span class="p">,</span>
+                         <span class="ss">:password_confirmation</span> <span class="o">=&gt;</span> <span class="n">password</span><span class="p">,</span>
+                         <span class="ss">:role</span> <span class="o">=&gt;</span> <span class="s2">"admin"</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">account</span><span class="p">.</span><span class="nf">valid?</span>
+  <span class="n">shell</span><span class="p">.</span><span class="nf">say</span> <span class="s2">"================================================================="</span>
+  <span class="n">shell</span><span class="p">.</span><span class="nf">say</span> <span class="s2">"Account has been successfully created, now you can login with:"</span>
+  <span class="n">shell</span><span class="p">.</span><span class="nf">say</span> <span class="s2">"================================================================="</span>
+  <span class="n">shell</span><span class="p">.</span><span class="nf">say</span> <span class="s2">"   email: </span><span class="si">#{</span><span class="n">email</span><span class="si">}</span><span class="s2">"</span>
+  <span class="n">shell</span><span class="p">.</span><span class="nf">say</span> <span class="s2">"   password: </span><span class="si">#{</span><span class="n">password</span><span class="si">}</span><span class="s2">"</span>
+  <span class="n">shell</span><span class="p">.</span><span class="nf">say</span> <span class="s2">"================================================================="</span>
+<span class="k">else</span>
+  <span class="n">shell</span><span class="p">.</span><span class="nf">say</span> <span class="s2">"Sorry but some thing went worng!"</span>
+  <span class="n">shell</span><span class="p">.</span><span class="nf">say</span> <span class="s2">""</span>
+  <span class="n">account</span><span class="p">.</span><span class="nf">errors</span><span class="p">.</span><span class="nf">full_messages</span><span class="p">.</span><span class="nf">each</span> <span class="p">{</span> <span class="o">|</span><span class="n">m</span><span class="o">|</span> <span class="n">shell</span><span class="p">.</span><span class="nf">say</span> <span class="s2">"   - </span><span class="si">#{</span><span class="n">m</span><span class="si">}</span><span class="s2">"</span> <span class="p">}</span>
+<span class="k">end</span>
+
+<span class="n">shell</span><span class="p">.</span><span class="nf">say</span> <span class="s2">""</span>
+</code></pre>
+
+<p>Feel free to change the seed values above.</p>
+
+<p>Now run the following in the console:</p>
+
+<pre class="highlight shell"><code><span class="gp">$ </span>git add .
+<span class="gp">$ </span>git commit -m <span class="s2">"Added Postgres support"</span>
+<span class="gp">$ </span>git push heroku master
+</code></pre>
+
+<p>Now run our <code>migrations/seeds</code>:</p>
+
+<pre class="highlight shell"><code><span class="gp">$ </span>heroku rake ar:migrate
+<span class="gp">$ </span>heroku rake seed
+</code></pre>
+
+<p>You’ll see something like:</p>
+
+<pre class="highlight shell"><code><span class="gp">$ </span>heroku rake ar:migrate
+<span class="o">(</span><span class="k">in</span> /disk1/home/slugs/151491_a295681_03f1/mnt<span class="o">)</span>
+<span class="gp">=&gt; </span>Located locked Gemfile <span class="k">for </span>production
+<span class="o">==</span>  CreateAccounts: migrating <span class="o">=================================================</span>
+-- create_table<span class="o">(</span><span class="s2">"accounts"</span>, <span class="o">{})</span>
+   -&gt; 0.0185s
+<span class="o">==</span>  CreateAccounts: migrated <span class="o">(</span>0.0229s<span class="o">)</span> <span class="o">========================================</span>
+
+<span class="o">==</span>  CreatePosts: migrating <span class="o">====================================================</span>
+-- create_table<span class="o">(</span><span class="s2">"posts"</span>, <span class="o">{})</span>
+   -&gt; 0.0178s
+<span class="o">==</span>  CreatePosts: migrated <span class="o">(</span>0.0218s<span class="o">)</span> <span class="o">===========================================</span>
+
+<span class="o">==</span>  AddAccountToPost: migrating <span class="o">===============================================</span>
+-- change_table<span class="o">(</span>:posts<span class="o">)</span>
+   -&gt; 0.0026s
+<span class="o">==</span>  AddAccountToPost: migrated <span class="o">(</span>0.0028s<span class="o">)</span> <span class="o">======================================</span>
+
+MacBook:sample_blog DAddYE<span class="nv">$ </span>heroku rake seed
+<span class="o">(</span><span class="k">in</span> /disk1/home/slugs/151491_7576c59_03f1/mnt<span class="o">)</span>
+<span class="gp">=&gt; </span>Located locked Gemfile <span class="k">for </span>production
+
+<span class="o">=================================================================</span>
+Account has been successfully created, now you can login with:
+<span class="o">=================================================================</span>
+   email: info@padrinorb.com
+   password: admin
+<span class="o">=================================================================</span>
+</code></pre>
+
+<p>Now let’s open our newly deployed app:</p>
+
+<pre class="highlight shell"><code><span class="gp">$ </span>heroku open
+</code></pre>
+
+<p>Enjoy!</p>
+
+<p class="excerpt"><a class="button" href="/guides/application-helpers">Next Section – Application Helpers</a></p>
+</div></div></div><hr /><footer class="footer"><p>Padrino is released under the MIT LICENSE<br />
+Hosting by <a href="https://pages.github.com">GitHub Pages</a></p>
+</footer><script src="../../assets/javascripts/all-c2e0cecd.js"></script></div></body></html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html><html><head><meta charset="utf-8" /><meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" /><meta content="initial-scale=1" name="viewport" /><title>Padrino - Padrino 0.10.2 - ActiveSupport 3.1, TravisCI Support, Routing and Misc Bug</title><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" /><link href="../../assets/stylesheets/style-75d468d0.css" rel="stylesheet" /></head><body class="blog blog_padrino-0-10-2-activesupport-3-1-travisci-support-routing-and-misc-bug-fixes-galore blog_padrino-0-10-2-activesupport-3-1-travisci-support-routing-and-misc-bug-fixes-galore_index"><div class="grid"><header class="header"><h1 class="header__name"><a class="padrino-name" href="/">Padrino</a></h1><div class="header__navigation"><nav class="navigation"><a class="navigation__toggler" href="#" id="navigation__toggler"><span class="navigation__toggler__icon fa fa-navicon"></span></a><ul class="navigation__items" id="navigation__items"><li class="navigation__item"><a class="navigation__link" href="/">Overview</a></li><li class="navigation__item"><a class="navigation__link" href="/guides/">Guides</a></li><li class="navigation__item"><a class="navigation__link--is-active" href="/blog/">Blog</a></li><li class="navigation__item"><a class="navigation__link" href="http://www.rubydoc.info/github/padrino/padrino-framework">API</a></li><li class="navigation__item"><a class="navigation__link" href="/contribute/">Contribute</a></li><li class="navigation__item"><a class="navigation__link" href="https://github.com/padrino/padrino-framework"><span class="button--slim">GitHub</span></a></li></ul></nav></div></header><div class="page"><div class="page__sidebar"><div class="sidebar"><h4 class="sidebar__header--first">Blog</h4><h5 class="sidebar__header">Latest Posts</h5><ul class="sidebar__items"><li class="sidebar__item"><a class="sidebar__link" href="/blog/upgrading-padrino-from-0-12-x-to-0-13-0-guide/">Upgrading Padrino from 0.12.X to 0.13.0 Guide</a></li><li class="sidebar__item"><a class="sidebar__link" href="/blog/padrino-0-13-0-mustermann-router-performance-enhancements-streaming-support-and-much-more/">Padrino 0.13.0 - Mustermann Router, Performance Enhancements, Streaming Support, and Much More</a></li><li class="sidebar__item"><a class="sidebar__link" href="/blog/padrino-0-12-5/">Padrino 0.12.5</a></li><li class="sidebar__item"><a class="sidebar__link" href="/blog/padrino-0-12-4/">Padrino 0.12.4</a></li><li class="sidebar__item"><a class="sidebar__link" href="/blog/padrino-0-11-0-released-padrino-lives/">Padrino 0.11.0 Released - Padrino Lives!</a></li><li class="sidebar__item"><a class="sidebar__link" href="/blog/json-gem-vulnerability/">JSON gem vulnerability</a></li><li class="sidebar__item"><a class="sidebar__link" href="/blog/upgrade-rack-immediately/">Upgrade Rack immediately</a></li></ul></div></div><div class="page__content"><div class="content"><div class="article"><h1 class="article__title">Padrino 0.10.2 - ActiveSupport 3.1, TravisCI Support, Routing and Misc Bug</h1><p class="article__metadata">Posted on August 31, 2011 by Nathan</p><p>Just about 1 month ago, we released 0.10.1 which had several important bug fixes after our major 0.10.0 release. Today we are releasing 0.10.2 which continues in this tradition and provides a bunch more fixes that were reported since the last release. We sincerely appreciate everyone <a href="https://github.com/padrino/padrino-framework/issues">opening issues</a> and sending us pull requests on Github. Our framework wouldn’t be half as solid without your contributions.</p>
+
+<p>This release of 0.10.2 marks the beginning of our usage of TravisCI, major route reloading fixes, and a slew of bug fixes for the mailer, renderer, helpers, generators and more. We have also upgraded and locked to ActiveSupport 3.1. If you are using 0.10.1 and having trouble with the reloader, please upgrade to 0.10.2! Details for this release are below.</p>
+
+<h2 id="upgrade-to-activesupport-31">Upgrade to ActiveSupport 3.1</h2>
+
+<p>ActiveSupport 3.1 has been officially released and we have upgraded Padrino accordingly! Padrino 0.10.2 and on will require the latest and greatest ActiveSupport. Upgrading should be painless because there are not many backwards incompatibilities.</p>
+
+<h2 id="travisci">TravisCI</h2>
+
+<p>This release marks the beginning of our use of <a href="http://travis-ci.org/#!/padrino/padrino-framework">Travis CI for Padrino</a>. TravisCI is a great tool for the open source community and improves our continuous integration testing for all versions of Ruby. <a href="https://github.com/padrino/padrino-framework/commit/5e7f244de66bf412e5183b50827019d894eb6e4d">commit</a></p>
+
+<h2 id="routing">Routing</h2>
+
+<p>This release is largely pushed out to fix a major route reloading bug recently introduced. Reloading has continuously been the most error-prone and hardest to test aspect of our system. This has become frustrating for us as well as for our users. However, thanks to <a href="https://github.com/chromaticbum">Hollin Wilkins &amp; Dave Willett @ TrueCar in San Francisco</a>, this route issue has been resolved for now. Please <a href="https://github.com/padrino/padrino-framework/issues">let us know</a> if you are still experiencing issues when on 0.10.2! Check out the <a href="https://github.com/padrino/padrino-framework/commit/0a09adce5bd84a1d201576fa8046f1d4210d27d6">commit</a> which fixed the issue.</p>
+
+<p>We also fixed an issue with routes that contain the word ‘index’. Check out the <a href="https://github.com/padrino/padrino-framework/commit/506ad5414279d737908d7d97f6c244a31b3a1828">commit</a>.</p>
+
+<h2 id="components">Components</h2>
+
+<ul>
+  <li>Adds support for mysql2 when using sequel as adapter (Thanks <a href="https://github.com/rafaelss">rafaelss</a>): <a href="https://github.com/padrino/padrino-framework/commit/a447f0d6129a90fa9baa3c8c1dc1e0ecd76bf692">commit</a></li>
+  <li>Fixes potential issue with libxml-ruby (Thanks <a href="https://github.com/farcaller">farcaller</a>): <a href="https://github.com/padrino/padrino-framework/commit/a492a5bb648827e924c750dc8435dc5b25dc43ea">commit</a></li>
+</ul>
+
+<h2 id="miscellaneous-and-bug-fixes">Miscellaneous and Bug Fixes</h2>
+
+<ul>
+  <li>Default content type for mailer has been corrected: <a href="https://github.com/padrino/padrino-framework/commit/8496dca3ce1c1666c72af511287769227c261afb">commit</a></li>
+  <li>Rendering a hash i.e render :json =&gt; obj is now properly set as json: <a href="https://github.com/padrino/padrino-framework/commit/807658be63d9b391d72d8482586e1402a2107d1a">commit</a></li>
+  <li>Protect admin login from XSS attacks: <a href="https://github.com/padrino/padrino-framework/commit/9f4c3158c23daa8140f917d9210aefda8467df7f">commit</a></li>
+  <li>Escape certain html entities when writing html tags: <a href="https://github.com/padrino/padrino-framework/commit/7a3d0b38b3a4b5e71c553248d149bab38d8338ae">commit</a></li>
+  <li>Fixes error block handling for ::Exception: <a href="https://github.com/padrino/padrino-framework/commit/8daec1d3fcf69e6ce8ca95d09c12f06c037acd79">commit</a></li>
+  <li>Fix model test_config require when not using default top level: <a href="https://github.com/padrino/padrino-framework/commit/b44b5ac49db9a7b3fa2d3abc76ce40ab3345781e">commit</a></li>
+  <li>Outputs the partials that are rendered in development mode (Thanks <a href="https://github.com/minikomi">minikomi</a>): <a href="https://github.com/padrino/padrino-framework/commit/d4c3b41ca1c8fe80d68254b36796d088a2ad88ad">commit</a></li>
+  <li>Preserve the original options when resolving a template (Thanks <a href="https://github.com/Xylakant">Xylakant</a>): <a href="https://github.com/padrino/padrino-framework/commit/bf7c898a716a7c653d243bab42734d1700657dfd">commit</a></li>
+  <li>Moved from rdoc documentation to yard: <a href="https://github.com/padrino/padrino-framework/commit/7c5c60475c3909e0c0c1d7ba4057b215e2ff1a59">commit</a></li>
+  <li>Fix issue with not respecting RACK_ENV in the CLI: <a href="https://github.com/padrino/padrino-framework/commit/5d631d47ecc7617f22dda21de3d607893a60d453">commit</a></li>
+  <li>Fixes issue when rendering partials with a forward slash (Thanks <a href="https://github.com/philly-mac">philly-mac</a>): <a href="https://github.com/padrino/padrino-framework/commit/29c8c37bf583eb1108eeb4c431def0c820b821b4">commit</a>, <a href="https://github.com/padrino/padrino-framework/commit/5f1fcabdbde0457afb058d4a5109542a016c90c0">commit</a></li>
+</ul>
+
+<p>That concludes the changelog for this release. As always if you want to keep up with Padrino updates, be sure to follow us on twitter: <a href="http://twitter.com/#!/padrinorb">@padrinorb</a>, join us on IRC at “#padrinorb” on freenode or <a href="https://github.com/padrino/padrino-framework/issues">open an issue</a> on GitHub.</p>
+
+<hr /><div id="disqus_thread"></div></div></div></div></div><hr /><footer class="footer"><p>Padrino is released under the MIT LICENSE<br />
+Hosting by <a href="https://pages.github.com">GitHub Pages</a></p>
+</footer><script src="../../assets/javascripts/all-c2e0cecd.js"></script></div><script src="https://padrinorb.disqus.com/embed.js"></script></body></html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html><html><head><meta charset="utf-8" /><meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" /><meta content="initial-scale=1" name="viewport" /><title>Padrino - Localization</title><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" /><link href="../../assets/stylesheets/style-75d468d0.css" rel="stylesheet" /></head><body class="guides guides_localization guides_localization_index"><div class="grid"><header class="header"><h1 class="header__name"><a class="padrino-name" href="/">Padrino</a></h1><div class="header__navigation"><nav class="navigation"><a class="navigation__toggler" href="#" id="navigation__toggler"><span class="navigation__toggler__icon fa fa-navicon"></span></a><ul class="navigation__items" id="navigation__items"><li class="navigation__item"><a class="navigation__link" href="/">Overview</a></li><li class="navigation__item"><a class="navigation__link--is-active" href="/guides/">Guides</a></li><li class="navigation__item"><a class="navigation__link" href="/blog/">Blog</a></li><li class="navigation__item"><a class="navigation__link" href="http://www.rubydoc.info/github/padrino/padrino-framework">API</a></li><li class="navigation__item"><a class="navigation__link" href="/contribute/">Contribute</a></li><li class="navigation__item"><a class="navigation__link" href="https://github.com/padrino/padrino-framework"><span class="button--slim">GitHub</span></a></li></ul></nav></div></header><div class="page"><div class="page__sidebar"><div class="sidebar"><h4 class="sidebar__header--first">Guides</h4><ul class="sidebar__items"><li class="sidebar__item"><a class="sidebar__link" href="/guides/">Home</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/getting-started/">Getting Started</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/installation/">Installation</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/basic-projects/">Basic Projects</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/generators/">Generators</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/development-commands/">Development Commands</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/mounting-applications/">Mounting Applications</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/blog-tutorial/">Blog Tutorial</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/application-helpers/">Application Helpers</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/padrino-admin/">Padrino Admin</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/padrino-mailer/">Padrino Mailer</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/padrino-cache/">Padrino Cache</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/controllers/">Controllers</a></li><li class="sidebar__item"><a class="sidebar__link--is-active" href="/guides/localization/">Localization</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/extensions/">Extensions</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/rake-tasks/">Rake Tasks</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/the-bleeding-edge/">The Bleeding Edge</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/adding-new-components/">Adding New Components</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/standalone-usage-in-sinatra/">Standalone Usage in Sinatra</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/running-padrino-on-jruby/">Running Padrino on JRuby</a></li></ul></div></div><div class="page__content"><div class="content"><h1 id="localization">Localization</h1>
+
+<p>Padrino supports full localization in:</p>
+
+<ul>
+  <li>padrino-core (date formats, time formats etc…)</li>
+  <li>padrino-admin (admin language, orm fields, orm errors, etc…)</li>
+  <li>padrino-helpers (currency, percentage, precision, duration etc…)</li>
+</ul>
+
+<p>At the moment we support the following list of languages:</p>
+
+<ul>
+  <li>Czech</li>
+  <li>Danish</li>
+  <li>German</li>
+  <li>English</li>
+  <li>Spanish</li>
+  <li>French</li>
+  <li>Italian</li>
+  <li>Dutch</li>
+  <li>Norwegian</li>
+  <li>Russian</li>
+  <li>Polish</li>
+  <li>Brazilian</li>
+  <li>Turkish</li>
+  <li>Ukrainian</li>
+  <li>Traditional Chinese</li>
+  <li>Simplified Chinese</li>
+  <li>Japanese</li>
+</ul>
+
+<hr />
+
+<h2 id="provide-your-translations">Provide your translations</h2>
+
+<p>Download and translate these files:</p>
+
+<ul>
+  <li><a href="https://raw.github.com/padrino/padrino-framework/master/padrino-support/lib/padrino-support/locale/en.yml">padrino-core.yml</a></li>
+  <li><a href="http://raw.github.com/padrino/padrino-framework/master/padrino-admin/lib/padrino-admin/locale/admin/en.yml">padrino-admin.yml</a></li>
+  <li><a href="http://raw.github.com/padrino/padrino-framework/master/padrino-admin/lib/padrino-admin/locale/orm/en.yml">padrino-admin-orm.yml</a></li>
+  <li><a href="http://raw.github.com/padrino/padrino-framework/master/padrino-helpers/lib/padrino-helpers/locale/en.yml">padrino-helper.yml</a></li>
+</ul>
+
+<p>zip your files and send it to <a href="&#109;&#097;&#105;&#108;&#116;&#111;:&#112;&#097;&#100;&#114;&#105;&#110;&#111;&#114;&#098;&#064;&#103;&#109;&#097;&#105;&#108;&#046;&#111;&#114;&#103;">padrinorb@gmail.com</a></p>
+
+<hr />
+
+<h2 id="how-to-localize-your-app">How to localize your app</h2>
+
+<p>The first thing that you need to do is to set your locale by appending it to
+boot.rb:</p>
+
+<pre class="highlight ruby"><code><span class="c1"># config/boot.rb</span>
+<span class="no">Padrino</span><span class="p">.</span><span class="nf">before_load</span> <span class="k">do</span>
+  <span class="no">I18n</span><span class="p">.</span><span class="nf">locale</span> <span class="o">=</span> <span class="ss">:de</span>
+<span class="k">end</span>
+</code></pre>
+
+<p>By default Padrino will search for all <code>.yml</code> or <code>.rb</code> files located in
+<code>app/locale</code>; as an example try to add the following to your
+<code>app/locale/de.yml</code>:</p>
+
+<p>in your view or controller or wherever you prefer add:</p>
+
+<pre class="highlight ruby"><code><span class="no">I18n</span><span class="p">.</span><span class="nf">t</span><span class="p">(</span><span class="s2">"foo"</span><span class="p">)</span>
+</code></pre>
+
+<p>you will get:</p>
+
+<pre class="highlight plaintext"><code>=&gt; "Bar"
+</code></pre>
+
+<hr />
+
+<h2 id="translate-models-activerecord">Translate Models (ActiveRecord)</h2>
+
+<p>Translating models via Padrino requires few seconds thanks to a builtin rake
+task!</p>
+
+<p>Assuming the following Account model:</p>
+
+<pre class="highlight ruby"><code><span class="n">create_table</span> <span class="ss">:accounts</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
+  <span class="n">t</span><span class="p">.</span><span class="nf">string</span>   <span class="ss">:name</span>
+  <span class="n">t</span><span class="p">.</span><span class="nf">string</span>   <span class="ss">:surname</span>
+  <span class="n">t</span><span class="p">.</span><span class="nf">string</span>   <span class="ss">:email</span>
+  <span class="n">t</span><span class="p">.</span><span class="nf">string</span>   <span class="ss">:salt</span>
+  <span class="n">t</span><span class="p">.</span><span class="nf">string</span>   <span class="ss">:crypted_password</span>
+  <span class="n">t</span><span class="p">.</span><span class="nf">string</span>   <span class="ss">:role</span>
+<span class="k">end</span>
+</code></pre>
+
+<p>add this to your boot.rb (or anywhere else):</p>
+
+<pre class="highlight ruby"><code><span class="c1"># config/boot.rb</span>
+<span class="no">Padrino</span><span class="p">.</span><span class="nf">before_load</span> <span class="k">do</span>
+  <span class="no">I18n</span><span class="p">.</span><span class="nf">locale</span> <span class="o">=</span> <span class="ss">:it</span>
+<span class="k">end</span>
+</code></pre>
+
+<p>run padrino rake task for localizing your model:</p>
+
+<pre class="highlight shell"><code>padrino rake ar:translate
+</code></pre>
+
+<p>a new it.yml file will be created into <code>/app/locale/models/account/it.yml</code> with
+the following:</p>
+
+<p>you can now edit your generated <code>it.yml</code> file to reflect your current locale
+(Italian):</p>
+
+<p>padrino-admin will now use your newly created yml file for translating the
+column names of grids, forms, error_messages etc…</p>
+
+<hr />
+
+<h2 id="bonus">Bonus</h2>
+
+<p>Using <em>form_builder</em> like:</p>
+
+<pre class="highlight haml"><code><span class="p">-</span><span class="n">form_for</span> <span class="ss">:account</span><span class="p">,</span> <span class="n">url</span><span class="p">(</span><span class="ss">:accounts_create</span><span class="p">,</span> <span class="ss">:format</span> <span class="o">=&gt;</span> <span class="ss">:js</span><span class="p">),</span> <span class="ss">:remote</span> <span class="o">=&gt;</span> <span class="kp">true</span> <span class="k">do</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span>
+  <span class="nt">%table</span>
+    <span class="nt">%tr</span>
+      <span class="nt">%td</span><span class="p">=</span><span class="n">f</span><span class="p">.</span><span class="nf">label</span> <span class="ss">:name</span>
+      <span class="nt">%td</span><span class="p">=</span><span class="n">f</span><span class="p">.</span><span class="nf">text_field</span> <span class="ss">:name</span>
+    <span class="nt">%tr</span>
+      <span class="nt">%td</span><span class="p">=</span><span class="n">f</span><span class="p">.</span><span class="nf">label</span> <span class="ss">:surname</span>
+      <span class="nt">%td</span><span class="p">=</span><span class="n">f</span><span class="p">.</span><span class="nf">text_field</span> <span class="ss">:surname</span>
+    <span class="nt">%tr</span>
+      <span class="nt">%td</span><span class="p">=</span><span class="n">f</span><span class="p">.</span><span class="nf">label</span> <span class="ss">:role</span>
+      <span class="nt">%td</span><span class="p">=</span><span class="n">f</span><span class="p">.</span><span class="nf">select</span> <span class="ss">:role</span><span class="p">,</span> <span class="ss">:options</span> <span class="o">=&gt;</span> <span class="n">access_control</span><span class="p">.</span><span class="nf">roles</span>
+</code></pre>
+
+<p>the tag <strong>label</strong> automatically translates for <strong>you</strong> the field name!!</p>
+
+<p class="excerpt"><a class="button" href="/guides/extensions">Next Section – Extensions</a></p>
+</div></div></div><hr /><footer class="footer"><p>Padrino is released under the MIT LICENSE<br />
+Hosting by <a href="https://pages.github.com">GitHub Pages</a></p>
+</footer><script src="../../assets/javascripts/all-c2e0cecd.js"></script></div></body></html>

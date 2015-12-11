@@ -1,0 +1,180 @@
+<!DOCTYPE html><html><head><meta charset="utf-8" /><meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" /><meta content="initial-scale=1" name="viewport" /><title>Padrino - Padrino Admin</title><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" /><link href="../../assets/stylesheets/style-75d468d0.css" rel="stylesheet" /></head><body class="guides guides_padrino-admin guides_padrino-admin_index"><div class="grid"><header class="header"><h1 class="header__name"><a class="padrino-name" href="/">Padrino</a></h1><div class="header__navigation"><nav class="navigation"><a class="navigation__toggler" href="#" id="navigation__toggler"><span class="navigation__toggler__icon fa fa-navicon"></span></a><ul class="navigation__items" id="navigation__items"><li class="navigation__item"><a class="navigation__link" href="/">Overview</a></li><li class="navigation__item"><a class="navigation__link--is-active" href="/guides/">Guides</a></li><li class="navigation__item"><a class="navigation__link" href="/blog/">Blog</a></li><li class="navigation__item"><a class="navigation__link" href="http://www.rubydoc.info/github/padrino/padrino-framework">API</a></li><li class="navigation__item"><a class="navigation__link" href="/contribute/">Contribute</a></li><li class="navigation__item"><a class="navigation__link" href="https://github.com/padrino/padrino-framework"><span class="button--slim">GitHub</span></a></li></ul></nav></div></header><div class="page"><div class="page__sidebar"><div class="sidebar"><h4 class="sidebar__header--first">Guides</h4><ul class="sidebar__items"><li class="sidebar__item"><a class="sidebar__link" href="/guides/">Home</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/getting-started/">Getting Started</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/installation/">Installation</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/basic-projects/">Basic Projects</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/generators/">Generators</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/development-commands/">Development Commands</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/mounting-applications/">Mounting Applications</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/blog-tutorial/">Blog Tutorial</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/application-helpers/">Application Helpers</a></li><li class="sidebar__item"><a class="sidebar__link--is-active" href="/guides/padrino-admin/">Padrino Admin</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/padrino-mailer/">Padrino Mailer</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/padrino-cache/">Padrino Cache</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/controllers/">Controllers</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/localization/">Localization</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/extensions/">Extensions</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/rake-tasks/">Rake Tasks</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/the-bleeding-edge/">The Bleeding Edge</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/adding-new-components/">Adding New Components</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/standalone-usage-in-sinatra/">Standalone Usage in Sinatra</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/running-padrino-on-jruby/">Running Padrino on JRuby</a></li></ul></div></div><div class="page__content"><div class="content"><h1 id="padrino-admin">Padrino Admin</h1>
+
+<p>Padrino comes shipped with a slick and beautiful Admin Interface, with the
+following features:</p>
+
+<blockquote class="excerpt--small">
+
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>Orm Agnostic</strong></td>
+        <td>Adapters for datamapper, sequel, activerecord, mongomapper, mongoid, couchrest</td>
+      </tr>
+      <tr>
+        <td><strong>Authentication</strong></td>
+        <td>User Authentication Support, User Authorization Management</td>
+      </tr>
+      <tr>
+        <td><strong>Template Agnostic</strong></td>
+        <td>Erb and Haml Rendering Support</td>
+      </tr>
+      <tr>
+        <td><strong>Scaffold</strong></td>
+        <td>You can create a new “admin interface” by providing a single Model</td>
+      </tr>
+      <tr>
+        <td><strong>MultiLanguage</strong></td>
+        <td>English, German, Russian, Danish, French, Brazilian and Italian localizations</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<hr />
+
+<h2 id="admin-usage">Admin Usage</h2>
+
+<p>Create a new project:</p>
+
+<pre class="highlight shell"><code><span class="gp">$ </span>padrino g project fun-test -d datamapper
+<span class="gp">$ </span><span class="nb">cd </span>fun-test
+</code></pre>
+
+<p>Create the admin application:</p>
+
+<pre class="highlight shell"><code><span class="gp">$ </span>padrino g admin
+</code></pre>
+
+<p>Follow the instructions in your terminal and provide some valid email and
+password for your newly created admin account:</p>
+
+<ul>
+  <li>edit your config/database.rb</li>
+  <li>migrate your database # padrino rake ar:migrate or # dm:migrate</li>
+  <li>seed your database with some data # padrino rake seed</li>
+</ul>
+
+<p>Your admin section is now “setup”: you can start padrino <code>padrino start</code> and
+point your web browser to <a href="http://localhost:3000/admin">http://localhost:3000/admin</a> and log in with your
+admin account credentials.</p>
+
+<p>If you need to create some sort of “scaffold” (basic CRUD actions) create a
+<em>model</em>, migrate your database, generate your scaffolding folder structure and
+views and add those to your admin section by running this series of commands:</p>
+
+<pre class="highlight shell"><code><span class="gp">$ </span>padrino g model post title:string body:text
+<span class="gp">$ </span>padrino rake dm:migrate <span class="c"># or ar:migrate</span>
+<span class="gp">$ </span>padrino g admin_page post
+<span class="gp">$ </span>padrino start
+</code></pre>
+
+<p>That’s it! Browse to <a href="http://localhost:3000/admin">http://localhost:3000/admin</a> and access your model by
+clicking on the newly created tab on your admin navbar: there you can create,
+edit, destroy and display your objects.</p>
+
+<hr />
+
+<h2 id="admin-authentication">Admin Authentication</h2>
+
+<p>Padrino Admin uses a single model Account for managing roles, memberships and
+permissions (User Authentication and Authorization).</p>
+
+<hr />
+
+<h2 id="scenario-ecommerce-user-authentication">Scenario Ecommerce (User Authentication)</h2>
+
+<p>To make some practical example, let’s examine some common ecommerce application
+scenario, where we usually need to restrain some users to get access to some of
+our controllers actions; we can easily accomplish this by editing <code>app.rb</code>
+accordingly:</p>
+
+<pre class="highlight ruby"><code><span class="k">class</span> <span class="nc">MyEcommerce</span> <span class="o">&lt;</span> <span class="no">Padrino</span><span class="o">::</span><span class="no">Application</span>
+  <span class="n">register</span> <span class="no">Padrino</span><span class="o">::</span><span class="no">Admin</span><span class="o">::</span><span class="no">AccessControl</span>
+
+  <span class="n">enable</span> <span class="ss">:authentication</span>
+  <span class="n">enable</span> <span class="ss">:store_location</span>
+  <span class="n">set</span>    <span class="ss">:login_page</span><span class="p">,</span> <span class="s2">"/login"</span>
+
+  <span class="n">access_control</span><span class="p">.</span><span class="nf">roles_for</span> <span class="ss">:any</span> <span class="k">do</span> <span class="o">|</span><span class="n">role</span><span class="o">|</span>
+    <span class="n">role</span><span class="p">.</span><span class="nf">protect</span> <span class="s2">"/customer/orders"</span>
+    <span class="n">role</span><span class="p">.</span><span class="nf">protect</span> <span class="s2">"/cart/checkout"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+
+<p>In the above example we are protecting those paths starting with
+<code>/customer/orders</code> and <code>/cart/checkout</code>. The result will be that an
+unauthenticated user will not be able to access those actions, and he will be
+asked to authenticate first by visiting our <code>:login_page</code> defined as <code>/login</code>
+and by providing his login credentials (default authentication behaviour is
+email and password).</p>
+
+<p>When successfully logged in, he will be granted access to those two pages.</p>
+
+<hr />
+
+<h2 id="admin-scenario-user-authorization">Admin Scenario (User Authorization)</h2>
+
+<p>For Another example, let’s suppose that you need your <strong>admin</strong> account to do
+certain things and have access to certain controller actions, and your
+<strong>editor</strong> account needs to be restrained to get access to those same admin
+actions.</p>
+
+<p>Padrino admin generator, will create for you a new <code>Account</code> model with a
+default <code>role</code> attribute.</p>
+
+<pre class="highlight ruby"><code><span class="k">class</span> <span class="nc">Admin</span> <span class="o">&lt;</span> <span class="no">Padrino</span><span class="o">::</span><span class="no">Application</span>
+  <span class="n">register</span> <span class="no">Padrino</span><span class="o">::</span><span class="no">Admin</span><span class="o">::</span><span class="no">AccessControl</span>
+
+  <span class="n">enable</span> <span class="ss">:authentication</span>
+  <span class="n">disable</span> <span class="ss">:store_location</span>
+  <span class="n">set</span> <span class="ss">:login_page</span><span class="p">,</span> <span class="s2">"/admin/sessions/new"</span>
+
+  <span class="n">access_control</span><span class="p">.</span><span class="nf">roles_for</span> <span class="ss">:any</span> <span class="k">do</span> <span class="o">|</span><span class="n">role</span><span class="o">|</span>
+    <span class="n">role</span><span class="p">.</span><span class="nf">protect</span> <span class="s2">"/"</span>
+    <span class="n">role</span><span class="p">.</span><span class="nf">allow</span> <span class="s2">"/sessions"</span>
+  <span class="k">end</span>
+
+  <span class="n">access_control</span><span class="p">.</span><span class="nf">roles_for</span> <span class="ss">:admin</span> <span class="k">do</span> <span class="o">|</span><span class="n">role</span><span class="o">|</span>
+    <span class="n">role</span><span class="p">.</span><span class="nf">project_module</span> <span class="ss">:settings</span><span class="p">,</span> <span class="s2">"/settings"</span>
+  <span class="k">end</span>
+
+  <span class="n">access_control</span><span class="p">.</span><span class="nf">roles_for</span> <span class="ss">:editor</span> <span class="k">do</span> <span class="o">|</span><span class="n">role</span><span class="o">|</span>
+    <span class="n">role</span><span class="p">.</span><span class="nf">project_module</span> <span class="ss">:posts</span><span class="p">,</span> <span class="s2">"/posts"</span>
+    <span class="n">role</span><span class="p">.</span><span class="nf">project_module</span> <span class="ss">:categories</span><span class="p">,</span> <span class="s2">"/categories"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+
+<p>In the above example, we <em>protect</em> the entire admin section (all paths starting
+with “/”) with the only exception for all those paths starting with <code>/sessions</code>
+giving our <code>unauthenticated</code> users the possibility to log in by redirecting them
+to our login page and asking them to provide their email and password.</p>
+
+<p>If we are logged in as an <strong>admin</strong> (account.role == ‘admin’) we will have
+access <strong>only</strong> to the <code>/settings</code> path.</p>
+
+<p>If we are logged in as an <strong>editor</strong> (account.role == ‘editor’) we will have
+access <strong>only</strong> to the <code>/posts</code> and <code>/categories</code> paths instead.</p>
+
+<hr />
+
+<h2 id="sharing-sessions-between-mounted-applications">Sharing Sessions Between Mounted Applications</h2>
+
+<p>Sessions can be shared between mounted applications by setting a <code>:session_id</code>
+with the line <code>set :session_id, "your_session_id"</code> in each apps <code>app.rb</code>.</p>
+
+<hr />
+
+<h2 id="contributing-persistence-adapters">Contributing Persistence Adapters</h2>
+
+<p>If you are planning to use padrino with other adapters rather than the currently
+supported ones, and you want to contribute to the project by extending its
+support with additional adapters like ohm, cassandra and so on, be sure to check
+out the <a href="/guides/adding-new-components">adding new components</a> guide.</p>
+
+<p class="excerpt"><a class="button" href="/guides/padrino-mailer">Next Section – Padrino Mailer</a></p>
+</div></div></div><hr /><footer class="footer"><p>Padrino is released under the MIT LICENSE<br />
+Hosting by <a href="https://pages.github.com">GitHub Pages</a></p>
+</footer><script src="../../assets/javascripts/all-c2e0cecd.js"></script></div></body></html>

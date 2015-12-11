@@ -1,0 +1,189 @@
+<!DOCTYPE html><html><head><meta charset="utf-8" /><meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" /><meta content="initial-scale=1" name="viewport" /><title>Padrino - Development Commands</title><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" /><link href="../../assets/stylesheets/style-75d468d0.css" rel="stylesheet" /></head><body class="guides guides_development-commands guides_development-commands_index"><div class="grid"><header class="header"><h1 class="header__name"><a class="padrino-name" href="/">Padrino</a></h1><div class="header__navigation"><nav class="navigation"><a class="navigation__toggler" href="#" id="navigation__toggler"><span class="navigation__toggler__icon fa fa-navicon"></span></a><ul class="navigation__items" id="navigation__items"><li class="navigation__item"><a class="navigation__link" href="/">Overview</a></li><li class="navigation__item"><a class="navigation__link--is-active" href="/guides/">Guides</a></li><li class="navigation__item"><a class="navigation__link" href="/blog/">Blog</a></li><li class="navigation__item"><a class="navigation__link" href="http://www.rubydoc.info/github/padrino/padrino-framework">API</a></li><li class="navigation__item"><a class="navigation__link" href="/contribute/">Contribute</a></li><li class="navigation__item"><a class="navigation__link" href="https://github.com/padrino/padrino-framework"><span class="button--slim">GitHub</span></a></li></ul></nav></div></header><div class="page"><div class="page__sidebar"><div class="sidebar"><h4 class="sidebar__header--first">Guides</h4><ul class="sidebar__items"><li class="sidebar__item"><a class="sidebar__link" href="/guides/">Home</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/getting-started/">Getting Started</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/installation/">Installation</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/basic-projects/">Basic Projects</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/generators/">Generators</a></li><li class="sidebar__item"><a class="sidebar__link--is-active" href="/guides/development-commands/">Development Commands</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/mounting-applications/">Mounting Applications</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/blog-tutorial/">Blog Tutorial</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/application-helpers/">Application Helpers</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/padrino-admin/">Padrino Admin</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/padrino-mailer/">Padrino Mailer</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/padrino-cache/">Padrino Cache</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/controllers/">Controllers</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/localization/">Localization</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/extensions/">Extensions</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/rake-tasks/">Rake Tasks</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/the-bleeding-edge/">The Bleeding Edge</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/adding-new-components/">Adding New Components</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/standalone-usage-in-sinatra/">Standalone Usage in Sinatra</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/running-padrino-on-jruby/">Running Padrino on JRuby</a></li></ul></div></div><div class="page__content"><div class="content"><h1 id="development-commands">Development Commands</h1>
+
+<p>Padrino also supports robust logging capabilities. By default, logging
+information will go to the <code>STDOUT</code> in development (for use in a console) and in
+an environment-specific log file <code>log/development.log</code> in test and production
+environments.</p>
+
+<p>You can modify the logging behavior or disable logging altogether (more docs
+<a href="http://www.padrinorb.com/api/classes/Padrino/Logger.html">here</a>):</p>
+
+<pre class="highlight ruby"><code><span class="c1"># boot.rb</span>
+<span class="no">Padrino</span><span class="o">::</span><span class="no">Logger</span><span class="o">::</span><span class="no">Config</span><span class="p">[</span><span class="ss">:development</span><span class="p">][</span><span class="ss">:stream</span><span class="p">]</span> <span class="o">=</span> <span class="ss">:to_file</span>
+<span class="no">Padrino</span><span class="p">.</span><span class="nf">load!</span>
+</code></pre>
+
+<p>To use the logger within a Padrino application, simply refer to the <code>logger</code>
+method accessible within your app and any controller or views:</p>
+
+<pre class="highlight ruby"><code><span class="c1"># controllers/example.rb</span>
+<span class="no">SimpleApp</span><span class="p">.</span><span class="nf">controllers</span> <span class="k">do</span>
+  <span class="n">get</span><span class="p">(</span><span class="s2">"/test"</span><span class="p">)</span> <span class="p">{</span> <span class="n">logger</span><span class="p">.</span><span class="nf">info</span> <span class="s2">"This is a test"</span> <span class="p">}</span>
+<span class="k">end</span>
+</code></pre>
+
+<p>The logger automatically supports severity through the use of <code>logger.info</code>,
+<code>logger.warn</code>, <code>logger.error</code>, et al.</p>
+
+<p>For more information about the logger, check out our
+<a href="http://www.padrinorb.com/api/classes/Padrino/Logger.html">Logger RDOC</a></p>
+
+<hr />
+
+<h2 id="development-reloader">Development Reloader</h2>
+
+<p>Padrino applications also have the enabled ability to automatically reload all
+changing application files without the need to restart the server. Through the
+use of a customized Rack middleware, all files on the ‘load path’ are monitored
+and reloaded whenever changes are applied.</p>
+
+<p>This makes rapid development much easier and provides a better alternative to
+‘shotgun’ or ‘rerun’ which require the application server to be restarted which
+makes requests take much longer to complete.</p>
+
+<p>An application can explicitly enable / disable reloading through the use of
+options:</p>
+
+<pre class="highlight ruby"><code><span class="c1"># app.rb</span>
+<span class="k">class</span> <span class="nc">SimpleApp</span> <span class="o">&lt;</span> <span class="no">Padrino</span><span class="o">::</span><span class="no">Application</span>
+  <span class="n">disable</span> <span class="ss">:reload</span> <span class="c1"># reload is disabled in all environments</span>
+  <span class="n">enable</span>  <span class="ss">:reload</span> <span class="c1"># enabled in all environments</span>
+<span class="k">end</span>
+</code></pre>
+
+<hr />
+
+<h2 id="gemfile-dependency-resolution">Gemfile Dependency Resolution</h2>
+
+<p>Padrino has native support for <code>bundler</code> and the Gemfile system. If your Padrino
+application was generated with <code>padrino g</code>, a Gemfile has already been created
+for your application. This file will contain a list of all the dependencies for
+our application.</p>
+
+<pre class="highlight ruby"><code><span class="c1"># /Gemfile</span>
+<span class="n">source</span> <span class="ss">:rubygems</span>
+<span class="n">gem</span> <span class="s1">'sinatra'</span><span class="p">,</span>  <span class="ss">:require</span> <span class="o">=&gt;</span> <span class="s1">'sinatra/base'</span>
+<span class="n">gem</span> <span class="s1">'sinatra-flash'</span><span class="p">,</span> <span class="ss">:require</span> <span class="o">=&gt;</span> <span class="s1">'sinatra/flash'</span>
+</code></pre>
+
+<p>This manifest file uses the standard <code>bundler</code> gem syntax of which details can
+be found in the <a href="http://gembundler.com">Bundler WebSite</a>.</p>
+
+<p>This gem allows us to place all our dependencies into a single file. Padrino
+will then automatically require all necessary files (if they exist on the
+system).</p>
+
+<p>If the dependencies are not on the system, you can automatically vendor all
+necessary gems using the <code>bundle install --path ./vendor</code> command within the
+application root or (only with bundler 1.0) run <code>bundle install</code> to install
+system wide. Note that this is all possible without any further effort than
+adding the Gemfile (or having this generated automatically with generators
+explained later).</p>
+
+<hr />
+
+<h2 id="auto-load-paths">Auto Load Paths</h2>
+
+<p>Padrino also intelligently supports requiring useful files within your
+application automatically and provides functionality for easily splitting up
+your application into separate files. Padrino automatically requires
+<code>config/database.rb</code> as a convention for establishing database connection. Also,
+any files within the <code>lib</code> folder will be required automatically by Padrino.</p>
+
+<p>This is powered by the fact that Padrino will automatically load (and reload)
+any directory patterns within the ‘prequesite paths’. Additional directory
+patterns can be added to the set of reloaded files as needed by simply appending
+to the <code>prerequisites</code> within your application:</p>
+
+<pre class="highlight ruby"><code><span class="c1"># config/boot.rb</span>
+<span class="no">Padrino</span><span class="p">.</span><span class="nf">after_load</span> <span class="k">do</span>
+  <span class="no">SimpleApp</span><span class="p">.</span><span class="nf">prerequisites</span> <span class="o">&lt;&lt;</span> <span class="no">Padrino</span><span class="p">.</span><span class="nf">root</span><span class="p">(</span><span class="s1">'my_app'</span><span class="p">,</span> <span class="s1">'custom_model.rb'</span><span class="p">)</span>
+  <span class="no">SimpleApp</span><span class="p">.</span><span class="nf">prerequisites</span> <span class="o">&lt;&lt;</span> <span class="no">Padrino</span><span class="p">.</span><span class="nf">root</span><span class="p">(</span><span class="s1">'custom_folder/*.rb'</span><span class="p">)</span>
+<span class="k">end</span>
+<span class="no">Padrino</span><span class="p">.</span><span class="nf">load!</span>
+</code></pre>
+
+<p>This will instruct Padrino to autoload these files (and reload them when changes
+are detected). By default, the load path contains certain paths known to contain
+important files such as controllers, mailers, models, urls, and helpers.</p>
+
+<hr />
+
+<h2 id="terminal-commands">Terminal Commands</h2>
+
+<p>Padrino also comes equipped with multiple useful terminal commands which can be
+activated to perform common tasks such as starting / stopping the application,
+executing the unit tests or activating an irb session.</p>
+
+<p>The following commands are available:</p>
+
+<pre class="highlight shell"><code><span class="c"># starts the app server (non-daemonized)</span>
+<span class="gp">$ </span>padrino start
+<span class="c"># starts the app server (daemonized) with given port, environment and adapter</span>
+<span class="gp">$ </span>padrino start -d -p 3000 -e development -a thin
+
+<span class="c"># Stops a daemonized app server</span>
+<span class="gp">$ </span>padrino stop
+
+<span class="c"># Bootup the Padrino console (irb)</span>
+<span class="gp">$ </span>padrino console
+
+<span class="c"># Run/List tasks</span>
+<span class="gp">$ </span>padrino rake
+
+<span class="c"># Run piece of code in the context of Padrino (with given environment)</span>
+<span class="gp">$ </span>padrino runner <span class="s1">'puts Padrino.env'</span> -e development
+
+<span class="c"># Run Ruby file in the context of Padrino</span>
+<span class="gp">$ </span>padrino r script/my_script.rb
+</code></pre>
+
+<p>The last command “padrino rake” look for rake files in:</p>
+
+<ul>
+  <li><code>lib/tasks/**/*.rake</code></li>
+  <li><code>tasks/**/*.rake</code></li>
+  <li><code>test/test.rake</code></li>
+  <li><code>spec/spec.rake</code></li>
+</ul>
+
+<p>In this way you can customize project tasks.</p>
+
+<p>Using these commands can simplify common tasks making development that much
+smoother.</p>
+
+<hr />
+
+<h2 id="special-folders">Special Folders</h2>
+
+<p>Padrino load these paths:</p>
+
+<pre class="highlight shell"><code><span class="c"># special folders</span>
+project/lib
+project/models
+project/shared/lib
+project/shared/models
+project/each_app/models
+</code></pre>
+
+<p>This mean that you are free to store for example <code>models</code> where you prefer, if
+you have two or more apps with same models you can use <code>project/shared/models</code>
+or <code>root/models</code>.</p>
+
+<p>If you have only one app you still use <code>project/app/models</code>(this is the default
+padrino g choice)</p>
+
+<p>Remember that if you need to load other paths you can use:</p>
+
+<pre class="highlight ruby"><code><span class="no">Padrino</span><span class="p">.</span><span class="nf">set_load_paths</span><span class="p">(</span><span class="s2">"path/one"</span><span class="p">)</span>
+</code></pre>
+
+<p>and if you need to load dependencies use:</p>
+
+<pre class="highlight ruby"><code><span class="no">Padrino</span><span class="p">.</span><span class="nf">require_dependencies</span><span class="p">(</span><span class="s2">"path/one/**/*.rb"</span><span class="p">)</span>
+</code></pre>
+
+<p class="excerpt"><a class="button" href="/guides/mounting-applications">Next Section – Mounting Applications</a></p>
+</div></div></div><hr /><footer class="footer"><p>Padrino is released under the MIT LICENSE<br />
+Hosting by <a href="https://pages.github.com">GitHub Pages</a></p>
+</footer><script src="../../assets/javascripts/all-c2e0cecd.js"></script></div></body></html>
