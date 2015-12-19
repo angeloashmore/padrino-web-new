@@ -49,6 +49,7 @@ page 'guides/*', :layout => :sidebar
 # Development-specific configuration
 configure :development do
   activate :livereload
+  activate :autometatags
 end
 
 
@@ -69,4 +70,5 @@ configure :build do
   activate :robots, :rules => [
     {:user_agent => '*', :allow => %w(/), :disallow => %w(CNAME /*.js /*.css)}
   ], :sitemap => 'http://padrinorb.com/sitemap.xml'
+  activate :autometatags
 end

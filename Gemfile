@@ -14,6 +14,7 @@ gem 'middleman-syntax', '~> 2.0.0'
 gem 'middleman-deploy', '~> 1.0.0'
 gem 'middleman-search_engine_sitemap', '~> 1.3.0'
 gem 'middleman-robots', '~> 1.1.0'
+gem 'middleman-autometatags'
 
 # Templating
 gem 'slim', '~> 3.0.6'
