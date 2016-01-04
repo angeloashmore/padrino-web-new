@@ -62,7 +62,7 @@ executed automatically through the generator with:</p>
 terminal at the root of the generated application.</p>
 
 <p>For more examples of using the project generator in common cases, check out the
-<a href="http://www.padrinorb.com/guides/basic-projects">Basic Projects</a> guide.</p>
+<a title="Basic Projects" href="/guides/basic-projects">Basic Projects</a> guide.</p>
 
 <p>The generator framework within Padrino is extensible and additional components
 and tools can be added easily. This would be achieved through forking our
@@ -150,7 +150,7 @@ them would also be appreciated).</p>
         <td style="text-align: left">test</td>
         <td style="text-align: left">none</td>
         <td style="text-align: left">-t</td>
-        <td style="text-align: left">bacon, shoulda, cucumber, testspec, riot, rspec, minitest, steak</td>
+        <td style="text-align: left">bacon, shoulda, cucumber, testunit, riot, rspec, minitest, steak</td>
       </tr>
       <tr>
         <td style="text-align: left">script</td>
@@ -228,7 +228,7 @@ will be <strong>Blog</strong>.</p>
 <pre class="highlight shell"><code>padrino g project your_project <span class="o">[</span>--dev] <span class="c"># Use padrino from a git checkout</span>
 </code></pre>
 
-<p>Visit <a href="/guides/the-bleeding-edge">The Bleeding Edge</a> for more info how to setup a <strong>dev</strong> environment.</p>
+<p>Visit <a title="The Bleeding Edge" href="/guides/the-bleeding-edge">The Bleeding Edge</a> for more info how to setup a <strong>dev</strong> environment.</p>
 
 <hr />
 
@@ -245,13 +245,13 @@ generating projects a breeze!</p>
 
 <p>This will generate a project based on the template file provided. You can also
 generate a project based on a remote url such as a
-<a href="http://gist.github.com/">gist</a> for an additional level of convenience:</p>
+<a title="gist" href="https://gist.github.com/">gist</a> for an additional level of convenience:</p>
 
-<pre class="highlight shell"><code><span class="gp">$ </span>padrino g project my_project --template http://gist.github.com/356156
+<pre class="highlight shell"><code><span class="gp">$ </span>padrino g project my_project --template https://gist.github.com/356156
 </code></pre>
 
 <p>You can also execute template files directly from
-<a href="http://github.com/padrino/padrino-recipes/tree/master/templates">the official templates repo</a>:</p>
+<a title="the official templates repo" href="http://github.com/padrino/padrino-recipes/tree/master/templates">the official templates repo</a>:</p>
 
 <pre class="highlight shell"><code><span class="gp">$ </span>padrino g project my_project --template sampleblog
 </code></pre>
@@ -263,7 +263,7 @@ generate a project based on a remote url such as a
 </code></pre>
 
 <p>You can also execute plugin files directly from
-<a href="http://github.com/padrino/padrino-recipes/tree/master/plugins/">the official plugins repo</a>:</p>
+<a title="the official plugins repo" href="https://github.com/padrino/padrino-recipes/tree/master/plugins/">the official plugins repo</a>:</p>
 
 <pre class="highlight shell"><code><span class="gp">$ </span><span class="nb">cd </span>path/to/existing/padrino/app
 <span class="gp">$ </span>padrino g plugin hoptoad
@@ -299,7 +299,7 @@ generate a project based on a remote url such as a
 </code></pre>
 
 <p>Keep in mind that the template file is pure Ruby and has full access to
-<a href="http://rdoc.info/rdoc/wycats/thor/blob/f939a3e8a854616784cac1dcff04ef4f3ee5f7ff/Thor/Actions.html">all available thor actions</a>.</p>
+<a title="thor actions" href="https://github.com/erikhuda/thor/blob/master/lib/thor/actions.rb">all available thor actions</a>.</p>
 
 <hr />
 
@@ -484,13 +484,14 @@ following:</p>
 <ul>
   <li>Model definition file [<code>models/user.rb</code>]</li>
   <li>Migration declaration [<code>db/migrate/xxx\_create\_users.rb</code>]</li>
+  <li>Model unit test file [<code>test/models/user_test.rb</code>]</li>
 </ul>
 
 <p>You can define as many models as you would like in a Padrino application using
 this generator.</p>
 
 <p>You can destroy models that you created via the destroy option and setting it to
-true. default is false.</p>
+true. Default is false.</p>
 
 <pre class="highlight shell"><code><span class="gp">$ </span>padrino g model User -d
 </code></pre>
@@ -555,7 +556,7 @@ ORM component chosen within <code>db/migrate/xxx_add_fields_to_users.rb</code> i
 the columns specified in the command.</p>
 
 <p>You can destroy migrations that you created via the destroy option and setting
-it to true. default is false.</p>
+it to true. Default is false.</p>
 
 <pre class="highlight shell"><code><span class="gp">$ </span>padrino g migration AddFieldsToUsers -d
 </code></pre>
@@ -722,7 +723,7 @@ multiple apps at the same time.</p>
 <p>Both the Project Generator and Sub App Generator allow you to create an even
 smaller project skeleton. Instead of the default skeleton, the tiny option
 removes the need for a controllers, helpers, and mailers folder and instead
-generates controllers.rb, helpers.rb, and mailers.rb in its place.</p>
+generates <code>controllers.rb</code>, <code>helpers.rb</code>, and <code>mailers.rb</code> in its place.</p>
 
 <p>To use the tiny skeleton generator for project run:</p>
 
@@ -814,7 +815,7 @@ flag:</p>
 
 <p>This will generate the admin application and mount this at <code>/admin</code>. For more
 information, check out the
-<a href="http://www.padrinorb.com/guides/padrino-admin">Admin Guide</a>.</p>
+<a title="Admin Guide" href="/guides/padrino-admin">Admin Guide</a>.</p>
 
 <hr />
 
@@ -919,6 +920,7 @@ Generator.</p>
 </code></pre>
 
 <p class="excerpt"><a class="button" href="/guides/development-commands">Next Section – Development Commands</a></p>
+
 </div></div></div><hr /><footer class="footer"><p>Padrino is released under the MIT LICENSE<br />
 Hosting by <a href="https://pages.github.com">GitHub Pages</a></p>
 </footer><script src="../../assets/javascripts/all-c2e0cecd.js"></script></div></body></html>

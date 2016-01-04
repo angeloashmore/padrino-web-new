@@ -7,8 +7,8 @@ Sinatra + Padrino aficionado.</p>
 
 <p>You may want to skim through sections you already are familiar with. If you are
 already familiar with Padrino and just want to access reference materials, you
-may want to jump to <a href="http://www.rubydoc.info/github/padrino/padrino-framework">our api docs</a> or
-the <a href="http://www.padrinorb.com/guides">guides homepage</a>.</p>
+may want to jump to <a title="our api docs" href="http://www.rubydoc.info/github/padrino/padrino-framework">our api docs</a>
+or the <a title="guides homepage" href="/guides">guides homepage</a>.</p>
 
 <p>If you have any questions be sure to contact us at:
 <a href="http://twitter.com/#!/padrinorb">@padrinorb</a>, discuss things on
@@ -21,7 +21,7 @@ on IRC at “#padrino” on freenode or
 <h2 id="first-up-why-learn-sinatra-and-padrino">First Up, Why Learn Sinatra and Padrino?</h2>
 
 <p>A more detailed explanation of why you should take the time to learn Sinatra and
-Padrino is <a href="http://www.padrinorb.com/pages/why">presented later</a>, but let’s take
+Padrino is <a title="presented later" href="tbd">presented later</a>, but let’s take
 a second to briefly enumerate three major advantages now:</p>
 
 <h3 id="easy-to-learn">Easy to Learn</h3>
@@ -38,7 +38,7 @@ relatively unique to Sinatra and Padrino in the Ruby web world.</p>
 
 <p>Sinatra and Padrino are <strong>very fast</strong> relative to other full stack frameworks.
 The Padrino stack is lightweight and slim which can be demonstrated in our
-<a href="https://github.com/DAddYE/web-frameworks-benchmark/wiki">performance benchmarks</a>.
+<a title="performance benchmarks" href="https://github.com/DAddYE/web-frameworks-benchmark/wiki">performance benchmarks</a>.
 While all benchmarks should be taken with a grain of salt, over the course of
 developing hundreds of applications, we have found that the memory usage,
 stability and requests per second speak for themselves.</p>
@@ -47,13 +47,13 @@ stability and requests per second speak for themselves.</p>
 
 <p>The other benefit of Sinatra and Padrino is the rich ecosystem of extensions
 that can be applied at any level of the stack. For rack, there is a
-<a href="http://coderack.org/middlewares">wealth of middlewares</a> that can help do almost
-anything. For Sinatra, there is also a
-<a href="http://www.sinatrarb.com/extensions-wild.html">large base</a> of extensions to add
+<a title="wealth of middlewares" href="https://github.com/rack/rack/wiki/List-of-Middleware">wealth of middlewares</a>
+that can help do almost anything. For Sinatra, there is also a
+<a title="large base" href="http://www.sinatrarb.com/extensions-wild.html">large base</a> of extensions to add
 most any functionality you might need. Best of all, these are all 100%
 compatible with Padrino, and using our
-<a href="http://github.com/padrino/padrino-recipes">Recipe Box</a> and our use of
-<a href="http://gembundler.com/">Bundler</a>, you can enable nearly any library or
+<a title="Recipe Box" href="http://github.com/padrino/padrino-recipes">Recipe Box</a> and our use of
+<a title="Bundler" href="http://bundler.io">Bundler</a>, you can enable nearly any library or
 functionality you will need with a single command.</p>
 
 <hr />
@@ -63,13 +63,13 @@ functionality you will need with a single command.</p>
 <p>A detailed overview of Ruby is beyond the scope of our documentation, but this
 guide is intended to point you in the right direction and get you familiarized
 with the important terms. The Padrino web framework is built in the
-<a href="http://www.ruby-lang.org/en/">Ruby programming language</a>. The Padrino codebase
-is a set of modular libraries for Ruby which are packaged using
-<a href="http://rubygems.org/">RubyGems</a>.</p>
+<a title="Ruby programming language" href="http://www.ruby-lang.org/en/">Ruby programming language</a>.
+The Padrino codebase is a set of modular libraries for Ruby which are packaged using
+<a title="RubyGems" href="https://rubygems.org/">RubyGems</a>.</p>
 
 <p>In order to use Ruby and Padrino, you need to
-<a href="http://www.ruby-lang.org/en/downloads">install the Ruby interpreter</a> onto your
-local machine and setup <a href="http://rubygems.org/pages/download">RubyGems</a> so you
+<a title="install the Ruby interpreter" href="http://www.ruby-lang.org/en/downloads">install the Ruby interpreter</a> onto your
+local machine and setup <a title="RubyGems" href="https://rubygems.org/pages/download">RubyGems</a> so you
 can install ruby packages.</p>
 
 <p>You should now be able to execute the following commands in the terminal:</p>
@@ -78,21 +78,21 @@ can install ruby packages.</p>
 <span class="gp">$ </span>gem -v
 </code></pre>
 
-<p>and these should return with version numbers and no errors if everything is
+<p>These should return with version numbers and no errors if everything is
 installed correctly. Once you have Ruby and Rubygems installed locally, you
 should become familiar with the Ruby syntax. We recommend a few resources below
 to get yourself familiar with Ruby:</p>
 
 <ul>
-  <li><a href="http://tryruby.org/">TryRuby</a> – This is an interactive tutorial that takes
+  <li><a title="TryRuby" href="http://tryruby.org/levels/1/challenges/0">TryRuby</a> – This is an interactive tutorial that takes
 you step by step through learning Ruby. This is highly recommended. Visit the
 site and type “help” to get started.</li>
-  <li><a href="http://pine.fm/LearnToProgram">Learn to Program</a> by Chris Pines – Excellent
+  <li><a title="Learn to Program" href="https://pine.fm/LearnToProgram">Learn to Program</a> by Chris Pines – Excellent
 first Ruby tutorial, straightforward and excellent overview of the language.</li>
-  <li><a href="http://ruby.learncodethehardway.org/">Learn Ruby the Hard Way</a> – Newest
+  <li><a title="Learn Ruby the Hard Way" href="http://learnrubythehardway.org/book/">Learn Ruby the Hard Way</a> – Newest
 addition to the group, based off of Zed’s excellent Python tutorial. Set of
 exercises that teaches Ruby to you in a rigorous but simple approach.</li>
-  <li><a href="http://mislav.uniqpath.com/poignant-guide/book/chapter-1.html">Why’s Poignant Guide</a>
+  <li><a title="Why’s Poignant Guide" href="http://poignant.guide/book/chapter-1.html">Why’s Poignant Guide</a>
 – Definitely the most unorthodox way to learn Ruby, but must be mentioned.</li>
 </ul>
 
@@ -106,7 +106,7 @@ Sinatra, the ruby DSL for the web.</p>
 <h2 id="learning-to-love-sinatra">Learning to Love Sinatra</h2>
 
 <p>Padrino is a framework which builds on the existing functionality of the
-<a href="http://sinatrarb.com">Sinatra</a> Ruby web DSL and provides a variety of
+[Sinatra](http://sinatrarb.com "Sinatra) Ruby web DSL and provides a variety of
 additional tools and helpers to extend this foundation. To use Padrino, one
 should be familiar with the basic usage of Sinatra itself.</p>
 
@@ -132,33 +132,33 @@ you have yet encountered. Here is an example of a Sinatra application:</p>
 <span class="gp">&gt;&gt; </span>Listening on 0.0.0.0:4567
 </code></pre>
 
-<p>and then visit <code>http://localhost:4567/hi</code> in your web browser. It really is that
+<p>and then visit <a href="http://localhost:4567/hi">http://localhost:4567/hi</a> in your web browser. It really is that
 easy, but there’s a lot more to learn!</p>
 
 <p>Resources for Sinatra are listed below:</p>
 
 <ul>
-  <li><a href="http://www.sinatrarb.com/intro.html">Sinatra Introduction</a></li>
-  <li><a href="http://www.sinatrarb.com/book.html">Sinatra Book</a></li>
-  <li><a href="http://github.com/sinatra/sinatra">Sinatra Github Repo</a></li>
+  <li><a title="Sinatra Introduction" href="http://www.sinatrarb.com/intro.html">Sinatra Introduction</a></li>
+  <li><a title="Sinatra Book" href="https://github.com/sinatra/sinatra-book">Sinatra Book</a></li>
+  <li><a title="Sinatra Github Repo" href="https://github.com/sinatra/sinatra">Sinatra Github Repo</a></li>
 </ul>
 
 <p>There are several good Sinatra tutorials as well:</p>
 
 <ul>
-  <li><a href="http://rubysource.com/just-do-it-learn-sinatra-i/">Just Do It, Learn Sinatra</a>
+  <li><a title="Just Do It, Learn Sinatra" href="http://www.sitepoint.com/just-do-it-learn-sinatra-i/">Just Do It, Learn Sinatra</a>
 – Great step by step 3 part tutorial on Sinatra.</li>
-  <li><a href="http://net.tutsplus.com/tutorials/ruby/singing-with-sinatra/">Singing with Sinatra</a>
+  <li><a title="Singing with Sinatra" href="http://code.tutsplus.com/tutorials/singing-with-sinatra--net-18965">Singing with Sinatra</a>
 – Excellent beginners guide to learning Sinatra.</li>
-  <li><a href="http://titusd.co.uk/2010/04/07/a-beginners-sinatra-tutorial">TitusD Sinatra</a>
+  <li><a href="http://titusd.co.uk/2010/04/07/a-beginners-sinatra-tutorial">TitusD Sinatra (broken link)</a>
 – Step by step beginners tutorial for Sinatra.</li>
-  <li><a href="http://blog.maxaller.name/2010/01/a-brief-introduction-to-ruby-sinatra-and-haml">Sinatra Usage Examples</a>
+  <li><a title="Sinatra Usage Examples" href="http://blog.maxaller.name/2010/01/a-brief-introduction-to-ruby-sinatra-and-haml">Sinatra Usage Examples</a>
 – Great set of examples for how to use Sinatra in code snippets.</li>
 </ul>
 
 <p>Read through these tutorials to understand routes, helpers, and the
 request/response cycle that is exposed through Sinatra. The most comprehensive
-resource is probably the <a href="http://www.sinatrarb.com/book.html">Sinatra Book</a> so
+resource is probably the <a title="Sinatra Book" href="https://github.com/sinatra/sinatra-book">Sinatra Book</a> so
 make sure to skim through that and familiarize yourself with the concepts before
 continuing to Padrino.</p>
 
@@ -170,24 +170,24 @@ continuing to Padrino.</p>
 understand the simplest functionality of Padrino. This is because Padrino acts
 as a super-set of Sinatra.</p>
 
-<p>First, check out the <a href="/guides/installation">Installation</a> guide to get Padrino
+<p>First, check out the <a title="Installation" href="/guides/installation">Installation</a> guide to get Padrino
 setup on your computer through RubyGems.</p>
 
 <p>Padrino itself is a set of modular extensions for Sinatra. These extensions are
 actually fairly standalone and you can actually use many Padrino modules in your
 existing Sinatra apps through the
-<a href="http://www.padrinorb.com/guides/standalone-usage-in-sinatra">Standalone Usage</a>
+<a title="Standalone Usage" href="/guides/standalone-usage-in-sinatra">Standalone Usage</a>
 guide. This usage is intended for applications that have already been built that
 would benefit from a particular aspect of Padrino such as a mailer or view
-helpers. Check out <a href="http://www.padrinorb.com/api/index.html">our api docs</a> for
+helpers. Check out <a title="our api docs" href="http://www.rubydoc.info/github/padrino/padrino-framework">our api docs</a> for
 more information about the individual modules.</p>
 
 <p>If you are able to convert your project to Padrino or start a new application
 from scratch, we recommend using the full Padrino stack which makes starting a
 new project much easier. The best way to get familiar with Padrino is to first
-check out the <a href="/guides/blog-tutorial">Blog Tutorial</a> which takes you step by
+check out the <a title="Blog Tutorial" href="/guides/blog-tutorial">Blog Tutorial</a> which takes you step by
 step through creating a blog in Padrino with an accompanying screencast. You may
-also want to checkout the <a href="http://www.padrinorb.com/pages/why">Why Padrino</a>
+also want to checkout the <a title="Why Padrino" href="http://www.padrinorb.com/pages/why">Why Padrino (broken)</a>
 guide to understand the benefits of using Padrino.</p>
 
 <p>You should also take time to familiarize yourself with the various “components”
@@ -201,38 +201,38 @@ good default set of components, generate your project with this command:</p>
 <p>And then read up on these components:</p>
 
 <ul>
-  <li><a href="http://datamapper.org/docs/">DataMapper</a> – Great Object Relational Mapper for
+  <li><a title="DataMapper" href="http://datamapper.org/docs/">DataMapper</a> – Great Object Relational Mapper for
 interacting with data</li>
-  <li><a href="http://haml-lang.com/docs.html">Haml</a> – Solid templating choice for views</li>
-  <li><a href="http://jquery.com/">jQuery</a> – Excellent javascript framework for frontend
+  <li><a title="Haml" href="http://haml.info/">Haml</a> – Solid templating choice for views</li>
+  <li><a title="jQuery" href="http://jquery.com/">jQuery</a> – Excellent javascript framework for frontend
 development</li>
-  <li><a href="https://github.com/thumblemonks/riot">Riot</a> – Popular unit testing framework
+  <li><a title="Riot" href="https://github.com/thumblemonks/riot">Riot</a> – Popular unit testing framework
 for ruby</li>
-  <li><a href="http://mocha.rubyforge.org/">Mocha</a> – Popular mocking and stubbing for tests</li>
+  <li><a title="Mocha" href="http://www.rubydoc.info/github/floehopper/mocha/Mocha/Mock">Mocha</a> – Popular mocking and stubbing for tests</li>
 </ul>
 
 <p>There are also a few important guides that cover the vast majority of Padrino’s
 functionality. These are definitely recommended reading:</p>
 
 <ul>
-  <li><a href="/guides/blog-tutorial">Blog Tutorial</a> – Step by step blog tutorial using
+  <li><a title="Blog Tutorial" href="/guides/blog-tutorial">Blog Tutorial</a> – Step by step blog tutorial using
 Padrino</li>
-  <li><a href="/guides/generators">Generators</a> – A reference guide for the generator and the
+  <li><a title="Generators" href="/guides/generators">Generators</a> – A reference guide for the generator and the
 various components</li>
-  <li><a href="/guides/basic-projects">Project Types</a> – Overview of the various project
+  <li><a title="Project Types" href="/guides/basic-projects">Project Types</a> – Overview of the various project
 types</li>
-  <li><a href="/guides/application-helpers">Application Helpers</a> – A reference guide for the
+  <li><a title="Application Helpers" href="/guides/application-helpers">Application Helpers</a> – A reference guide for the
 view helpers available</li>
-  <li><a href="/guides/controllers">Controllers and Routing</a> – An overview of the enhanced
+  <li><a title="Controllers and Routing" href="/guides/controllers">Controllers and Routing</a> – An overview of the enhanced
 routing system</li>
-  <li><a href="/guides/padrino-mailer">Delivering Mail</a> – Overview of how to deliver mail in
+  <li><a title="Delivering Mails" href="/guides/padrino-mailer">Delivering Mail</a> – Overview of how to deliver mail in
 Padrino applications</li>
-  <li><a href="/guides/padrino-admin">Admin and Authentication</a> – Admin dashboard and
+  <li><a title="Admin and Authentication" href="/guides/padrino-admin">Admin and Authentication</a> – Admin dashboard and
 authentication system</li>
-  <li><a href="/guides/padrino-cache">Site Caching</a> – Page and fragment caching system</li>
-  <li><a href="/guides/mounting-applications">Mounting Sub-applications</a> – Explanation of
+  <li><a href="/guides/padrino-cache">Caching</a> – Page and fragment caching system</li>
+  <li><a title="Mounting Sub-applications" href="/guides/mounting-applications">Mounting Sub-applications</a> – Explanation of
 the “application” mounting process</li>
-  <li><a href="/guides/development-commands">Development and Terminal Commands</a> – Important
+  <li><a title="Development and Terminal Commands" href="/guides/development-commands">Development and Terminal Commands</a> – Important
 notes about development</li>
 </ul>
 
@@ -248,8 +248,8 @@ additional functionality not built into Padrino itself. Thankfully finding and
 using modular libraries that add additional functionality to your Sinatra and
 Padrino applications is quite painless.</p>
 
-<p>In order to manage dependencies for a project, Padrino relies on another RubyGem
-called <a href="http://gembundler.com">Bundler</a>. A default Padrino Gemfile looks akin to
+<p>In order to manage dependencies for a project, Padrino relies on another <code>gem</code>
+called <a title="Bundler" href="http://bundler.io/">Bundler</a>. A default Padrino Gemfile looks akin to
 this:</p>
 
 <pre class="highlight ruby"><code><span class="c1"># Gemfile</span>
@@ -260,7 +260,7 @@ this:</p>
 <span class="n">gem</span> <span class="s1">'sinatra-flash'</span>
 <span class="c1"># Component requirements</span>
 <span class="c1"># ...more gems...</span>
-<span class="n">gem</span> <span class="s1">'padrino'</span><span class="p">,</span> <span class="s1">'0.10.2'</span>
+<span class="n">gem</span> <span class="s1">'padrino'</span><span class="p">,</span> <span class="s1">'0.13.0'</span>
 </code></pre>
 
 <p>All dependencies and libraries required for your project should be declared in
@@ -271,15 +271,15 @@ application. Once the dependencies have been declared, simply run</p>
 </code></pre>
 
 <p>which will resolve and install all the required libraries. Check out the
-<a href="http://gembundler.com/">Bundler documentation</a> for more details about how this
-works.</p>
+<a title="Bundler documentation" href="http://bundler.io/v1.11/man/bundle.1.html">Bundler documentation</a>
+for more details about how this works.</p>
 
 <p>The best extensions to look for are those that have already been included as
-“recipes” in our <a href="http://github.com/padrino/padrino-recipes">padrino-recipes</a>
+“recipes” in our <a title="padrino-recipes" href="https://github.com/padrino/padrino-recipes">padrino-recipes</a>
 repository. Any recipe included there represents a one command installation of
 the specified functionality. For instance, suppose you want to setup pagination
 in your application for a resource. Installing the
-<a href="https://github.com/mislav/will_paginate">will_paginate</a> gem is as simple as
+<a title="will paginate" href="https://github.com/mislav/will_paginate">will_paginate</a> gem is as simple as
 applying the recipe:</p>
 
 <pre class="highlight shell"><code><span class="gp">$ </span>padrino g plugin will_paginate
@@ -287,23 +287,24 @@ applying the recipe:</p>
 
 <p>which will install that gem into your project (and Gemfile) automatically. If
 you can’t find a recipe in the
-<a href="http://github.com/padrino/padrino-recipes">Recipe Box</a> then be sure to search
-for rack middlewares or sinatra compatible libraries to use in your app:</p>
+<a title="Recipe Box" href="http://github.com/padrino/padrino-recipes">Recipe Box</a> then be sure to search
+for rack middlewares or Sinatra compatible libraries to use in your app:</p>
 
 <ul>
-  <li><a href="http://coderack.org/middlewares">Rack Middlewares</a></li>
-  <li><a href="http://www.sinatrarb.com/extensions-wild.html">Sinatra Extensions</a></li>
-  <li><a href="https://github.com/padrino/padrino-framework/wiki/Extensions">Padrino Extensions</a></li>
-  <li><a href="https://github.com/padrino/padrino-framework/wiki/Integrations">Padrino Integrations</a></li>
+  <li><a title="Rack Middlewares" href="https://github.com/rack/rack/wiki/List-of-Middleware">Rack Middlewares</a></li>
+  <li><a title="Sinatra Extensions" href="http://www.sinatrarb.com/extensions-wild.html">Sinatra Extensions</a></li>
+  <li><a title="Padrino Extensions" href="https://github.com/padrino/padrino-framework/wiki/Extensions">Padrino Extensions</a></li>
+  <li><a title="Padrino Integrations" href="https://github.com/padrino/padrino-framework/wiki/Integrations">Padrino Integrations</a></li>
 </ul>
 
-<p>and of course never underestimate searching <a href="https://github.com">GitHub</a> and
+<p>and of course never underestimate searching <a title="GitHub" href="https://github.com">GitHub</a> and
 finding Rack or Sinatra compatible repositories. Any Rack/Sinatra/Padrino
 libraries will all generally work seamlessly in Padrino projects. Consider
-<a href="http://github.com/padrino/padrino-recipes">adding a recipe</a> for your favorite
+<a title="adding a recipe" href="http://github.com/padrino/padrino-recipes">adding a recipe</a> for your favorite
 extensions!</p>
 
 <p class="excerpt"><a class="button" href="/guides/installation">Next Section – Installation</a></p>
+
 </div></div></div><hr /><footer class="footer"><p>Padrino is released under the MIT LICENSE<br />
 Hosting by <a href="https://pages.github.com">GitHub Pages</a></p>
 </footer><script src="../../assets/javascripts/all-c2e0cecd.js"></script></div></body></html>

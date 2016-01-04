@@ -46,14 +46,14 @@ stylesheet include) into the location the content is yielded within the layout.<
 
 <pre class="highlight erb"><code># app/views/layout.erb
 <span class="cp">&lt;%</span> <span class="k">if</span> <span class="n">content_for?</span><span class="p">(</span><span class="ss">:assets</span><span class="p">)</span> <span class="cp">%&gt;</span>
-  <span class="nt">&lt;div&gt;</span><span class="cp">&lt;%=</span> <span class="n">yield_content</span> <span class="ss">:assets</span> <span class="cp">%&gt;</span><span class="err">&lt;</span>/div<span class="err">&lt;</span>
+  <span class="nt">&lt;div&gt;</span><span class="cp">&lt;%=</span> <span class="n">yield_content</span> <span class="ss">:assets</span> <span class="cp">%&gt;</span><span class="nt">&lt;/div&gt;</span>
 <span class="cp">&lt;%</span> <span class="k">end</span> <span class="cp">%&gt;</span>
 </code></pre>
 
 <p>The <code>capture_html</code> and the <code>concat_content</code> methods allow content to be
 manipulated and stored for use in building additional helpers accepting blocks
 or displaying information in a template. One example is the use of these in
-constructing a simplified ‘form_tag’ helper which accepts a block.</p>
+constructing a simplified <code>form_tag</code> helper which accepts a block.</p>
 
 <pre class="highlight ruby"><code><span class="c1"># form_tag '/register' do ... end</span>
 <span class="k">def</span> <span class="nf">form_tag</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{},</span> <span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
@@ -63,7 +63,7 @@ constructing a simplified ‘form_tag’ helper which accepts a block.</p>
 <span class="k">end</span>
 </code></pre>
 
-<p>This will capture the template body passed into the form_tag block and then
+<p>This will capture the template body passed into the <code>form_tag</code> block and then
 append the content to the template through the use of <code>concat_content</code>. Note
 have been built to work for both haml and erb templates using the same syntax.</p>
 
@@ -112,6 +112,10 @@ view template. There are three major functions for this category: <code>tag</cod
 <p>The tag and <code>content_tag</code> are for building arbitrary html tags with a name and
 specified options. If the tag contains ‘content’ within then <code>content_tag</code> is
 used. For example:</p>
+
+<pre class="highlight erb"><code>tag(:br, :style =&gt; ‘clear:both’) # =&gt; <span class="nt">&lt;br</span> <span class="na">style=</span><span class="s">"clear:both"</span> <span class="nt">/&gt;</span>
+content_tag(:p, "demo", :class =&gt; ‘light’) # =&gt; <span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"light"</span><span class="nt">&gt;</span>demo<span class="nt">&lt;/p&gt;</span>
+</code></pre>
 
 <p>The <code>input_tag</code> is used to build tags that are related to accepting input from
 the user:</p>
@@ -397,7 +401,7 @@ building forms. A simple example of constructing a non-object form would be:</p>
 <p>Form builders are full-featured objects allowing the construction of complex
 object-based forms using a simple, intuitive syntax.</p>
 
-<p>A form_for using these basic fields might look like:</p>
+<p>A <code>form_for</code> using these basic fields might look like:</p>
 
 <pre class="highlight haml"><code># app/views/example.haml
 <span class="p">=</span> <span class="n">form_for</span> <span class="vi">@user</span><span class="p">,</span> <span class="s1">'/register'</span><span class="p">,</span> <span class="ss">:id</span> <span class="o">=&gt;</span> <span class="s1">'register'</span> <span class="k">do</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span>
@@ -448,7 +452,7 @@ object-based forms using a simple, intuitive syntax.</p>
 </ul>
 
 <p>The following are fields provided by AbstractFormBuilder that can be used within
-a form_for or fields_for:</p>
+a <code>form_for</code> or <code>fields_for</code>:</p>
 
 <ul>
   <li><code>error_messages(options={})</code>
@@ -549,7 +553,7 @@ a form_for or fields_for:</p>
 <p>There is also an additional StandardFormBuilder which builds on the abstract
 fields that can be used within a form_for.</p>
 
-<p>A form_for using these standard fields might be:</p>
+<p>A <code>form_for</code> using these standard fields might be:</p>
 
 <pre class="highlight haml"><code># app/views/example.haml
 <span class="p">=</span> <span class="n">form_for</span> <span class="vi">@user</span><span class="p">,</span> <span class="s1">'/register'</span><span class="p">,</span> <span class="ss">:id</span> <span class="o">=&gt;</span> <span class="s1">'register'</span> <span class="k">do</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span>
@@ -645,7 +649,7 @@ fields and behavior:</p>
   ...fields here...
 </code></pre>
 
-<p>The form builder can even be made into the default builder when form_for is
+<p>The form builder can even be made into the default builder when <code>form_for</code> is
 invoked:</p>
 
 <pre class="highlight ruby"><code><span class="c1"># anywhere in the Padrino or Sinatra application</span>
@@ -663,7 +667,7 @@ the near future.</p>
 <p>Available in the 0.9.21 Padrino release is support for nested object form
 helpers. This allows forms to have arbitrarily complex nested forms that can
 build multiple related objects together. Let’s take a simple example of a person
-with an address. Here are the related psuedo models:</p>
+with an address. Here are the related pseudo models:</p>
 
 <pre class="highlight ruby"><code><span class="k">class</span> <span class="nc">Person</span> <span class="o">&lt;</span> <span class="no">ORM</span><span class="o">::</span><span class="no">Base</span>
   <span class="n">has_many</span> <span class="ss">:addresses</span><span class="p">,</span> <span class="ss">:class_name</span> <span class="o">=&gt;</span> <span class="s1">'Address'</span>
@@ -693,7 +697,6 @@ following view will allow nested form creation:</p>
       <span class="p">=</span> <span class="n">address_form</span><span class="p">.</span><span class="nf">check_box</span> <span class="s1">'_destroy'</span>
       <span class="p">=</span> <span class="n">address_form</span><span class="p">.</span><span class="nf">label</span> <span class="s1">'_destroy'</span><span class="p">,</span> <span class="ss">:caption</span> <span class="o">=&gt;</span> <span class="s1">'Remove'</span>
     <span class="p">=</span> <span class="n">submit_tag</span> <span class="s2">"Save"</span>
-
 </code></pre>
 
 <p>This will present a form that allows the person’s name and color to be set along
@@ -709,16 +712,16 @@ part of the parent model.</p>
  to achieve a goal. The four format helpers are <code>escape_html</code>,
  <code>distance_of_time_in_words</code>, <code>time_ago_in_words</code>, and <code>js_escape_html</code>.</p>
 
-<p>The escape_html and js_escape_html function are for taking an html string and
- escaping certain characters. <code>escape_html</code> will escape ampersands, brackets and
- quotes to their HTML/XML entities. This is useful to sanitize user content
- before displaying this on a template. <code>js_escape_html</code> is used for passing
- javascript information from a js template to a javascript function.</p>
+<p>The <code>escape_html</code> and <code>js_escape_html</code> function are for taking an html string and
+escaping certain characters. <code>escape_html</code> will escape ampersands, brackets and
+quotes to their HTML/XML entities. This is useful to sanitize user content
+before displaying this on a template. <code>js_escape_html</code> is used for passing
+javascript information from a js template to a javascript function.</p>
 
 <pre class="highlight ruby"><code><span class="n">escape_html</span><span class="p">(</span><span class="s1">'&lt;hello&gt;&amp;&lt;goodbye&gt;'</span><span class="p">)</span> <span class="c1"># =&gt; &amp;lt;hello&amp;gt;&amp;amp;&amp;lt;goodbye&amp;gt;</span>
 </code></pre>
 
-<p>There is also an alias for escape_html called <code>h</code> for even easier usage within
+<p>There is also an alias for <code>escape_html</code> called <code>h</code> for even easier usage within
 templates.</p>
 
 <p>Format helpers also includes a number of useful text manipulation functions such
@@ -819,7 +822,7 @@ data inside an ajax .js.erb template</li>
 
 <p>This component provides a number of rendering helpers making the process of
 displaying templates a bit easier. This plugin also has support for useful
-additions such as partials (with support for :collection) for the templating
+additions such as partials (with support for <code>:collection</code>) for the templating
 system.</p>
 
 <p>Using render plugin helpers is extremely simple. If you want to render an erb
@@ -935,7 +938,7 @@ automatically for you in development.</p>
 <p>In addition to the helpers above, certain helpers also have certain unobtrusive
 javascript options that are available to be used with any of the javascript
 adapters packaged with padrino. Once your app has been
-<a href="http://www.padrinorb.com/guides/generators">generated</a> with a particular
+<a title="generated" href="/guides/generators">generated</a> with a particular
 javascript adapter, you can utilize the baked in support with the <code>link_to</code> and
 <code>form_for</code> tags.</p>
 
@@ -1042,6 +1045,7 @@ http method specified rather than via the ‘GET’ method.</p>
 with the helpers listed above.</p>
 
 <p class="excerpt"><a class="button" href="/guides/padrino-admin">Next Section – Padrino Admin</a></p>
+
 </div></div></div><hr /><footer class="footer"><p>Padrino is released under the MIT LICENSE<br />
 Hosting by <a href="https://pages.github.com">GitHub Pages</a></p>
 </footer><script src="../../assets/javascripts/all-c2e0cecd.js"></script></div></body></html>

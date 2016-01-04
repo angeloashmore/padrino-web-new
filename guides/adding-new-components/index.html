@@ -3,9 +3,9 @@
 <p>Padrino is an agnostic web framework. This means that the framework has been
 built from the ground up to easily allow support for any arbitrary number of
 different developer choices with respect to object permanence, stylesheet
-templaters, javascript libraries, testing libraries, mocking libraries and
+templates, javascript libraries, testing libraries, mocking libraries and
 rendering engines. For a detailed overview of the available components, check
-out the <a href="/guides/generators">generators guide</a>.</p>
+out the <a title="generators guide" href="/guides/generators">generators guide</a>.</p>
 
 <p>Although Padrino is fundamentally agnostic, in practice only a very limited set
 of available components have actually been integrated into the Padrino generator
@@ -13,7 +13,7 @@ and admin dashboard. The set of available components is determined by libraries
 actually used or noted by the core developers and the existing community.
 However, adding additional components to Padrino is not only possible but highly
 recommended. In fact, this is possibly <em>the best</em> way for a developer to get
-started <a href="http://www.padrinorb.com/pages/contribute">contributing to Padrino</a>.</p>
+started <a title="contributing to Padrino" href="/contribute">contributing to Padrino</a>.</p>
 
 <p>This guide will outline in detail how to properly contribute new components to
 Padrino and get them included into the next Padrino generator as quickly and
@@ -27,7 +27,7 @@ efficiently as possible.</p>
 component to integrate with Padrino. For this guide, let us pretend that we
 would like to integrate <code>Datamapper</code> into Padrino. First, let’s add <code>Datamapper</code>
 to the project generator’s available components in
-<a href="http://github.com/padrino/padrino-framework/blob/master/padrino-gen/lib/padrino-gen/generators/project.rb#L28">padrino-gen/generators/project.rb</a>:</p>
+<a href="https://github.com/padrino/padrino-framework/blob/master/padrino-gen/lib/padrino-gen/generators/project.rb">padrino-gen/generators/project.rb</a>:</p>
 
 <pre class="highlight ruby"><code><span class="c1"># padrino-gen/lib/padrino-gen/generators/project.rb</span>
 <span class="n">component_option</span> <span class="ss">:orm</span><span class="p">,</span> <span class="s2">"database engine"</span><span class="p">,</span> <span class="ss">:choices</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="ss">:activerecord</span><span class="p">,</span> <span class="ss">:datamapper</span><span class="p">]</span>
@@ -37,7 +37,7 @@ to the project generator’s available components in
 component_option in the project generator. Once we have defined datamapper as
 an option for the orm component, let’s actually define the specific integration
 tasks for the generator in
-<a href="http://github.com/padrino/padrino-framework/blob/master/padrino-gen/lib/padrino-gen/generators/components/orms/datamapper.rb">padrino-gen/generators/components/orms/datamapper.rb</a>:</p>
+<a href="https://github.com/padrino/padrino-framework/blob/master/padrino-gen/lib/padrino-gen/generators/components/orms/datamapper.rb">padrino-gen/generators/components/orms/datamapper.rb</a>:</p>
 
 <pre class="highlight ruby"><code><span class="c1"># padrino-gen/lib/padrino-gen/generators/components/orms/datamapper.rb</span>
 <span class="c1"># These are the steps to setup the persistence layer in the initial project</span>
@@ -79,7 +79,7 @@ tasks for the generator in
 or modify the database for instance), you can add these to the <code>padrino-tasks</code>
 folder in the <code>padrino-gen</code> gem. For Datamapper, there are a number of tasks
 that should be available in
-<a href="http://github.com/padrino/padrino-framework/blob/master/padrino-gen/lib/padrino-gen/padrino-tasks/datamapper.rb">padrino-tasks/datamapper.rb</a>:</p>
+<a href="https://github.com/padrino/padrino-framework/blob/master/padrino-gen/lib/padrino-gen/padrino-tasks/datamapper.rb">padrino-tasks/datamapper.rb</a>:</p>
 
 <pre class="highlight ruby"><code><span class="c1"># padrino-gen/lib/padrino-gen/padrino-tasks/datamapper.rb</span>
 <span class="k">if</span> <span class="n">defined?</span><span class="p">(</span><span class="no">DataMapper</span><span class="p">)</span>
@@ -100,7 +100,7 @@ that should be available in
 
 <p>Next, let’s add the appropriate unit tests to ensure our new component works as
 intended in
-<a href="http://github.com/padrino/padrino-framework/blob/master/padrino-gen/test/test_project_generator.rb#L129">padrino-gen/test/test_project_generator.rb</a>:</p>
+<a href="https://github.com/padrino/padrino-framework/blob/master/padrino-gen/test/test_project_generator.rb#L359">padrino-gen/test/test_project_generator.rb</a>:</p>
 
 <pre class="highlight ruby"><code><span class="c1"># padrino-gen/test/test_project_generator.rb</span>
 <span class="n">should</span> <span class="s2">"properly generate default for datamapper"</span> <span class="k">do</span>
@@ -114,7 +114,7 @@ intended in
 </code></pre>
 
 <p>Finally for the generator integration, we should add the available option to the
-<a href="http://github.com/padrino/padrino-framework/blob/master/padrino-gen/README.rdoc">generator README file</a>:</p>
+<a href="https://github.com/padrino/padrino-framework/blob/master/padrino-gen/README.rdoc">generator README file</a>:</p>
 
 <pre class="highlight ruby"><code><span class="c1"># padrino-gen/README.rdoc</span>
 <span class="n">orm</span><span class="o">::</span> <span class="n">none</span>  <span class="p">(</span><span class="n">default</span><span class="p">),</span> <span class="n">mongomapper</span><span class="p">,</span> <span class="n">mongoid</span><span class="p">,</span> <span class="n">activerecord</span><span class="p">,</span> <span class="n">sequel</span><span class="p">,</span> <span class="n">couchrest</span><span class="p">,</span> <span class="n">datamapper</span>
@@ -128,7 +128,7 @@ persistence engine of choice and is <strong>highly</strong> recommended.</p>
 <p>Adding <code>padrino-admin</code> support for your persistence engine is actually fairly
 straightforward. First, let’s add <code>Datamapper</code> to the set of supported admin orm
 engines in
-<a href="http://github.com/padrino/padrino-framework/blob/master/padrino-admin/lib/padrino-admin/generators/actions.rb#L17">padrino-admin/generators/actions.rb</a>:</p>
+<a href="https://github.com/padrino/padrino-framework/blob/master/padrino-admin/lib/padrino-admin/generators/actions.rb#L29">padrino-admin/generators/actions.rb</a>:</p>
 
 <pre class="highlight ruby"><code><span class="c1"># padrino-admin/lib/padrino-admin/generators/actions.rb</span>
 <span class="k">def</span> <span class="nf">supported_orm</span>
@@ -138,7 +138,7 @@ engines in
 
 <p>Next, we need to define the interaction methods available by our persistence
 engine on our models in
-<a href="http://github.com/padrino/padrino-framework/blob/master/padrino-admin/lib/padrino-admin/generators/orm.rb">padrino-admin/generators/orm.rb</a>:</p>
+<a href="https://github.com/padrino/padrino-framework/blob/master/padrino-admin/lib/padrino-admin/generators/orm.rb">padrino-admin/generators/orm.rb</a>:</p>
 
 <pre class="highlight ruby"><code><span class="c1"># padrino-admin/lib/padrino-admin/generators/orm.rb</span>
 <span class="k">module</span> <span class="nn">Padrino</span>
@@ -210,7 +210,7 @@ engine on our models in
 
 <p>Next, we need to describe how the <code>Account</code> model should be defined for our
 persistence engine within
-<a href="http://github.com/padrino/padrino-framework/blob/master/padrino-admin/lib/padrino-admin/generators/templates/account/datamapper.rb.tt">padrino-admin/generators/templates/account/datamapper.rb.tt</a>:</p>
+<a href="https://github.com/padrino/padrino-framework/blob/master/padrino-admin/lib/padrino-admin/generators/templates/account/datamapper.rb.tt">padrino-admin/generators/templates/account/datamapper.rb.tt</a>:</p>
 
 <pre class="highlight ruby"><code><span class="c1"># padrino-admin/lib/padrino-admin/generators/templates/account/datamapper.rb.tt</span>
 <span class="k">class</span> <span class="nc">Account</span>
@@ -246,7 +246,7 @@ persistence engine within
   <span class="k">end</span>
 
   <span class="c1">#</span>
-  <span class="c1"># This method is used for retrive the original password.</span>
+  <span class="c1"># This method is used for retrieve the original password.</span>
   <span class="c1">#</span>
   <span class="k">def</span> <span class="nf">password_clean</span>
     <span class="n">crypted_password</span><span class="p">.</span><span class="nf">decrypt</span><span class="p">(</span><span class="n">salt</span><span class="p">)</span>
@@ -266,11 +266,11 @@ persistence engine within
 </code></pre>
 
 <p>Finally, let’s update the <code>padrino-admin</code> README file at
-<a href="http://github.com/padrino/padrino-framework/blob/master/padrino-admin/README.rdoc">padrino-admin/README.rdoc</a>
+<a href="https://github.com/padrino/padrino-framework/blob/master/padrino-admin/README.rdoc">padrino-admin/README.rdoc</a>
 to reflect our newly support component:</p>
 
 <pre class="highlight ruby"><code><span class="c1"># padrino-admin/README.rdoc</span>
-<span class="no">Orm</span> <span class="no">Agnostic</span><span class="o">::</span> <span class="no">Data</span> <span class="no">Adapters</span> <span class="k">for</span> <span class="no">Datamapper</span><span class="p">,</span> <span class="no">Activerecord</span><span class="p">,</span> <span class="no">Mongomapper</span><span class="p">,</span> <span class="no">Mongoid</span><span class="p">,</span> <span class="no">Couchrest</span>
+<span class="no">Orm</span> <span class="no">Agnostic</span><span class="o">::</span> <span class="no">Data</span> <span class="no">Adapters</span> <span class="k">for</span> <span class="no">Datamapper</span><span class="p">,</span> <span class="no">Activerecord</span><span class="p">,</span> <span class="no">Mongomapper</span><span class="p">,</span> <span class="no">Mongoid</span><span class="p">,</span> <span class="no">Couchrest</span><span class="p">,</span> <span class="no">Dynamoid</span>
 </code></pre>
 
 <p>This completes the full integration of a persistence engine into Padrino. Once
@@ -287,7 +287,7 @@ crediting you for the contribution!</p>
 straightforward. For this guide, let’s assume we want to add <code>extcore</code> as a
 javascript component integrated into Padrino. First, let’s add <code>extcore</code> to the
 project generator’s available components in
-<a href="http://github.com/padrino/padrino-framework/blob/master/padrino-gen/lib/padrino-gen/generators/project.rb#L31">padrino-gen/generators/project.rb</a>:</p>
+<a href="https://github.com/padrino/padrino-framework/blob/master/padrino-gen/lib/padrino-gen/generators/project.rb#L36">padrino-gen/generators/project.rb</a>:</p>
 
 <pre class="highlight ruby"><code><span class="c1"># padrino-gen/lib/padrino-gen/generators/project.rb</span>
 <span class="n">component_option</span> <span class="ss">:script</span><span class="p">,</span> <span class="s2">"javascript library"</span><span class="p">,</span> <span class="ss">:choices</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="ss">:jquery</span><span class="p">,</span> <span class="ss">:prototype</span><span class="p">,</span> <span class="ss">:extcore</span><span class="p">]</span>
@@ -295,7 +295,7 @@ project generator’s available components in
 
 <p>Next, let’s define the actual integration of the javascript into the generator
 in
-<a href="http://github.com/padrino/padrino-framework/blob/master/padrino-gen/lib/padrino-gen/generators/components/scripts/extcore.rb">padrino-gen/generators/components/scripts/extcore.rb</a>:</p>
+<a href="https://github.com/padrino/padrino-framework/blob/master/padrino-gen/lib/padrino-gen/generators/components/scripts/extcore.rb">padrino-gen/generators/components/scripts/extcore.rb</a>:</p>
 
 <pre class="highlight ruby"><code><span class="c1"># padrino-gen/lib/padrino-gen/generators/components/scripts/extcore.rb</span>
 <span class="k">def</span> <span class="nf">setup_script</span>
@@ -314,23 +314,24 @@ latest version of the javascript library to the templates folder:</p>
 
 <p>Let’s also add a test to ensure the new javascript component generates as
 expected in
-<a href="http://github.com/padrino/padrino-framework/blob/master/padrino-gen/test/test_project_generator.rb#L198">padrino-gen/test/test_project_generator.rb</a>:</p>
+<a href="https://github.com/padrino/padrino-framework/blob/master/padrino-gen/test/test_project_generator.rb#L517">padrino-gen/test/test_project_generator.rb</a>:</p>
 
 <pre class="highlight ruby"><code><span class="c1"># padrino-gen/test/test_project_generator.rb</span>
-<span class="n">should</span> <span class="s2">"properly generate for ext-core"</span> <span class="k">do</span>
-  <span class="n">buffer</span> <span class="o">=</span> <span class="n">silence_logger</span><span class="p">{</span><span class="vi">@project</span><span class="p">.</span><span class="nf">start</span><span class="p">([</span><span class="s1">'sample_project'</span><span class="p">,</span> <span class="s1">'--root=/tmp'</span><span class="p">,</span> <span class="s1">'--script=extcore'</span><span class="p">])}</span>
-  <span class="n">assert_match</span> <span class="sr">/Applying.*?extcore.*?script/</span><span class="p">,</span> <span class="n">buffer</span>
-  <span class="n">assert_file_exists</span><span class="p">(</span><span class="s1">'/tmp/sample_project/public/javascripts/ext-core.js'</span><span class="p">)</span>
-  <span class="n">assert_file_exists</span><span class="p">(</span><span class="s1">'/tmp/sample_project/public/javascripts/application.js'</span>
+<span class="n">it</span> <span class="s1">'should properly generate for ext-core'</span> <span class="k">do</span>
+  <span class="n">out</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">capture_io</span> <span class="p">{</span> <span class="n">generate</span><span class="p">(</span><span class="ss">:project</span><span class="p">,</span> <span class="s1">'sample_project'</span><span class="p">,</span> <span class="s2">"--root=</span><span class="si">#{</span><span class="vi">@apptmp</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="s1">'--script=extcore'</span><span class="p">)</span> <span class="p">}</span>
+  <span class="n">assert_match</span><span class="p">(</span><span class="sr">/applying.*?extcore.*?script/</span><span class="p">,</span> <span class="n">out</span><span class="p">)</span>
+  <span class="n">assert_file_exists</span><span class="p">(</span><span class="s2">"</span><span class="si">#{</span><span class="vi">@apptmp</span><span class="si">}</span><span class="s2">/sample_project/public/javascripts/ext.js"</span><span class="p">)</span>
+  <span class="n">assert_file_exists</span><span class="p">(</span><span class="s2">"</span><span class="si">#{</span><span class="vi">@apptmp</span><span class="si">}</span><span class="s2">/sample_project/public/javascripts/ext-ujs.js"</span><span class="p">)</span>
+  <span class="n">assert_file_exists</span><span class="p">(</span><span class="s2">"</span><span class="si">#{</span><span class="vi">@apptmp</span><span class="si">}</span><span class="s2">/sample_project/public/javascripts/application.js"</span><span class="p">)</span>
 <span class="k">end</span>
 </code></pre>
 
 <p>and finally let’s update the README for <code>padrino-gen</code> to reflect the new
 component in
-<a href="http://github.com/padrino/padrino-framework/blob/master/padrino-gen/README.rdoc">padrino-gen/README.rdoc</a>:</p>
+<a href="https://github.com/padrino/padrino-framework/blob/master/padrino-gen/README.rdoc">padrino-gen/README.rdoc</a>:</p>
 
 <pre class="highlight ruby"><code><span class="c1"># padrino-gen/README.rdoc</span>
-<span class="n">script</span><span class="o">::</span> <span class="n">none</span>  <span class="p">(</span><span class="n">default</span><span class="p">),</span> <span class="n">jquery</span><span class="p">,</span> <span class="n">prototype</span><span class="p">,</span> <span class="n">mootools</span><span class="p">,</span> <span class="n">rightjs</span><span class="p">,</span> <span class="n">extcore</span>
+<span class="n">script</span><span class="o">::</span> <span class="n">none</span>  <span class="p">(</span><span class="n">default</span><span class="p">),</span> <span class="n">jquery</span><span class="p">,</span> <span class="n">prototype</span><span class="p">,</span> <span class="n">mootools</span><span class="p">,</span> <span class="n">rightjs</span><span class="p">,</span> <span class="p">,</span> <span class="n">dojo</span><span class="p">,</span> <span class="n">extcore</span>
 </code></pre>
 
 <p>This completes the full integration of a javascript library into Padrino. Once
@@ -340,14 +341,13 @@ when generated, we will include the component into the next Padrino version
 crediting you for the contribution!</p>
 
 <p>An example of the
-<a href="http://github.com/padrino/padrino-framework/commit/43fb57dd39fa9d860873c14840e68281e314abb8">actual commit</a>
-of the <code>extcore</code> javascript library is a great example of how to contribute to
-Padrino.</p>
+<a href="https://github.com/padrino/padrino-framework/commit/43fb57dd39fa9d860873c14840e68281e314abb8">actual commit</a>
+of the <code>extcore</code> javascript library is a great example of how to contribute to Padrino.</p>
 
 <p>In addition to this, you can also provide a UJS adapter which provides ‘remote’
 and ‘method’ support to a project using a particular javascript framework. For
 more information about UJS, check out the
-<a href="http://www.padrinorb.com/guides/application-helpers#unobtrusive-javascript-helpers">UJS Helpers</a>
+<a href="https://www.padrinorb.com/guides/application-helpers#unobtrusive-javascript-helpers">UJS Helpers</a>
 guide.</p>
 
 <p>To support UJS in a given javascript framework, simply create a new file such as
@@ -427,7 +427,7 @@ UJS file to the generator in Padrino:</p>
 straightforward. For this guide, let’s assume we want to add <code>shoulda</code> as a
 testing component integrated into Padrino. First, let’s add <code>shoulda</code> to the
 project generator’s available components in
-<a href="http://github.com/padrino/padrino-framework/blob/master/padrino-gen/lib/padrino-gen/generators/project.rb#L29">padrino-gen/generators/project.rb</a>:</p>
+<a href="https://github.com/padrino/padrino-framework/blob/master/padrino-gen/lib/padrino-gen/generators/project.rb#L36">padrino-gen/generators/project.rb</a>:</p>
 
 <pre class="highlight ruby"><code><span class="c1"># padrino-gen/lib/padrino-gen/generators/project.rb</span>
 <span class="n">component_option</span> <span class="ss">:test</span><span class="p">,</span> <span class="s2">"testing framework"</span><span class="p">,</span> <span class="ss">:choices</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="ss">:rspec</span><span class="p">,</span> <span class="ss">:shoulda</span><span class="p">]</span>
@@ -437,7 +437,7 @@ project generator’s available components in
 generator in
 <a href="https://github.com/padrino/padrino-framework/blob/master/padrino-gen/lib/padrino-gen/generators/components/tests/shoulda.rb">padrino-gen/generators/components/tests/shoulda.rb</a>:</p>
 
-<pre class="highlight ruby"><code><span class="c1"># padrino-gen/lib/padrino-gen/generators/components/tests/shoulda_test.rb</span>
+<pre class="highlight ruby"><code><span class="c1"># padrino-gen/lib/padrino-gen/generators/components/tests/shoulda.rb</span>
 <span class="no">SHOULDA_SETUP</span> <span class="o">=</span> <span class="p">(</span><span class="o">&lt;&lt;-</span><span class="no">TEST</span><span class="p">).</span><span class="nf">gsub</span><span class="p">(</span><span class="sr">/^ {10}/</span><span class="p">,</span> <span class="s1">''</span><span class="p">)</span><span class="sh">
 PADRINO_ENV = 'test' unless defined?(PADRINO_ENV)
 require File.expand_path(File.dirname(__FILE__) + "/../config/boot")
@@ -469,7 +469,7 @@ end
 
 <p>Let’s also add a test to ensure the new testing component generates as expected
 in
-<a href="http://github.com/padrino/padrino-framework/blob/master/padrino-gen/test/test_project_generator.rb#L234">padrino-gen/test/test_project_generator.rb</a>:</p>
+<a href="https://github.com/padrino/padrino-framework/blob/master/padrino-gen/test/test_project_generator.rb#L580">padrino-gen/test/test_project_generator.rb</a>:</p>
 
 <pre class="highlight ruby"><code><span class="c1"># padrino-gen/test/test_project_generator.rb</span>
 <span class="n">should</span> <span class="s2">"properly generate for shoulda"</span> <span class="k">do</span>
@@ -483,7 +483,7 @@ in
 
 <p>and finally let’s update the README for <code>padrino-gen</code> to reflect the new
 component in
-<a href="http://github.com/padrino/padrino-framework/blob/master/padrino-gen/README.rdoc">padrino-gen/README.rdoc</a>:</p>
+<a href="https://github.com/padrino/padrino-framework/blob/master/padrino-gen/README.rdoc">padrino-gen/README.rdoc</a>:</p>
 
 <pre class="highlight ruby"><code><span class="c1"># padrino-gen/README.rdoc</span>
 <span class="nb">test</span><span class="o">::</span> <span class="n">rspec</span> <span class="p">(</span><span class="n">default</span><span class="p">),</span> <span class="n">bacon</span><span class="p">,</span> <span class="n">shoulda</span><span class="p">,</span> <span class="n">cucumber</span><span class="p">,</span> <span class="n">testspec</span><span class="p">,</span> <span class="n">riot</span>
@@ -497,7 +497,7 @@ component in
 For this guide, let’s assume we want to add <code>haml</code> as a rendering engine
 integrated into Padrino. First, let’s add <code>haml</code> to the project generator’s
 available components in
-<a href="http://github.com/padrino/padrino-framework/blob/master/padrino-gen/lib/padrino-gen/generators/project.rb#L32">padrino-gen/generators/project.rb</a>:</p>
+<a href="https://github.com/padrino/padrino-framework/blob/master/padrino-gen/lib/padrino-gen/generators/project.rb#L32">padrino-gen/generators/project.rb</a>:</p>
 
 <pre class="highlight ruby"><code><span class="c1"># padrino-gen/lib/padrino-gen/generators/project.rb</span>
 <span class="n">ccomponent_option</span> <span class="ss">:renderer</span><span class="p">,</span> <span class="s2">"template engine"</span><span class="p">,</span> <span class="ss">:choices</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="ss">:haml</span><span class="p">,</span> <span class="ss">:erb</span><span class="p">]</span>
@@ -505,7 +505,7 @@ available components in
 
 <p>Next, let’s define the actual integration of the rendering engine into the
 generator in
-<a href="http://github.com/padrino/padrino-framework/blob/master/padrino-gen/lib/padrino-gen/generators/components/renderers/haml.rb">padrino-gen/generators/components/renderers/haml.rb</a>:</p>
+<a href="https://github.com/padrino/padrino-framework/blob/master/padrino-gen/lib/padrino-gen/generators/components/renderers/haml.rb">padrino-gen/generators/components/renderers/haml.rb</a>:</p>
 
 <pre class="highlight ruby"><code><span class="c1"># padrino-gen/lib/padrino-gen/generators/components/renderers/haml.rb</span>
 <span class="k">def</span> <span class="nf">setup_renderer</span>
@@ -515,7 +515,7 @@ generator in
 
 <p>Let’s also add a test to ensure the new rendering component generates as
 expected in
-<a href="http://github.com/padrino/padrino-framework/blob/master/padrino-gen/test/test_project_generator.rb#L161">padrino-gen/test/test_project_generator.rb</a>:</p>
+<a href="https://github.com/padrino/padrino-framework/blob/master/padrino-gen/test/test_project_generator.rb#L464">padrino-gen/test/test_project_generator.rb</a>:</p>
 
 <pre class="highlight ruby"><code><span class="c1"># padrino-gen/test/test_project_generator.rb</span>
 <span class="n">should</span> <span class="s2">"properly generate for haml"</span> <span class="k">do</span>
@@ -527,7 +527,7 @@ expected in
 
 <p>and finally let’s update the README for <code>padrino-gen</code> to reflect the new
 component in
-<a href="http://github.com/padrino/padrino-framework/blob/master/padrino-gen/README.rdoc">padrino-gen/README.rdoc</a>:</p>
+<a href="https://github.com/padrino/padrino-framework/blob/master/padrino-gen/README.rdoc">padrino-gen/README.rdoc</a>:</p>
 
 <pre class="highlight ruby"><code><span class="c1"># padrino-gen/README.rdoc</span>
 <span class="n">renderer</span><span class="o">::</span> <span class="n">erb</span> <span class="p">(</span><span class="n">default</span><span class="p">),</span> <span class="n">haml</span>
@@ -540,12 +540,12 @@ renderer.</p>
 
 <p>When adding a new renderer, be sure to add templates for each of the necessary
 admin views. The necessary templates and structure can be found in the
-<a href="http://github.com/padrino/padrino-framework/tree/master/padrino-admin/lib/padrino-admin/generators/templates/haml/">padrino-admin/generators/templates/haml</a>
+<a href="https://github.com/padrino/padrino-framework/tree/master/padrino-admin/lib/padrino-admin/generators/templates/haml/">padrino-admin/generators/templates/haml</a>
 views folder. Be sure to implement all of these if you want the integrated
 rendering engine to work with the admin dashboard.</p>
 
 <p>Finally, let’s update the <code>padrino-admin</code> README file at
-<a href="http://github.com/padrino/padrino-framework/blob/master/padrino-admin/README.rdoc">padrino-admin/README.rdoc</a>
+<a href="https://github.com/padrino/padrino-framework/blob/master/padrino-admin/README.rdoc">padrino-admin/README.rdoc</a>
 to reflect our newly support component:</p>
 
 <pre class="highlight ruby"><code><span class="c1"># padrino-admin/README.rdoc</span>
@@ -566,7 +566,7 @@ crediting you for the contribution!</p>
 straightforward. For this guide, let’s assume we want to add <code>mocha</code> as a
 mocking component integrated into Padrino. First, let’s add <code>mocha</code> to the
 project generator’s available components in
-<a href="http://github.com/padrino/padrino-framework/blob/master/padrino-gen/lib/padrino-gen/generators/project.rb#L30">padrino-gen/generators/project.rb</a>:</p>
+<a href="https://github.com/padrino/padrino-framework/blob/master/padrino-gen/lib/padrino-gen/generators/project.rb#L36">padrino-gen/generators/project.rb</a>:</p>
 
 <pre class="highlight ruby"><code><span class="c1"># padrino-gen/lib/padrino-gen/generators/project.rb</span>
 <span class="n">component_option</span> <span class="ss">:mock</span><span class="p">,</span> <span class="s2">"mocking library"</span><span class="p">,</span> <span class="ss">:choices</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="ss">:mocha</span><span class="p">,</span> <span class="ss">:rr</span><span class="p">]</span>
@@ -574,7 +574,7 @@ project generator’s available components in
 
 <p>Next, let’s define the actual integration of the mocking library into the
 generator in
-<a href="http://github.com/padrino/padrino-framework/blob/master/padrino-gen/lib/padrino-gen/generators/components/mocks/mocha.rb">padrino-gen/generators/components/mocks/mocha.rb</a>:</p>
+<a href="https://github.com/padrino/padrino-framework/blob/master/padrino-gen/lib/padrino-gen/generators/components/mocks/mocha.rb">padrino-gen/generators/components/mocks/mocha.rb</a>:</p>
 
 <pre class="highlight ruby"><code><span class="c1"># padrino-gen/lib/padrino-gen/generators/components/mocks/mocha.rb</span>
 <span class="k">def</span> <span class="nf">setup_mock</span>
@@ -585,7 +585,7 @@ generator in
 
 <p>Let’s also add a test to ensure the new mocking component generates as expected
 in
-<a href="http://github.com/padrino/padrino-framework/blob/master/padrino-gen/test/test_project_generator.rb#L93">padrino-gen/test/test_project_generator.rb</a>:</p>
+<a href="https://github.com/padrino/padrino-framework/blob/master/padrino-gen/test/test_project_generator.rb#L248">padrino-gen/test/test_project_generator.rb</a>:</p>
 
 <pre class="highlight ruby"><code><span class="c1"># padrino-gen/test/test_project_generator.rb</span>
 <span class="n">should</span> <span class="s2">"properly generate for mocha and rspec"</span> <span class="k">do</span>
@@ -598,7 +598,7 @@ in
 
 <p>and finally let’s update the README for <code>padrino-gen</code> to reflect the new
 component in
-<a href="http://github.com/padrino/padrino-framework/blob/master/padrino-gen/README.rdoc">padrino-gen/README.rdoc</a>:</p>
+<a href="https://github.com/padrino/padrino-framework/blob/master/padrino-gen/README.rdoc">padrino-gen/README.rdoc</a>:</p>
 
 <pre class="highlight ruby"><code><span class="c1"># padrino-gen/README.rdoc</span>
 <span class="n">mock</span><span class="o">::</span> <span class="n">none</span> <span class="p">(</span><span class="n">default</span><span class="p">),</span> <span class="n">mocha</span><span class="p">,</span> <span class="n">rr</span>
@@ -618,7 +618,7 @@ crediting you for the contribution!</p>
 straightforward. For this guide, let’s assume we want to add <code>less</code> as a
 stylesheet engine component integrated into Padrino. First, let’s add <code>less</code> to
 the project generator’s available components in
-<a href="http://github.com/padrino/padrino-framework/blob/master/padrino-gen/lib/padrino-gen/generators/project.rb#L33">padrino-gen/generators/project.rb</a>:</p>
+<a href="https://github.com/padrino/padrino-framework/blob/master/padrino-gen/lib/padrino-gen/generators/project.rb#L33">padrino-gen/generators/project.rb</a>:</p>
 
 <pre class="highlight ruby"><code><span class="c1"># padrino-gen/lib/padrino-gen/generators/project.rb</span>
 <span class="n">component_option</span> <span class="ss">:stylesheet</span><span class="p">,</span> <span class="s2">"stylesheet engine"</span><span class="p">,</span> <span class="ss">:choices</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="ss">:sass</span><span class="p">,</span> <span class="ss">:less</span><span class="p">]</span>
@@ -626,7 +626,7 @@ the project generator’s available components in
 
 <p>Next, let’s define the actual integration of the stylesheet engine into the
 generator in
-<a href="http://github.com/padrino/padrino-framework/blob/master/padrino-gen/lib/padrino-gen/generators/components/stylesheets/less.rb">padrino-gen/generators/components/stylesheets/less.rb</a>:</p>
+<a href="https://github.com/padrino/padrino-framework/blob/master/padrino-gen/lib/padrino-gen/generators/components/stylesheets/less.rb">padrino-gen/generators/components/stylesheets/less.rb</a>:</p>
 
 <pre class="highlight ruby"><code><span class="c1"># padrino-gen/lib/padrino-gen/generators/components/stylesheets/less.rb</span>
 <span class="no">LESS_INIT</span> <span class="o">=</span> <span class="p">(</span><span class="o">&lt;&lt;-</span><span class="no">LESS</span><span class="p">).</span><span class="nf">gsub</span><span class="p">(</span><span class="sr">/^ {6}/</span><span class="p">,</span> <span class="s1">''</span><span class="p">)</span><span class="sh">
@@ -647,7 +647,7 @@ app.use Rack::Less, :root =&gt; app.root, :source  =&gt; 'stylesheets/',
 
 <p>Let’s also add a test to ensure the new stylesheet engine component generates as
 expected in
-<a href="http://github.com/padrino/padrino-framework/blob/master/padrino-gen/test/test_project_generator.rb#L278">padrino-gen/test/test_project_generator.rb</a>:</p>
+<a href="https://github.com/padrino/padrino-framework/blob/master/padrino-gen/test/test_project_generator.rb#L656">padrino-gen/test/test_project_generator.rb</a>:</p>
 
 <pre class="highlight ruby"><code><span class="c1"># padrino-gen/test/test_project_generator.rb</span>
 <span class="n">should</span> <span class="s2">"properly generate for less"</span> <span class="k">do</span>
@@ -662,7 +662,7 @@ expected in
 
 <p>and finally let’s update the README for <code>padrino-gen</code> to reflect the new
 component in
-<a href="http://github.com/padrino/padrino-framework/blob/master/padrino-gen/README.rdoc">padrino-gen/README.rdoc</a>:</p>
+<a href="https://github.com/padrino/padrino-framework/blob/master/padrino-gen/README.rdoc">padrino-gen/README.rdoc</a>:</p>
 
 <pre class="highlight ruby"><code><span class="c1"># padrino-gen/README.rdoc</span>
 <span class="n">stylesheet</span><span class="o">::</span> <span class="n">sass</span> <span class="p">(</span><span class="n">default</span><span class="p">),</span> <span class="n">less</span>
@@ -686,10 +686,9 @@ favorite language. For this example, let’s port over Padrino to Russian. The
 following yml files must be translated:</p>
 
 <ul>
-  <li><a href="http://github.com/padrino/padrino-framework/blob/master/padrino-core/lib/padrino-core/locale/ru.yml">padrino-core/locale/ru.yml</a></li>
-  <li><a href="http://github.com/padrino/padrino-framework/blob/master/padrino-helpers/lib/padrino-helpers/locale/ru.yml">padrino-helpers/locale/ru.yml</a></li>
-  <li><a href="http://github.com/padrino/padrino-framework/blob/master/padrino-admin/lib/padrino-admin/locale/admin/ru.yml">padrino-admin/locale/admin/ru.yml</a></li>
-  <li><a href="http://github.com/padrino/padrino-framework/blob/master/padrino-admin/lib/padrino-admin/locale/orm/ru.yml">padrino-admin/locale/orm/ru.yml</a></li>
+  <li><a href="https://github.com/padrino/padrino-framework/blob/master/padrino-helpers/lib/padrino-helpers/locale/ru.yml">padrino-helpers/locale/ru.yml</a></li>
+  <li><a href="https://github.com/padrino/padrino-framework/blob/master/padrino-admin/lib/padrino-admin/locale/admin/ru.yml">padrino-admin/locale/admin/ru.yml</a></li>
+  <li><a href="https://github.com/padrino/padrino-framework/blob/master/padrino-admin/lib/padrino-admin/locale/orm/ru.yml">padrino-admin/locale/orm/ru.yml</a></li>
 </ul>
 
 <p>This completes the full integration of a new locale into Padrino. Once all of
@@ -699,11 +698,12 @@ translations, we will include the locale into the next Padrino version crediting
 you for the contribution!</p>
 
 <p>An example of the
-<a href="http://github.com/padrino/padrino-framework/commit/64465d1835cf32996bc36bb14ed9fd1c21e3cd76">actual commit</a>
+<a href="https://github.com/padrino/padrino-framework/commit/64465d1835cf32996bc36bb14ed9fd1c21e3cd76">actual commit</a>
 of the Russian locale translations are a great example of how to contribute to
 Padrino.</p>
 
 <p class="excerpt"><a class="button" href="/guides/standalone-usage-in-sinatra">Next Section – Standalone Usage in Sinatra</a></p>
+
 </div></div></div><hr /><footer class="footer"><p>Padrino is released under the MIT LICENSE<br />
 Hosting by <a href="https://pages.github.com">GitHub Pages</a></p>
 </footer><script src="../../assets/javascripts/all-c2e0cecd.js"></script></div></body></html>

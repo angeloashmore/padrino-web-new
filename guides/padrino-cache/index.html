@@ -32,7 +32,7 @@ your needs, you can enable it very easily:</p>
 <span class="k">end</span>
 </code></pre>
 
-<p>By default the “cache_key” in these instances is the <code>request.path_info</code> and
+<p>By default the “cache_key“ in these instances is the <code>request.path_info</code> and
 the query string is not considered. You can also provide a custom <code>cache_key</code>
 for any route:</p>
 
@@ -47,12 +47,13 @@ for any route:</p>
 <span class="k">end</span>
 </code></pre>
 
-<p>In this way you can manually expire cache with CachedApp.cache.delete(:my_name)
+<p>In this way you can manually expire cache with <code>CachedApp.cache.delete(:my_name)</code>
 for example from the Post model after an update.</p>
 
 <p>You can also cache on a controller-wide basis:</p>
 
 <pre class="highlight ruby"><code><span class="c1"># Controller-wide caching example</span>
+
 <span class="k">class</span> <span class="nc">SimpleApp</span> <span class="o">&lt;</span> <span class="no">Padrino</span><span class="o">::</span><span class="no">Application</span>
   <span class="n">register</span> <span class="no">Padrino</span><span class="o">::</span><span class="no">Cache</span>
   <span class="n">enable</span> <span class="ss">:caching</span>
@@ -73,7 +74,8 @@ for example from the Post model after an update.</p>
       <span class="s1">'Url is /admin/bar'</span>
     <span class="k">end</span>
 
-    <span class="n">post</span> <span class="s1">'/baz'</span> <span class="k">do</span> <span class="c1"># We cache only GET and HEAD request</span>
+    <span class="c1"># We cache only GET and HEAD request</span>
+    <span class="n">post</span> <span class="s1">'/baz'</span> <span class="k">do</span>
       <span class="s1">'This will not be cached'</span>
     <span class="k">end</span>
   <span class="k">end</span>
@@ -92,7 +94,7 @@ a very active part of your domain.</p>
 
 <h3 id="page-caching">Page Caching</h3>
 
-<p>As described above in the “Caching Quickstart” section, page caching is very
+<p>As described above in the “Caching Quickstart“ section, page caching is very
 easy to integrate into your application. To turn it on, simply provide the
 <code>:cache =&gt; true</code> option on either a controller or one of its routes.</p>
 
@@ -121,9 +123,9 @@ its previous output will be sent to the client with a 200 OK status code.</p>
     <span class="k">end</span>
   <span class="k">end</span>
 <span class="k">end</span>
-</code></pre>
 
-<pre class="highlight ruby"><code><span class="k">class</span> <span class="nc">SimpleApp</span> <span class="o">&lt;</span> <span class="no">Padrino</span><span class="o">::</span><span class="no">Application</span>
+
+<span class="k">class</span> <span class="nc">SimpleApp</span> <span class="o">&lt;</span> <span class="no">Padrino</span><span class="o">::</span><span class="no">Application</span>
   <span class="n">get</span> <span class="s1">'/post/:id'</span><span class="p">,</span> <span class="ss">:cache</span> <span class="o">=&gt;</span> <span class="kp">true</span> <span class="k">do</span>
     <span class="n">cache_key</span> <span class="p">{</span> <span class="n">request</span><span class="p">.</span><span class="nf">path_info</span> <span class="o">+</span> <span class="s2">"?"</span> <span class="o">+</span> <span class="n">params</span><span class="p">.</span><span class="nf">slice</span><span class="p">(</span><span class="s2">"name"</span><span class="p">,</span> <span class="s2">"page"</span><span class="p">).</span><span class="nf">to_param</span> <span class="p">}</span>
     <span class="vi">@post</span> <span class="o">=</span> <span class="no">Post</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="ss">:id</span><span class="p">])</span>
@@ -131,7 +133,7 @@ its previous output will be sent to the client with a 200 OK status code.</p>
 <span class="k">end</span>
 </code></pre>
 
-<p>This will modify the cache key to include the “name” and “page” query
+<p>This will modify the cache key to include the <code>name</code> and <code>page</code> query
 parameters.</p>
 
 <h3 id="fragment-caching">Fragment Caching</h3>
@@ -158,8 +160,8 @@ fragment to be cached. It can be used in within a route:</p>
 
 <pre class="highlight ruby"><code><span class="c1"># Caching a fragment</span>
 <span class="k">class</span> <span class="nc">MyTweets</span> <span class="o">&lt;</span> <span class="no">Padrino</span><span class="o">::</span><span class="no">Application</span>
-  <span class="n">register</span> <span class="no">Padrino</span><span class="o">::</span><span class="no">Cache</span>  <span class="c1"># includes helpers</span>
-  <span class="n">enable</span> <span class="ss">:caching</span>          <span class="c1"># turns on caching</span>
+  <span class="n">register</span> <span class="no">Padrino</span><span class="o">::</span><span class="no">Cache</span>
+  <span class="n">enable</span> <span class="ss">:caching</span>
 
   <span class="n">controller</span> <span class="s1">'/tweets'</span> <span class="k">do</span>
     <span class="n">get</span> <span class="ss">:feed</span><span class="p">,</span> <span class="ss">:map</span> <span class="o">=&gt;</span> <span class="s1">'/:username'</span> <span class="k">do</span>
@@ -178,7 +180,7 @@ fragment to be cached. It can be used in within a route:</p>
 </code></pre>
 
 <p>This example adds a key to the cache of format <code>feed_for_#{username}</code> which
-contains the contents of that user’s feed. Any subsequent action within the next
+contains the contents of that user‘s feed. Any subsequent action within the next
 3 seconds will fetch the pre-rendered version of <code>feed_for_#{username}</code> from the
 cache instead of re-rendering it. The rest of the page code will, however, be
 re-executed.</p>
@@ -263,15 +265,15 @@ re-generate.</p>
 
 <h4 id="fragment-level-expiration">Fragment-level expiration</h4>
 
-<p>Using the example above of a tweet server, let’s suppose our users have a
+<p>Using the example above of a tweet server, let‘s suppose our users have a
 tendency to post things they quickly regret. When we query our database for new
-tweets, let’s check to see if any have been deleted. If so, we’ll do our user a
+tweets, let‘s check to see if any have been deleted. If so, we’ll do our user a
 favor and instantly re-render the feed.</p>
 
 <pre class="highlight ruby"><code><span class="c1"># Expiring fragment-level cached content</span>
 <span class="k">class</span> <span class="nc">MyTweets</span> <span class="o">&lt;</span> <span class="no">Padrino</span><span class="o">::</span><span class="no">Application</span>
-  <span class="n">register</span> <span class="no">Padrino</span><span class="o">::</span><span class="no">Cache</span> <span class="c1"># includes helpers</span>
-  <span class="n">enable</span> <span class="ss">:caching</span>         <span class="c1"># turns on caching</span>
+  <span class="n">register</span> <span class="no">Padrino</span><span class="o">::</span><span class="no">Cache</span>
+  <span class="n">enable</span> <span class="ss">:caching</span>
   <span class="n">enable</span> <span class="ss">:session</span>         <span class="c1"># we'll use this to store last time visited</span>
 
   <span class="no">COMPANY_FOUNDING</span> <span class="o">=</span> <span class="no">Time</span><span class="p">.</span><span class="nf">utc</span><span class="p">(</span> <span class="mi">2010</span><span class="p">,</span> <span class="s2">"April"</span> <span class="p">)</span>
@@ -372,8 +374,8 @@ Cache comes shipped with:</p>
 <pre class="highlight ruby"><code><span class="n">set</span> <span class="ss">:cache</span><span class="p">,</span> <span class="no">Padrino</span><span class="o">::</span><span class="no">Cache</span><span class="o">::</span><span class="no">Store</span><span class="o">::</span><span class="no">Memcache</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="o">::</span><span class="no">Memcached</span><span class="p">.</span><span class="nf">new</span><span class="p">)</span>
 </code></pre>
 
-<p>The Memcache Store takes a Memcache client instance. If you wanted to use
-another memcached library such as Dalli instead, you would do:</p>
+<p>The Memcache Store takes a memcache client instance. If you wanted to use
+another memcached library such as <a title="Dalli" href="https://github.com/petergoldstein/dalli">Dalli</a> instead, you would do:</p>
 
 <pre class="highlight ruby"><code><span class="n">set</span> <span class="ss">:cache</span><span class="p">,</span> <span class="no">Padrino</span><span class="o">::</span><span class="no">Cache</span><span class="o">::</span><span class="no">Store</span><span class="o">::</span><span class="no">Memcache</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="o">::</span><span class="no">Dalli</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">)</span>
 </code></pre>
@@ -383,7 +385,8 @@ another memcached library such as Dalli instead, you would do:</p>
 <pre class="highlight ruby"><code><span class="n">set</span> <span class="ss">:cache</span><span class="p">,</span> <span class="no">Padrino</span><span class="o">::</span><span class="no">Cache</span><span class="o">::</span><span class="no">Store</span><span class="o">::</span><span class="no">Redis</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="o">::</span><span class="no">Redis</span><span class="p">.</span><span class="nf">new</span><span class="p">)</span>
 </code></pre>
 
-<p>The Redis Store takes a Redis client instance.</p>
+<p>The <a title="Redis Store" href="https://github.com/redis-store/redis-store">Redis Store</a>
+takes a <a title="Redis client" href="https://github.com/redis/redis-rb">Redis client</a> instance.</p>
 
 <h4 id="mongo">Mongo</h4>
 
@@ -393,6 +396,7 @@ another memcached library such as Dalli instead, you would do:</p>
 <p>The Mongo Store takes a Mongo connection instance.</p>
 
 <p class="excerpt"><a class="button" href="/guides/controllers">Next Section – Controllers</a></p>
+
 </div></div></div><hr /><footer class="footer"><p>Padrino is released under the MIT LICENSE<br />
 Hosting by <a href="https://pages.github.com">GitHub Pages</a></p>
 </footer><script src="../../assets/javascripts/all-c2e0cecd.js"></script></div></body></html>

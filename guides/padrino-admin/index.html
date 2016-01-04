@@ -51,7 +51,7 @@ password for your newly created admin account:</p>
 
 <ul>
   <li>edit your config/database.rb</li>
-  <li>migrate your database # padrino rake ar:migrate or # dm:migrate</li>
+  <li>migrate your database: <code>$ padrino rake ar:migrate</code> or <code>$ padrino rake dm:migrate</code></li>
   <li>seed your database with some data # padrino rake seed</li>
 </ul>
 
@@ -69,7 +69,7 @@ views and add those to your admin section by running this series of commands:</p
 <span class="gp">$ </span>padrino start
 </code></pre>
 
-<p>That’s it! Browse to <a href="http://localhost:3000/admin">http://localhost:3000/admin</a> and access your model by
+<p>That‘s it! Browse to <a href="http://localhost:3000/admin">http://localhost:3000/admin</a> and access your model by
 clicking on the newly created tab on your admin navbar: there you can create,
 edit, destroy and display your objects.</p>
 
@@ -82,9 +82,9 @@ permissions (User Authentication and Authorization).</p>
 
 <hr />
 
-<h2 id="scenario-ecommerce-user-authentication">Scenario Ecommerce (User Authentication)</h2>
+<h2 id="scenario-e-commerce-user-authentication">Scenario E-commerce (User Authentication)</h2>
 
-<p>To make some practical example, let’s examine some common ecommerce application
+<p>To make some practical example, let‘s examine some common e-commerce application
 scenario, where we usually need to restrain some users to get access to some of
 our controllers actions; we can easily accomplish this by editing <code>app.rb</code>
 accordingly:</p>
@@ -116,7 +116,7 @@ email and password).</p>
 
 <h2 id="admin-scenario-user-authorization">Admin Scenario (User Authorization)</h2>
 
-<p>For Another example, let’s suppose that you need your <strong>admin</strong> account to do
+<p>For Another example, let‘s suppose that you need your <strong>admin</strong> account to do
 certain things and have access to certain controller actions, and your
 <strong>editor</strong> account needs to be restrained to get access to those same admin
 actions.</p>
@@ -152,10 +152,10 @@ with “/”) with the only exception for all those paths starting with <code>/s
 giving our <code>unauthenticated</code> users the possibility to log in by redirecting them
 to our login page and asking them to provide their email and password.</p>
 
-<p>If we are logged in as an <strong>admin</strong> (account.role == ‘admin’) we will have
+<p>If we are logged in as an <strong>admin</strong> (<code>account.role == 'admin'</code>) we will have
 access <strong>only</strong> to the <code>/settings</code> path.</p>
 
-<p>If we are logged in as an <strong>editor</strong> (account.role == ‘editor’) we will have
+<p>If we are logged in as an <strong>editor</strong> (<code>account.role == 'editor'</code>) we will have
 access <strong>only</strong> to the <code>/posts</code> and <code>/categories</code> paths instead.</p>
 
 <hr />
@@ -171,10 +171,12 @@ with the line <code>set :session_id, "your_session_id"</code> in each apps <code
 
 <p>If you are planning to use padrino with other adapters rather than the currently
 supported ones, and you want to contribute to the project by extending its
-support with additional adapters like ohm, cassandra and so on, be sure to check
-out the <a href="/guides/adding-new-components">adding new components</a> guide.</p>
+support with additional adapters like <a title="ohm" href="https://github.com/soveran/ohm">ohm</a>,
+<a title="cassandra" href="https://github.com/cassandra-rb/cassandra">cassandra</a> and so on, be sure to check
+out the <a title="adding new components" href="/guides/adding-new-components">adding new components</a> guide.</p>
 
 <p class="excerpt"><a class="button" href="/guides/padrino-mailer">Next Section – Padrino Mailer</a></p>
+
 </div></div></div><hr /><footer class="footer"><p>Padrino is released under the MIT LICENSE<br />
 Hosting by <a href="https://pages.github.com">GitHub Pages</a></p>
 </footer><script src="../../assets/javascripts/all-c2e0cecd.js"></script></div></body></html>

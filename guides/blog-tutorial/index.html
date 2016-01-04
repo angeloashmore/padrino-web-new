@@ -24,13 +24,13 @@ relevant topics.</p>
 
 <p>To skip this tutorial or immediately see the complete blog tutorial project, you
 can either checkout the
-<a href="http://github.com/padrino/sample_blog">blog tutorial repository</a> using Git:</p>
+<a title="blog tutorial repository" href="http://github.com/padrino/sample_blog">blog tutorial repository</a> using Git:</p>
 
 <pre class="highlight shell"><code><span class="gp">$ </span>git clone git://github.com/padrino/sample_blog.git
 </code></pre>
 
 <p>or even execute the
-<a href="http://gist.github.com/357045">blog tutorial project template</a> which will
+<a title="blog tutorial project template" href="http://gist.github.com/357045">blog tutorial project template</a> which will
 automatically build the blog project step by step using our excellent template
 runner. You can do this simply by invoking:</p>
 
@@ -38,24 +38,26 @@ runner. You can do this simply by invoking:</p>
 </code></pre>
 
 <p>To learn more about our template generator, be sure to check out the
-<a href="/guides/generators">generators guide</a>.</p>
+<a title="generators guide" href="/guides/generators">generators guide</a>.</p>
 
 <hr />
 
 <h2 id="installation">Installation</h2>
 
 <p>In order to develop a Padrino application, we must have a few things installed.
-First, we must obviously have <a href="http://www.ruby-lang.org/en/">ruby</a> and
-<a href="http://rubygems.org/">rubygems</a> installed. Next, we must install the padrino
+First, we must obviously have <a title="ruby" href="http://www.ruby-lang.org/en/">ruby</a> and
+<a title="rubygems" href="https://rubygems.org/">rubygems</a> installed. Next, we must install the padrino
 framework gems:</p>
 
 <pre class="highlight shell"><code><span class="gp">$ </span>gem install padrino
 </code></pre>
 
 <p>For more details on installation, check out the
-<a href="/guides/installation">installation guide</a>. Once this has been finished, all
+<a title="installation guide" href="/guides/installation">installation guide</a>. Once this has been finished, all
 necessary dependencies should be ready and we can begin developing our sample
-blog. —</p>
+blog.</p>
+
+<hr />
 
 <h2 id="project-generation">Project Generation</h2>
 
@@ -64,7 +66,7 @@ Padrino generator. Similar to Rails, Padrino has a project generator which will
 create a skeleton application with all the files you need to being development
 of your new idea. Padrino is an agnostic framework and supports using a variety
 of different template, testing, JavaScript and database components. You can
-learn more by reading the <a href="/guides/generators">generators guide</a>.</p>
+learn more by reading the <a title="generators guide" href="/guides/generators">generators guide</a>.</p>
 
 <p>For this sample application, we will use the ActiveRecord ORM, the Haml
 templating language, the Shoulda testing framework and the jQuery JavaScript
@@ -150,7 +152,7 @@ root URL of the application. The second route defines a one-line ‘about’ pag
 inline using Haml which is then explicitly mapped to the ‘/about_us’ URL. The
 symbol <code>:about</code> is used to reference the route later.</p>
 
-<p>Be sure to check out the <a href="/guides/controllers">controllers guide</a> for a
+<p>Be sure to check out the <a title="controllers guide" href="/guides/controllers">controllers guide</a> for a
 comprehensive overview of the routing system.</p>
 
 <hr />
@@ -167,7 +169,7 @@ and enter:</p>
 
 <p>This will create the admin sub-application within your project and mount it
 within the <code>config/apps.rb</code> file. The output of this command can be viewed in
-<a href="http://gist.github.com/324298">this gist</a> file.</p>
+<a title="this gist" href="http://gist.github.com/324298">this gist</a> file.</p>
 
 <p>Now, we should follow the instructions and create our database, run our
 migrations and run the seed tasks which has been generated in <code>db/seeds.rb</code>. Go
@@ -182,7 +184,7 @@ to the terminal and run:</p>
 for the admin dashboard. Be sure to remember this for use later in development.</p>
 
 <p>To read more about the features of the admin panel, check out the
-<a href="/guides/padrino-admin">Admin Panel Guide</a>.</p>
+<a title="Admin Panel Guide" href="/guides/padrino-admin">Admin Panel Guide</a>.</p>
 
 <hr />
 
@@ -206,7 +208,7 @@ tasks. Simply execute the following in the terminal:</p>
 </code></pre>
 
 <p>To read more about available terminal commands, checkout the
-<a href="/guides/development-commands">Development and Terminal Commands</a> guide.</p>
+<a title="Development and Terminal Commands" href="/guides/development-commands">Development and Terminal Commands</a> guide.</p>
 
 <p>Your application now exists on <a href="http://localhost:3000">http://localhost:3000</a>. Visit this URL in the
 browser and you should see the route render <code>Hello World!</code> route that we defined
@@ -217,7 +219,7 @@ earlier in this tutorial.</p>
 specified during the <code>rake seed</code> command performed earlier. Feel free to explore
 this area and checkout the existing accounts. We will come back to this in more
 detail later. To read more about the features of the admin panel, check out the
-<a href="/guides/padrino-admin">Admin Panel Guide</a>.</p>
+<a title="Admin Panel Guide" href="/guides/padrino-admin">Admin Panel Guide</a>.</p>
 
 <p>Worth noting here is that Padrino has full support for code reloading in
 development mode. This means you can keep the Padrino server running and change
@@ -283,13 +285,13 @@ create  app/views/posts
 create  <span class="nb">test</span>/controllers/posts_controller_test.rb
 </code></pre>
 
-<p>We’ll want to attached some of the standard routes (:index and :show) to the
+<p>We’ll want to attached some of the standard routes (<code>:index</code> and <code>:show</code>) to the
 controller.</p>
 
 <pre class="highlight ruby"><code><span class="c1"># app/controllers/posts.rb</span>
 <span class="no">SampleBlog</span><span class="o">::</span><span class="no">App</span><span class="p">.</span><span class="nf">controllers</span> <span class="ss">:posts</span> <span class="k">do</span>
   <span class="n">get</span> <span class="ss">:index</span> <span class="k">do</span>
-    <span class="vi">@posts</span> <span class="o">=</span> <span class="no">Post</span><span class="p">.</span><span class="nf">all</span><span class="p">(</span><span class="ss">:order</span> <span class="o">=&gt;</span> <span class="s1">'created_at desc'</span><span class="p">)</span>
+    <span class="vi">@posts</span> <span class="o">=</span> <span class="no">Post</span><span class="p">.</span><span class="nf">order</span><span class="p">(</span><span class="s1">'created_at DESC'</span><span class="p">).</span><span class="nf">all</span>
     <span class="n">render</span> <span class="s1">'posts/index'</span>
   <span class="k">end</span>
 
@@ -546,16 +548,16 @@ and stubs for list items left as an exercise for the reader.</p>
 
 <p>Next, we simply need to setup the style sheets. There are two we will use for
 this demo. The first is a generic CSS reset by Eric Meyers. The
-<a href="http://github.com/padrino/sample_blog/blob/master/public/stylesheets/reset.css">full reset style sheet</a>
+<a title="full reset style sheet" href="https://github.com/padrino/sample_blog/blob/master/public/stylesheets/reset.css">full reset style sheet</a>
 can be found in the
-<a href="http://github.com/padrino/sample_blog/blob/master/public/stylesheets/reset.css">sample blog repository</a>
+<a title="sambple blog repository" href="https://github.com/padrino/sample_blog/blob/master/public/stylesheets/reset.css">sample blog repository</a>
 and should be put into <code>public/stylesheets/reset.css</code>.</p>
 
 <p>The second style sheet is the application style sheet to give our blog a better
 look and feel. The
-<a href="http://github.com/padrino/sample_blog/blob/master/app/stylesheets/application.sass">full contents of the style sheet</a>
+<a title="full contents of the style sheet" href="https://github.com/padrino/sample_blog/blob/master/app/stylesheets/application.sass">full contents of the style sheet</a>
 can be found in the
-<a href="http://github.com/padrino/sample_blog/blob/master/app/stylesheets/application.sass">sample blog repository</a>
+<a title="sample blog repository" href="https://github.com/padrino/sample_blog/blob/master/app/stylesheets/application.sass">sample blog repository</a>
 and should be put into <code>app/stylesheets/application.sass</code>.</p>
 
 <p>With the layout and these two stylesheets in place, the blog will now have a
@@ -659,10 +661,10 @@ to use a service such as Heroku. Let’s deploy our application to Heroku right
 now.</p>
 
 <p>The best way to get started using Heroku is by following the
-<a href="http://docs.heroku.com/quickstart">Heroku Quickstart Guide</a> . As explained in
+<a title="Heroku Quickstart guide" href="https://devcenter.heroku.com/start">Heroku Quickstart Guide</a> . As explained in
 the guide, be sure to have Git installed and
-<a href="http://heroku.com/signup">setup a Heroku account</a> as well as
-<a href="http://docs.heroku.com/heroku-command">install the Heroku gem</a> before
+<a title="setup a Heroku account" href="https://signup.heroku.com/">setup a Heroku account</a> as well as
+<a title="install the Heroku command-line tool" href="https://devcenter.heroku.com/articles/heroku-command">install the Heroku command-line tool</a> before
 continuing this tutorial.</p>
 
 <p>Now, to deploy to Heroku, the application needs to be set up as a Git
@@ -817,6 +819,7 @@ Account has been successfully created, now you can login with:
 <p>Enjoy!</p>
 
 <p class="excerpt"><a class="button" href="/guides/application-helpers">Next Section – Application Helpers</a></p>
+
 </div></div></div><hr /><footer class="footer"><p>Padrino is released under the MIT LICENSE<br />
 Hosting by <a href="https://pages.github.com">GitHub Pages</a></p>
 </footer><script src="../../assets/javascripts/all-c2e0cecd.js"></script></div></body></html>

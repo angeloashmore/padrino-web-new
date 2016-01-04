@@ -1,7 +1,7 @@
 <!DOCTYPE html><html><head><meta charset="utf-8" /><meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" /><meta content="initial-scale=1" name="viewport" /><title>Padrino - Padrino Mailer</title><link href="/assets/favicon.ico" rel="icon" type="image/ico" /><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" /><link href="../../assets/stylesheets/style-75d468d0.css" rel="stylesheet" /></head><body class="guides guides_padrino-mailer guides_padrino-mailer_index"><div class="grid"><header class="header"><h1 class="header__name"><a class="padrino-name" href="/">Padrino</a></h1><div class="header__navigation"><nav class="navigation"><a class="navigation__toggler" href="#" id="navigation__toggler"><span class="navigation__toggler__icon fa fa-navicon"></span></a><ul class="navigation__items" id="navigation__items"><li class="navigation__item"><a class="navigation__link" href="/">Overview</a></li><li class="navigation__item"><a class="navigation__link--is-active" href="/guides/">Guides</a></li><li class="navigation__item"><a class="navigation__link" href="/blog/">Blog</a></li><li class="navigation__item"><a class="navigation__link" href="http://www.rubydoc.info/github/padrino/padrino-framework">API</a></li><li class="navigation__item"><a class="navigation__link" href="/contribute/">Contribute</a></li><li class="navigation__item"><a class="navigation__link" href="https://github.com/padrino/padrino-framework"><span class="button--slim">GitHub</span></a></li></ul></nav></div></header><div class="page"><div class="page__sidebar"><div class="sidebar"><h4 class="sidebar__header--first">Guides</h4><ul class="sidebar__items"><li class="sidebar__item"><a class="sidebar__link" href="/guides/">Home</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/getting-started/">Getting Started</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/installation/">Installation</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/basic-projects/">Basic Projects</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/generators/">Generators</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/development-commands/">Development Commands</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/mounting-applications/">Mounting Applications</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/blog-tutorial/">Blog Tutorial</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/application-helpers/">Application Helpers</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/padrino-admin/">Padrino Admin</a></li><li class="sidebar__item"><a class="sidebar__link--is-active" href="/guides/padrino-mailer/">Padrino Mailer</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/padrino-cache/">Padrino Cache</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/controllers/">Controllers</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/localization/">Localization</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/extensions/">Extensions</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/rake-tasks/">Rake Tasks</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/the-bleeding-edge/">The Bleeding Edge</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/adding-new-components/">Adding New Components</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/standalone-usage-in-sinatra/">Standalone Usage in Sinatra</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/running-padrino-on-jruby/">Running Padrino on JRuby</a></li></ul></div></div><div class="page__content"><div class="content"><h1 id="padrino-mailer">Padrino Mailer</h1>
 
 <p>This component creates an easy and intuitive interface for delivering email
-within a Sinatra application. The <a href="http://github.com/mikel/mail">mail</a> library
+within a Sinatra application. The <a title="mail" href="http://github.com/mikel/mail">mail</a> library
 is utilized to do the bulk of the work. There is full support for rendering
 email templates, using an html content type and for file attachments. The
 Padrino Mailer uses a familiar Sinatra syntax similar to that of defining routes
@@ -11,8 +11,8 @@ for a controller.</p>
 
 <h2 id="configuration">Configuration</h2>
 
-<p>Let’s take a look at using the Mailer in an application. By default, the mailer
-uses the built-in sendmail binary on the server. However, smtp is also supported
+<p>Let‘s take a look at using the Mailer in an application. By default, the mailer
+uses the built-in sendmail binary on the server. However, SMTP is also supported
 using the following declaration in your application:</p>
 
 <pre class="highlight ruby"><code><span class="c1"># app/app.rb</span>
@@ -26,7 +26,7 @@ using the following declaration in your application:</p>
 <span class="p">}</span>
 </code></pre>
 
-<p>Once those have been defined, the default will become smtp delivery unless
+<p>Once those have been defined, the default will become SMTP delivery unless
 overwritten in an individual mail definition.</p>
 
 <p>You can also configure the mailer to not send emails during development or
@@ -40,7 +40,7 @@ testing. This can be done with:</p>
 
 <h2 id="quick-usage">Quick Usage</h2>
 
-<p>Padrino supports sending any arbitrary email (using either sendmail or smtp)
+<p>Padrino supports sending any arbitrary email (using either sendmail or SMTP)
 right from your controllers. This is ideal for ‘one-off’ emails where the ‘full’
 mailer object is simply unnecessary or too heavy for your simple task.</p>
 
@@ -98,8 +98,8 @@ in the terminal:</p>
 <pre class="highlight shell"><code><span class="gp">$ </span>padrino g mailer Sample registration_email
 </code></pre>
 
-<p>This mailer defines a mail route called ‘<code>registration_mail</code>’ within the
-'<code>sample</code>' mailer. The '<code>registration_email</code>' route accepts the name and email
+<p>This mailer defines a mail route called <code>registration_mail</code> within the
+<code>sample</code> mailer. The <code>registration_email</code> route accepts the name and email
 arguments. Arguments are passed to the email body template via the <code>locals</code>
 method. The render command renders the email body template with the local
 variables, which should be defined in
@@ -107,7 +107,7 @@ variables, which should be defined in
 
 <pre class="highlight erb"><code># ./views/mailers/sample/registration_email.erb
 This is the body of the email and can access the <span class="cp">&lt;%=</span> <span class="nb">name</span> <span class="cp">%&gt;</span> variable.
-That's all there is to defining the body of the email which can be in plain text or html.
+That‘s all there is to defining the body of the email which can be in plain text or html.
 </code></pre>
 
 <p>Note that the mailer has full support for content type resolution and the email
@@ -121,7 +121,7 @@ be invoked by the <code>deliver</code> method:</p>
 <pre class="highlight ruby"><code><span class="n">deliver</span><span class="p">(</span><span class="ss">:sample</span><span class="p">,</span> <span class="ss">:registration_email</span><span class="p">,</span> <span class="s2">"Bob"</span><span class="p">,</span> <span class="s2">"bob@bobby.com"</span><span class="p">)</span>
 </code></pre>
 
-<p>And that will then deliver the email according the the configured options.</p>
+<p>And that will then deliver the email according the configured options.</p>
 
 <hr />
 
@@ -232,6 +232,7 @@ repeated between messages.</p>
 </code></pre>
 
 <p class="excerpt"><a class="button" href="/guides/padrino-cache">Next Section – Padrino Cache</a></p>
+
 </div></div></div><hr /><footer class="footer"><p>Padrino is released under the MIT LICENSE<br />
 Hosting by <a href="https://pages.github.com">GitHub Pages</a></p>
 </footer><script src="../../assets/javascripts/all-c2e0cecd.js"></script></div></body></html>

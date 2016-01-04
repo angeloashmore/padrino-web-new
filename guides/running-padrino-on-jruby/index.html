@@ -6,8 +6,7 @@
 
 <h2 id="install-on-jruby">Install on JRuby</h2>
 
-<p>You can easily install Padrino on jruby when you use
-<a href="https://rvm.beginrescueend.com/">rvm</a> :</p>
+<p>You can easily install Padrino on jruby when you use <a title="RVM" href="https://rvm.io/rvm/install">RVM</a>:</p>
 
 <pre class="highlight shell"><code><span class="gp">$ </span>rvm use --create jruby-1.6.4@padrino
 <span class="gp">$ </span>gem install padrino
@@ -57,7 +56,7 @@
 
 <p>Then run:</p>
 
-<pre class="highlight shell"><code>padrino start
+<pre class="highlight shell"><code><span class="gp">$ </span>padrino start
 </code></pre>
 
 <p>To run JRuby on 1.9 compat mode:</p>
@@ -78,8 +77,8 @@ padrino start
 </code></pre>
 
 <p>Edit <code>config/warble.rb</code> if you want to apply some customizations. You can access
-<a href="https://github.com/nicksieger/jruby-rack/#readme">JRuby-Rack official README</a>
-and <a href="http://caldersphere.rubyforge.org/warbler/">Warbler rdoc</a>.</p>
+<a href="https://github.com/jruby/jruby-rack">JRuby-Rack official README</a>
+and <a href="http://www.rubydoc.info/github/jruby/warbler">Warbler rdoc</a>.</p>
 
 <p>For example, if you want to deploy the app to server root directory, just add to
 <code>config/warble.rb</code>:</p>

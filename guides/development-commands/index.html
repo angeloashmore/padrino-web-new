@@ -6,7 +6,7 @@ an environment-specific log file <code>log/development.log</code> in test and pr
 environments.</p>
 
 <p>You can modify the logging behavior or disable logging altogether (more docs
-<a href="http://www.padrinorb.com/api/classes/Padrino/Logger.html">here</a>):</p>
+<a title="logger" href="http://www.rubydoc.info/github/padrino/padrino-framework/Padrino/Logger">here</a>):</p>
 
 <pre class="highlight ruby"><code><span class="c1"># boot.rb</span>
 <span class="no">Padrino</span><span class="o">::</span><span class="no">Logger</span><span class="o">::</span><span class="no">Config</span><span class="p">[</span><span class="ss">:development</span><span class="p">][</span><span class="ss">:stream</span><span class="p">]</span> <span class="o">=</span> <span class="ss">:to_file</span>
@@ -26,7 +26,7 @@ method accessible within your app and any controller or views:</p>
 <code>logger.warn</code>, <code>logger.error</code>, et al.</p>
 
 <p>For more information about the logger, check out our
-<a href="http://www.padrinorb.com/api/classes/Padrino/Logger.html">Logger RDOC</a></p>
+<a title="Logger RDoc" href="http://www.rubydoc.info/github/padrino/padrino-framework/Padrino/Logger">Logger RDoc</a></p>
 
 <hr />
 
@@ -67,7 +67,7 @@ our application.</p>
 </code></pre>
 
 <p>This manifest file uses the standard <code>bundler</code> gem syntax of which details can
-be found in the <a href="http://gembundler.com">Bundler WebSite</a>.</p>
+be found in the <a title="Bundle Website" href="http://bundler.io/">Bundler Website</a>.</p>
 
 <p>This gem allows us to place all our dependencies into a single file. Padrino
 will then automatically require all necessary files (if they exist on the
@@ -91,7 +91,7 @@ your application into separate files. Padrino automatically requires
 any files within the <code>lib</code> folder will be required automatically by Padrino.</p>
 
 <p>This is powered by the fact that Padrino will automatically load (and reload)
-any directory patterns within the ‘prequesite paths’. Additional directory
+any directory patterns within the ‘perquisite paths’. Additional directory
 patterns can be added to the set of reloaded files as needed by simply appending
 to the <code>prerequisites</code> within your application:</p>
 
@@ -171,7 +171,7 @@ you have two or more apps with same models you can use <code>project/shared/mode
 or <code>root/models</code>.</p>
 
 <p>If you have only one app you still use <code>project/app/models</code>(this is the default
-padrino g choice)</p>
+<code>padrino g</code> choice)</p>
 
 <p>Remember that if you need to load other paths you can use:</p>
 
@@ -184,6 +184,7 @@ padrino g choice)</p>
 </code></pre>
 
 <p class="excerpt"><a class="button" href="/guides/mounting-applications">Next Section – Mounting Applications</a></p>
+
 </div></div></div><hr /><footer class="footer"><p>Padrino is released under the MIT LICENSE<br />
 Hosting by <a href="https://pages.github.com">GitHub Pages</a></p>
 </footer><script src="../../assets/javascripts/all-c2e0cecd.js"></script></div></body></html>

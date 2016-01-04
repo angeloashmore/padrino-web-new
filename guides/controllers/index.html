@@ -1,4 +1,4 @@
-<!DOCTYPE html><html><head><meta charset="utf-8" /><meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" /><meta content="initial-scale=1" name="viewport" /><title>Padrino - Guides: Controllers</title><link href="/assets/favicon.ico" rel="icon" type="image/ico" /><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" /><link href="../../assets/stylesheets/style-75d468d0.css" rel="stylesheet" /></head><body class="guides guides_controllers guides_controllers_index"><div class="grid"><header class="header"><h1 class="header__name"><a class="padrino-name" href="/">Padrino</a></h1><div class="header__navigation"><nav class="navigation"><a class="navigation__toggler" href="#" id="navigation__toggler"><span class="navigation__toggler__icon fa fa-navicon"></span></a><ul class="navigation__items" id="navigation__items"><li class="navigation__item"><a class="navigation__link" href="/">Overview</a></li><li class="navigation__item"><a class="navigation__link--is-active" href="/guides/">Guides</a></li><li class="navigation__item"><a class="navigation__link" href="/blog/">Blog</a></li><li class="navigation__item"><a class="navigation__link" href="http://www.rubydoc.info/github/padrino/padrino-framework">API</a></li><li class="navigation__item"><a class="navigation__link" href="/contribute/">Contribute</a></li><li class="navigation__item"><a class="navigation__link" href="https://github.com/padrino/padrino-framework"><span class="button--slim">GitHub</span></a></li></ul></nav></div></header><div class="page"><div class="page__sidebar"><div class="sidebar"><h4 class="sidebar__header--first">Guides</h4><ul class="sidebar__items"><li class="sidebar__item"><a class="sidebar__link" href="/guides/">Home</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/getting-started/">Getting Started</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/installation/">Installation</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/basic-projects/">Basic Projects</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/generators/">Generators</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/development-commands/">Development Commands</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/mounting-applications/">Mounting Applications</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/blog-tutorial/">Blog Tutorial</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/application-helpers/">Application Helpers</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/padrino-admin/">Padrino Admin</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/padrino-mailer/">Padrino Mailer</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/padrino-cache/">Padrino Cache</a></li><li class="sidebar__item"><a class="sidebar__link--is-active" href="/guides/controllers/">Controllers</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/localization/">Localization</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/extensions/">Extensions</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/rake-tasks/">Rake Tasks</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/the-bleeding-edge/">The Bleeding Edge</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/adding-new-components/">Adding New Components</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/standalone-usage-in-sinatra/">Standalone Usage in Sinatra</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/running-padrino-on-jruby/">Running Padrino on JRuby</a></li></ul></div></div><div class="page__content"><div class="content"><h1 id="controllers">Controllers</h1>
+<!DOCTYPE html><html><head><meta charset="utf-8" /><meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" /><meta content="initial-scale=1" name="viewport" /><title>Padrino - Controllers</title><link href="/assets/favicon.ico" rel="icon" type="image/ico" /><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" /><link href="../../assets/stylesheets/style-75d468d0.css" rel="stylesheet" /></head><body class="guides guides_controllers guides_controllers_index"><div class="grid"><header class="header"><h1 class="header__name"><a class="padrino-name" href="/">Padrino</a></h1><div class="header__navigation"><nav class="navigation"><a class="navigation__toggler" href="#" id="navigation__toggler"><span class="navigation__toggler__icon fa fa-navicon"></span></a><ul class="navigation__items" id="navigation__items"><li class="navigation__item"><a class="navigation__link" href="/">Overview</a></li><li class="navigation__item"><a class="navigation__link--is-active" href="/guides/">Guides</a></li><li class="navigation__item"><a class="navigation__link" href="/blog/">Blog</a></li><li class="navigation__item"><a class="navigation__link" href="http://www.rubydoc.info/github/padrino/padrino-framework">API</a></li><li class="navigation__item"><a class="navigation__link" href="/contribute/">Contribute</a></li><li class="navigation__item"><a class="navigation__link" href="https://github.com/padrino/padrino-framework"><span class="button--slim">GitHub</span></a></li></ul></nav></div></header><div class="page"><div class="page__sidebar"><div class="sidebar"><h4 class="sidebar__header--first">Guides</h4><ul class="sidebar__items"><li class="sidebar__item"><a class="sidebar__link" href="/guides/">Home</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/getting-started/">Getting Started</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/installation/">Installation</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/basic-projects/">Basic Projects</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/generators/">Generators</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/development-commands/">Development Commands</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/mounting-applications/">Mounting Applications</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/blog-tutorial/">Blog Tutorial</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/application-helpers/">Application Helpers</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/padrino-admin/">Padrino Admin</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/padrino-mailer/">Padrino Mailer</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/padrino-cache/">Padrino Cache</a></li><li class="sidebar__item"><a class="sidebar__link--is-active" href="/guides/controllers/">Controllers</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/localization/">Localization</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/extensions/">Extensions</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/rake-tasks/">Rake Tasks</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/the-bleeding-edge/">The Bleeding Edge</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/adding-new-components/">Adding New Components</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/standalone-usage-in-sinatra/">Standalone Usage in Sinatra</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/running-padrino-on-jruby/">Running Padrino on JRuby</a></li></ul></div></div><div class="page__content"><div class="content"><h1 id="controllers">Controllers</h1>
 
 <p>Suppose we wanted to add routes to our Padrino application, and we want to
 organize a set of related routes within a more structured grouping. Padrino has
@@ -155,7 +155,7 @@ specified controller group:</p>
 
 <h3 id="nested-routes">Nested Routes</h3>
 
-<p>You can specify parent resources in padrino with the :parent option on the
+<p>You can specify parent resources in padrino with the <code>:parent</code> option on the
 controller:</p>
 
 <pre class="highlight ruby"><code><span class="c1"># app/controllers/example.rb</span>
@@ -258,6 +258,19 @@ using the <code>provides</code> route configuration:</p>
 <pre class="highlight haml"><code><span class="p">=</span> <span class="n">link_to</span> <span class="s1">'admin show page'</span><span class="p">,</span> <span class="n">url_for</span><span class="p">(</span><span class="ss">:admin</span><span class="p">,</span> <span class="n">show</span><span class="p">,</span> <span class="ss">:id</span> <span class="o">=&gt;</span> <span class="mi">25</span><span class="p">,</span> <span class="ss">:format</span> <span class="o">=&gt;</span> <span class="ss">:js</span><span class="p">)</span>
 <span class="p">=</span> <span class="n">link_to</span> <span class="s1">'admin other page'</span><span class="p">,</span> <span class="n">url_for</span><span class="p">(</span><span class="ss">:admin</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="ss">:id</span> <span class="o">=&gt;</span> <span class="mi">25</span><span class="p">,</span> <span class="ss">:name</span> <span class="o">=&gt;</span> <span class="ss">:foo</span><span class="p">)</span>
 <span class="p">=</span> <span class="n">link_to</span> <span class="s1">'other json'</span><span class="p">,</span> <span class="n">url</span><span class="p">(</span><span class="ss">:admin</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="ss">:id</span> <span class="o">=&gt;</span> <span class="mi">25</span><span class="p">,</span> <span class="ss">:name</span> <span class="o">=&gt;</span> <span class="ss">:foo</span><span class="p">,</span> <span class="ss">:format</span> <span class="o">=&gt;</span> <span class="ss">:json</span><span class="p">)</span>
+</code></pre>
+
+<hr />
+
+<h2 id="params-whitelisting">Params Whitelisting</h2>
+
+<p>We can provide a set of whitelisted params for a given request with:</p>
+
+<pre class="highlight ruby"><code><span class="no">SimpleApp</span><span class="p">.</span><span class="nf">controllers</span> <span class="ss">:admin</span> <span class="k">do</span>
+  <span class="n">get</span> <span class="ss">:show</span><span class="p">,</span> <span class="ss">:map</span> <span class="o">=&gt;</span> <span class="s2">"show"</span><span class="p">,</span> <span class="ss">:params</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="ss">:foo</span><span class="p">,</span> <span class="ss">:bar</span><span class="p">]</span> <span class="k">do</span>
+    <span class="c1"># Only accepts params "foo" and "bar". All other params are removed.</span>
+  <span class="k">end</span>
+<span class="k">end</span>
 </code></pre>
 
 <hr />
@@ -440,7 +453,7 @@ applications have is to parse incoming messages, typically JSON or XML. This
 data will come as part of the request's body instead of the typical form data
 approach, i.e. url parameters or multipart form data.</p>
 
-<p>Here's when <a href="https://github.com/achiu/rack-parser">Rack::Parser</a> comes in handy
+<p>Here's when <a title="Rack::Parser" href="https://github.com/achiu/rack-parser">Rack::Parser</a> comes in handy
 since it will do just that. In <code>app/app.rb</code> or in <code>config.ru</code> just add:</p>
 
 <pre class="highlight ruby"><code><span class="n">use</span> <span class="no">Rack</span><span class="o">::</span><span class="no">Parser</span><span class="p">,</span> <span class="ss">:content_types</span> <span class="o">=&gt;</span> <span class="p">{</span>
@@ -458,7 +471,7 @@ inside <code>params</code> and you would be able to do something along the lines
 </code></pre>
 
 <p>Have a look at
-<a href="http://recipes.sinatrarb.com/p/middleware/rack_parser?#article">this great Sinatra recipe</a>
+<a title="this great Sinatra recipe" href="http://recipes.sinatrarb.com/p/middleware/rack_parser?#article">this great Sinatra recipe</a>
 for a more detailed guide of how this middleware works.</p>
 
 <hr />
@@ -472,8 +485,8 @@ for a more detailed guide of how this middleware works.</p>
 </code></pre>
 
 <p>It will choose the first one that is discovered, without regards to the type of
-rendering (erb, haml). Otherwise you can explicitly specify the type of
-rendering of your choice (erb, haml).</p>
+rendering (erb, haml, slim). Otherwise you can explicitly specify the type of
+rendering of your choice (erb, haml, slim).</p>
 
 <pre class="highlight ruby"><code><span class="c1"># will use example.haml</span>
 <span class="n">render</span> <span class="ss">:haml</span><span class="p">,</span> <span class="s1">'account/index'</span>
@@ -553,6 +566,7 @@ domain with a <code>.</code> like this instead:</p>
 </code></pre>
 
 <p class="excerpt"><a class="button" href="/guides/localization">Next Section – Localization</a></p>
+
 </div></div></div><hr /><footer class="footer"><p>Padrino is released under the MIT LICENSE<br />
 Hosting by <a href="https://pages.github.com">GitHub Pages</a></p>
 </footer><script src="../../assets/javascripts/all-c2e0cecd.js"></script></div></body></html>

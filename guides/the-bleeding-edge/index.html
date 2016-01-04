@@ -1,19 +1,12 @@
 <!DOCTYPE html><html><head><meta charset="utf-8" /><meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" /><meta content="initial-scale=1" name="viewport" /><title>Padrino - The Bleeding Edge</title><link href="/assets/favicon.ico" rel="icon" type="image/ico" /><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" /><link href="../../assets/stylesheets/style-75d468d0.css" rel="stylesheet" /></head><body class="guides guides_the-bleeding-edge guides_the-bleeding-edge_index"><div class="grid"><header class="header"><h1 class="header__name"><a class="padrino-name" href="/">Padrino</a></h1><div class="header__navigation"><nav class="navigation"><a class="navigation__toggler" href="#" id="navigation__toggler"><span class="navigation__toggler__icon fa fa-navicon"></span></a><ul class="navigation__items" id="navigation__items"><li class="navigation__item"><a class="navigation__link" href="/">Overview</a></li><li class="navigation__item"><a class="navigation__link--is-active" href="/guides/">Guides</a></li><li class="navigation__item"><a class="navigation__link" href="/blog/">Blog</a></li><li class="navigation__item"><a class="navigation__link" href="http://www.rubydoc.info/github/padrino/padrino-framework">API</a></li><li class="navigation__item"><a class="navigation__link" href="/contribute/">Contribute</a></li><li class="navigation__item"><a class="navigation__link" href="https://github.com/padrino/padrino-framework"><span class="button--slim">GitHub</span></a></li></ul></nav></div></header><div class="page"><div class="page__sidebar"><div class="sidebar"><h4 class="sidebar__header--first">Guides</h4><ul class="sidebar__items"><li class="sidebar__item"><a class="sidebar__link" href="/guides/">Home</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/getting-started/">Getting Started</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/installation/">Installation</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/basic-projects/">Basic Projects</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/generators/">Generators</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/development-commands/">Development Commands</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/mounting-applications/">Mounting Applications</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/blog-tutorial/">Blog Tutorial</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/application-helpers/">Application Helpers</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/padrino-admin/">Padrino Admin</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/padrino-mailer/">Padrino Mailer</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/padrino-cache/">Padrino Cache</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/controllers/">Controllers</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/localization/">Localization</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/extensions/">Extensions</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/rake-tasks/">Rake Tasks</a></li><li class="sidebar__item"><a class="sidebar__link--is-active" href="/guides/the-bleeding-edge/">The Bleeding Edge</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/adding-new-components/">Adding New Components</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/standalone-usage-in-sinatra/">Standalone Usage in Sinatra</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/running-padrino-on-jruby/">Running Padrino on JRuby</a></li></ul></div></div><div class="page__content"><div class="content"><h1 id="the-bleeding-edge">The Bleeding Edge</h1>
 
-<p>You have three ways of using Padrino edge; the first one is using the git source
-code in a gem file, the second one is using a vendored version, and the third is
-to install edge into system gems from repository.</p>
+<p>You have three ways of using Padrino edge; the first one is using the git source code in a gem file, the second one is using a vendored version, and the third is to install edge into system gems from repository.</p>
 
-<p><strong>Git in Gemfile</strong> is suitable for those guys that <strong>only</strong> want Padrino’s
-  latest bleeding edge code.</p>
+<p><strong>Git in Gemfile</strong> is suitable for those guys that <strong>only</strong> want Padrino’s latest bleeding edge code.</p>
 
-<p><strong>System Gems</strong> is suitable for people that want to use the latest padrino and
-  freely use <code>padrino g</code> and <code>padrino</code>.</p>
+<p><strong>System Gems</strong> is suitable for people that want to use the latest padrino and freely use <code>padrino g</code> and <code>padrino</code>.</p>
 
-<p><strong>Path in Gemfile</strong> is recommended for developers because they can share their
-  changes and merge repos between projects.</p>
-
-<hr />
+<p><strong>Path in Gemfile</strong> is recommended for developers because they can share their changes and merge repos between projects.</p>
 
 <h2 id="git-in-gemfile">Git in Gemfile</h2>
 
@@ -26,8 +19,7 @@ to install edge into system gems from repository.</p>
 <pre class="highlight shell"><code><span class="gp">$ </span>bundle install
 </code></pre>
 
-<p>after that you need to run your app in the bundler environment because if you
-call directly:</p>
+<p>after that you need to run your app in the bundler environment because if you call directly:</p>
 
 <pre class="highlight shell"><code><span class="gp">$ </span>padrino g admin
 </code></pre>
@@ -41,15 +33,13 @@ call directly:</p>
 <span class="gp">$ </span>bundle <span class="nb">exec </span>padrino g model post
 </code></pre>
 
-<p>You can find more info about bundler usage on their
-<a href="http://gembundler.com/">site</a></p>
+<p>You can find more info about bundler usage on their <a title="Link bundler site" href="http://bundler.io/">site</a></p>
 
 <hr />
 
 <h2 id="system-gems-from-repository">System Gems from Repository</h2>
 
-<p>If you want to install the padrino edge gems into your system rubygems, simply
-follow the following steps. First, clone the padrino repository:</p>
+<p>If you want to install the padrino edge gems into your system rubygems, simply follow the following steps. First, clone the padrino repository:</p>
 
 <pre class="highlight shell"><code><span class="gp">$ </span><span class="nb">cd</span> /tmp
 <span class="gp">$ </span>git clone git://github.com/padrino/padrino-framework.git
@@ -59,7 +49,7 @@ follow the following steps. First, clone the padrino repository:</p>
 
 <pre class="highlight ruby"><code><span class="c1"># /tmp/padrino-framework/padrino-core/lib/padrino-core/version.rb</span>
 <span class="k">module</span> <span class="nn">Padrino</span>
-  <span class="no">VERSION</span> <span class="o">=</span> <span class="s1">'0.9.11-dev'</span> <span class="k">unless</span> <span class="n">defined?</span><span class="p">(</span><span class="no">Padrino</span><span class="o">::</span><span class="no">VERSION</span><span class="p">)</span> <span class="c1"># Change to bump version</span>
+  <span class="no">VERSION</span> <span class="o">=</span> <span class="s1">'0.13.1.beta1'</span> <span class="k">unless</span> <span class="n">defined?</span><span class="p">(</span><span class="no">Padrino</span><span class="o">::</span><span class="no">VERSION</span><span class="p">)</span> <span class="c1"># Change to bump version</span>
   <span class="c1">#...</span>
 <span class="k">end</span>
 </code></pre>
@@ -69,8 +59,7 @@ follow the following steps. First, clone the padrino repository:</p>
 <pre class="highlight shell"><code><span class="gp">padrino-framework$ </span>sudo rake fresh
 </code></pre>
 
-<p>this will install the latest ‘edge’ gems into rubygems. Be sure to verify your
-project’s Gemfile depends on the edge version you installed:</p>
+<p>this will install the latest ‘edge’ gems into rubygems. Be sure to verify your project‘s Gemfile depends on the edge version you installed:</p>
 
 <pre class="highlight ruby"><code><span class="no">Gemfile</span>
 <span class="c1"># Padrino</span>
@@ -97,8 +86,7 @@ normally:</p>
 <span class="nb">alias </span>padrino-dev-gen<span class="o">=</span><span class="s2">"/src/padrino-framework/padrino-gen/bin/padrino-gen"</span> <span class="c"># you can omit this</span>
 </code></pre>
 
-<p>Reload source or open a new terminal window and check if you have <em>padrino-dev</em>
-and <em>padrino-dev-gen</em> commands correctly added to your path.</p>
+<p>Reload source or open a new terminal window and check if you have <em>padrino-dev</em> and <em>padrino-dev-gen</em> commands correctly added to your path.</p>
 
 <p>Create a new padrino project:</p>
 
@@ -118,12 +106,9 @@ and <em>padrino-dev-gen</em> commands correctly added to your path.</p>
 <span class="k">end</span>
 </code></pre>
 
-<p>Make changes accordingly to your <em>/src/padrino-framework</em> to see them reflected
-through your padrino project now using your own vendored version of the
-framework.</p>
+<p>Make changes accordingly to your <em>/src/padrino-framework</em> to see them reflected through your padrino project now using your own vendored version of the framework.</p>
 
-<p><strong>REMEMBER</strong> to add always <code>--dev</code> when generating a project because without
-  that the generated project will use the gem instead the git checkout.</p>
+<p><strong>REMEMBER</strong> to add always <code>--dev</code> when generating a project because without that the generated project will use the gem instead the git checkout.</p>
 
 <p class="excerpt"><a class="button" href="/guides/adding-new-components">Next Section – Adding New Components</a></p>
 </div></div></div><hr /><footer class="footer"><p>Padrino is released under the MIT LICENSE<br />

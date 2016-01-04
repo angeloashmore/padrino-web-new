@@ -1,7 +1,7 @@
 <!DOCTYPE html><html><head><meta charset="utf-8" /><meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" /><meta content="initial-scale=1" name="viewport" /><title>Padrino - Rake Tasks</title><link href="/assets/favicon.ico" rel="icon" type="image/ico" /><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" /><link href="../../assets/stylesheets/style-75d468d0.css" rel="stylesheet" /></head><body class="guides guides_rake-tasks guides_rake-tasks_index"><div class="grid"><header class="header"><h1 class="header__name"><a class="padrino-name" href="/">Padrino</a></h1><div class="header__navigation"><nav class="navigation"><a class="navigation__toggler" href="#" id="navigation__toggler"><span class="navigation__toggler__icon fa fa-navicon"></span></a><ul class="navigation__items" id="navigation__items"><li class="navigation__item"><a class="navigation__link" href="/">Overview</a></li><li class="navigation__item"><a class="navigation__link--is-active" href="/guides/">Guides</a></li><li class="navigation__item"><a class="navigation__link" href="/blog/">Blog</a></li><li class="navigation__item"><a class="navigation__link" href="http://www.rubydoc.info/github/padrino/padrino-framework">API</a></li><li class="navigation__item"><a class="navigation__link" href="/contribute/">Contribute</a></li><li class="navigation__item"><a class="navigation__link" href="https://github.com/padrino/padrino-framework"><span class="button--slim">GitHub</span></a></li></ul></nav></div></header><div class="page"><div class="page__sidebar"><div class="sidebar"><h4 class="sidebar__header--first">Guides</h4><ul class="sidebar__items"><li class="sidebar__item"><a class="sidebar__link" href="/guides/">Home</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/getting-started/">Getting Started</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/installation/">Installation</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/basic-projects/">Basic Projects</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/generators/">Generators</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/development-commands/">Development Commands</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/mounting-applications/">Mounting Applications</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/blog-tutorial/">Blog Tutorial</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/application-helpers/">Application Helpers</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/padrino-admin/">Padrino Admin</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/padrino-mailer/">Padrino Mailer</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/padrino-cache/">Padrino Cache</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/controllers/">Controllers</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/localization/">Localization</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/extensions/">Extensions</a></li><li class="sidebar__item"><a class="sidebar__link--is-active" href="/guides/rake-tasks/">Rake Tasks</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/the-bleeding-edge/">The Bleeding Edge</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/adding-new-components/">Adding New Components</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/standalone-usage-in-sinatra/">Standalone Usage in Sinatra</a></li><li class="sidebar__item"><a class="sidebar__link" href="/guides/running-padrino-on-jruby/">Running Padrino on JRuby</a></li></ul></div></div><div class="page__content"><div class="content"><h1 id="rake-tasks">Rake Tasks</h1>
 
 <p>After generating a new padrino project, you will not find any Rakefile in your
-generated project folder structure; in fact it’s not strictly needed to build a
+generated project folder structure; in fact it‘s not strictly needed to build a
 new one because we can already use padrino rake:</p>
 
 <pre class="highlight shell"><code>padrino rake
@@ -27,7 +27,7 @@ padrino rake -T
 <h2 id="basic">Basic</h2>
 
 <p>Like other frameworks we have an <em>:environment</em> task that loads our
-<code>environment</code> and apps. Example:</p>
+<code>environment</code> and <code>apps</code>. Example:</p>
 
 <pre class="highlight ruby"><code><span class="c1"># This is a custom task</span>
 <span class="c1"># task/version.rake</span>
@@ -65,7 +65,7 @@ Application: foo
 
 <h2 id="testing">Testing</h2>
 
-<p>When testing with Padrino you have a builtin <code>padrino rake test</code> or for rspec
+<p>When testing with Padrino you have a built-in <code>padrino rake test</code> or for rspec
 <code>padrino rake spec</code>.</p>
 
 <pre class="highlight shell"><code>padrino rake <span class="nb">test</span> <span class="c"># =&gt; for bacon, riot, shoulda</span>
@@ -97,7 +97,7 @@ command:</p>
 mount several applications and each of them can use different orms without
 conflict, so that you can have multiple applications living together and one
 of them can use DataMapper, while another
-<em>ActiveRecord/MongoMapper/Couch/Sequel</em> instead. In this way we prevent
+<code>ActiveRecord/MongoMapper/Couch/Sequel</code> instead. In this way we prevent
 collisions.</p>
 
 <hr />
@@ -131,9 +131,9 @@ rake ar:version                        <span class="c"># Retrieves the current s
 
 <p><strong>rake ar:auto:upgrade</strong></p>
 
-<p>This is some sort of super cool and useful task for people like me who don’t
-love migrations (especially for small apps). It’s a forked version of
-<a href="http://github.com/pjhyett/auto_migrations">auto_migrations</a></p>
+<p>This is some sort of super cool and useful task for people like me who don‘t
+love migrations (especially for small apps). It‘s a forked version of
+<a href="http://github.com/pjhyett/auto_migrations">auto_migrations</a>.</p>
 
 <p>Basically, instead of writing migrations you can directly edit your
 <strong>schema.rb</strong> and perform <em>a non destructive</em> migration with <code>padrino rake
@@ -143,26 +143,26 @@ ar:auto:upgrade</code>.</p>
 
 <h2 id="datamapper-tasks">DataMapper Tasks:</h2>
 
-<pre class="highlight shell"><code>rake dm:auto:migrate           <span class="c"># Performs an automigration (resets your db data)</span>
-rake dm:auto:upgrade           <span class="c"># Performs a non destructive automigration</span>
-rake dm:create                 <span class="c"># Creates the database</span>
-rake dm:drop                   <span class="c"># Drops the database (postgres and mysql only)</span>
-rake dm:migrate                <span class="c"># Migrates the database to the latest version</span>
-rake dm:migrate:down[version]  <span class="c"># Migrates down using migrations</span>
-rake dm:migrate:up[version]    <span class="c"># Migrates up using migrations</span>
-rake dm:reset                  <span class="c"># Drops the database, and migrates from scratch</span>
-rake dm:setup                  <span class="c"># Create the database migrate and initialize with the seed data</span>
+<pre class="highlight shell"><code>rake dm:auto:migrate          <span class="c"># Performs an automigration (resets your db data)</span>
+rake dm:auto:upgrade          <span class="c"># Performs a non destructive automigration</span>
+rake dm:create                <span class="c"># Creates the database</span>
+rake dm:drop                  <span class="c"># Drops the database (postgres and mysql only)</span>
+rake dm:migrate               <span class="c"># Migrates the database to the latest version</span>
+rake dm:migrate:down[version] <span class="c"># Migrates down using migrations</span>
+rake dm:migrate:up[version]   <span class="c"># Migrates up using migrations</span>
+rake dm:reset                 <span class="c"># Drops the database, and migrates from scratch</span>
+rake dm:setup                 <span class="c"># Create the database migrate and initialize with the seed data</span>
 </code></pre>
 
 <hr />
 
 <h2 id="sequel-tasks">Sequel Tasks:</h2>
 
-<pre class="highlight shell"><code>rake sq:migrate:auto           <span class="c"># Perform automigration (reset your db data)</span>
-rake sq:migrate:to[version]    <span class="c"># Perform migration up/down to VERSION</span>
-rake sq:migrate:up             <span class="c"># Perform migration up to latest migration available</span>
-rake sq:migrate:down           <span class="c"># Perform migration down (erase all data)</span>
-rake sq:reset                  <span class="c"># Drops the database, and migrates from scratch</span>
+<pre class="highlight shell"><code>rake sq:migrate:auto        <span class="c"># Perform automigration (reset your db data)</span>
+rake sq:migrate:to[version] <span class="c"># Perform migration up/down to VERSION</span>
+rake sq:migrate:up          <span class="c"># Perform migration up to latest migration available</span>
+rake sq:migrate:down        <span class="c"># Perform migration down (erase all data)</span>
+rake sq:reset               <span class="c"># Drops the database, and migrates from scratch</span>
 </code></pre>
 
 <hr />
@@ -188,8 +188,8 @@ rake mi:cleanup_old_collections <span class="c"># Clean up old collections backe
 
 <h2 id="seed">Seed:</h2>
 
-<p>Like in Rails we can populate our db using <em>db/seeds.rb</em> here’s an example (from
-our padrino-admin):</p>
+<p>Like in Rails we can populate our db using <em>db/seeds.rb</em> here‘s an example (from
+our <a href="/guides/padrino-admin/">padrino-admin</a>):</p>
 
 <pre class="highlight ruby"><code><span class="n">email</span>     <span class="o">=</span> <span class="n">shell</span><span class="p">.</span><span class="nf">ask</span> <span class="s2">"Which email do you want use for loggin into admin?"</span>
 <span class="n">password</span>  <span class="o">=</span> <span class="n">shell</span><span class="p">.</span><span class="nf">ask</span> <span class="s2">"Tell me the password to use:"</span>
