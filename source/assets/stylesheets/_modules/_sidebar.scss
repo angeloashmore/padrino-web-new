@@ -1,6 +1,16 @@
 .sidebar {
   @include type-scale(small);
 
+  &--fixed {
+    @extend .sidebar;
+    @include breakpoint(bp(step-1)) {
+      height: 100%;
+      overflow: auto;
+      position: fixed;
+      top: rhythm(1);
+    }
+  }
+
   &__header {
     @include margin-trailer(0.25);
 

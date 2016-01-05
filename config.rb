@@ -52,9 +52,7 @@ configure :development do
   activate :livereload
 end
 
-
 set :url_root, 'http://padrinorb.com'
-
 
 # Build-specific configuration
 configure :build do
