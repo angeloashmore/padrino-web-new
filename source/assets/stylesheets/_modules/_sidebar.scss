@@ -18,7 +18,6 @@
   }
 
   &__item {
-    border-bottom: 1px solid color(gray--light);
     display: block;
 
     &:last-child {
@@ -30,7 +29,7 @@
     background: none;
     color: inherit;
     display: block;
-    padding: rhythm(0.25) 0;
+    padding: rhythm(0.125) 0;
 
     &:hover {
       color: color(red--semi-dark);
