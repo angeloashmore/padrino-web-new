@@ -10,5 +10,6 @@ html
             = partial current_page.data.sidebar || sidebar
         .page__content
           .content
+            p.content__chapter-title= current_page.data.chapter
             = yield
       = partial 'layouts/footer'

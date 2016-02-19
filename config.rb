@@ -1,4 +1,19 @@
+###
+# Settings
+###
+
+set :url_root, 'http://padrinorb.com'
+set :css_dir, 'assets/stylesheets'
+set :js_dir, 'assets/javascripts'
+set :images_dir, 'assets/images'
+set :markdown_engine, :redcarpet
+set :markdown, :tables => true, :autolink => true, :gh_blockcode => true,
+    :fenced_code_blocks => true
+
+###
 # Helpers
+###
+
 helpers do
   # nav_link_to("Home", "/home", :root => true, :class => "foo")
   def nav_link_to(link_text, url, options = {})
@@ -11,11 +26,24 @@ helpers do
   end
 
   def recent_release_post
-    blog.articles.find { |a| a.tags.include?("release") }
+    blog.articles.find { |a| a.tags.include?('release') }
+  end
+
+  def guides
+    resources = sitemap.resources.select do |r|
+      r.path.start_with?('guides/') && !r.path.match(/^guides\/\d{2}_/) && r.path != 'guides/README.html'
+    end
+  end
+
+  def guides_by_chapter
+    guides.group_by { |c| c.data.chapter }
   end
 end
 
-# Blog
+###
+# Extensions
+###
+
 activate :blog do |blog|
   blog.prefix = 'blog'
   blog.permalink = '{title}.html'
@@ -23,40 +51,40 @@ activate :blog do |blog|
   blog.paginate = true
   blog.per_page = 2
 end
-
-# Syntax highlighting
 activate :syntax
-
-# Pretty URLs (Directory Indexes)
 activate :directory_indexes
-
-# Deployment
 activate :deploy do |deploy|
   deploy.method = :git
 end
 
-# Assets configuration
-set :css_dir, 'assets/stylesheets'
-set :js_dir, 'assets/javascripts'
-set :images_dir, 'assets/images'
+###
+# Pages
+###
 
-# Markdown configration
-set :markdown_engine, :kramdown
-
-# Set layouts
-page 'guides/*', :layout => :sidebar
 page 'feed.xml', :layout => :feed
+page 'guides/*', :layout => :guide
 
-# Development-specific configuration
+ready do
+  sitemap.resources.select { |r| r.path.start_with?('guides/') }.each do |resource|
+    path = resource.path.split('/')
+
+    if path.size >= 3
+      chapter = path[1][3..-1]
+      title = path[2][3..-1]
+      locals = { sidebar: 'layouts/guides_sidebar' }
+      proxy "guides/#{chapter}/#{title}", path.join('/'), locals: locals
+    end
+  end
+end
+
+###
+# Environment Configuration
+###
+
 configure :development do
   activate :livereload
 end
 
-
-set :url_root, 'http://padrinorb.com'
-
-
-# Build-specific configuration
 configure :build do
   activate :minify_css
   activate :minify_javascript

@@ -1,0 +1,8 @@
+h4.sidebar__header--first Guides
+
+- guides_by_chapter.each do |name, resources|
+  h5.sidebar__header= name
+
+  ul.sidebar__items
+    - resources.each do |resource|
+      li.sidebar__item= nav_link_to resource.data.title, resource.url, class: 'sidebar__link'

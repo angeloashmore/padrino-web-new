@@ -17,6 +17,7 @@ gem 'middleman-robots', '~> 1.1.0'
 
 # Templating
 gem 'slim', '~> 3.0.6'
+gem 'redcarpet', '~> 3.3.4'
 
 # Styling
 gem 'breakpoint', '~> 2.5.0'
